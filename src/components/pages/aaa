@@ -1,0 +1,124 @@
+{/* {% for activity in  request.user.activity_set.all %} */}
+{/* {% if activity.activity_type == 'like_post' %} */}
+
+<div className="activity">
+   <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
+      <div className="activity-2">
+         <div className="img-holder">
+            <img src="{{activity.user.profile.img.url}}" alt="profile" className="img-holder-image" />
+         </div>
+         <p><strong>{"{activity.user.username}"} 
+            {/* {% if activity.user.profile.verified %} */}
+               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification"/>
+            {/* {% endif %} */}
+            </strong> liked your post. <small className="grey font-10">{"{activity.get_time}"}</small></p>
+      </div>
+   </Link>
+   <Link to="{% url 'single-post' activity.post.id %}?q={{request.path}}">
+      <div className="activity-right-info">
+         <div className="img-holder">
+            <img src="{{activity.post.img.url}}" alt="" className="liked-image" />
+         </div>
+      </div>
+   </Link>
+</div>
+
+{/* {% if activity.activity_type == 'like_tell' %} */}
+
+   <div className="activity">
+      <Link to="">
+      <div className="activity-2">
+         <div className="img-holder">
+            <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
+         </div>
+         <p><strong>{"{activity.user.username}"} 
+            {/* {% if activity.user.profile.verified %} */}
+               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
+            {/* {% endif %} */}
+         </strong> liked your tell. <small className="grey font-10">{"time"}</small></p>
+      </div>
+      </Link>
+      <Link to="{% url 'single-tell' activity.tell.id %}?q={{request.path}}">
+         <div className="activity-right-info font-lobster">
+            <strong>T</strong>
+         </div>
+      </Link>
+   </div>
+
+{/* {% endif %} */}
+
+
+{/* {% if activity.activity_type == 'comment_post' %} */}
+
+<div className="activity">
+   <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
+   <div className="activity-2">
+      <div className="img-holder">
+         <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
+      </div>
+      <div>
+         <p className="no-margin"><strong>{"{activity.user.username}"} 
+            {/* {% if activity.user.profile.verified %} */}
+               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
+            {/* {% endif %} */}
+         </strong>commented <small className="grey font-10">{"{activity.get_time}"}</small></p>
+         <p className="no-margin"><small>{"{activity.comment_post.comment}"}..</small></p>
+      </div>
+   </div>
+   </Link>
+   <Link to="{% url 'single-post' activity.post.id %}?q={{request.path}}">
+      <div className="activity-right-info">
+         <div className="img-holder">
+            <img src="{{activity.post.img.url}}" alt="" className="liked-image" />
+         </div>
+      </div>
+   </Link>
+</div>
+
+{/* {% endif %} */}
+
+{/* {% if activity.activity_type == 'comment_tell' %} */}
+
+<div className="activity">
+   <div className="activity-2">
+      <div className="img-holder">
+         <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
+            <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
+         </Link>
+      </div>
+      <div>
+         <p className="no-margin"><Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}"><strong>{"{activity.user.username}"} 
+            {/* {% if activity.user.profile.verified %} */}
+               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
+            {/* {% endif %} */}
+         </strong></Link>commented <small className="grey font-10">{"time"}</small></p>
+         <p className="no-margin"><small>{"activity.comment_tell.comment"}..</small></p>
+      </div>
+   </div>
+   <Link to="{% url 'single-tell' activity.tell.id %}?q={{request.path}}">
+      <div className="activity-right-info font-lobster">
+         <strong>T</strong>
+      </div>
+   </Link>
+</div>
+
+{/* {% endif %} */}
+
+{/* {% if activity.activity_type == 'follow' %} */}
+
+<div className="activity">
+   <div className="activity-2">
+      <div className="img-holder">
+         <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
+            <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
+         </Link>
+      </div>
+      <p>
+         <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
+            <strong>{"activity.user.username"} 
+               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
+            </strong>
+         </Link> started following you <small className="grey font-10">{"time"}</small>
+      </p>
+   </div>
+</div>

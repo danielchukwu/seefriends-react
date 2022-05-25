@@ -2,9 +2,9 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import: custom hooks
-import useVariables from './customhooks/useVariables';
+import useVariables from '../../customhooks/useVariables';
 // import: images
-import sf_logo from './images/logos/seefriends-logo-4.png'
+import sf_logo from '../../images/logos/seefriends-logo-4.png'
 
 
 
