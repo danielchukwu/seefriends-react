@@ -719,7 +719,7 @@ footer {
 .followers-count,
 .following-count {
   padding: 20px 20px 25px;
-  border-top: 1px solid #202a39;
+  border-top: 1px solid #fafafa;
 }
 
 .followers-count p,
@@ -732,8 +732,8 @@ footer {
   justify-content: space-evenly;
   /* background-color: #202a39;
   color: #fff; */
-  border-top: 1px solid #202a39;
-  border-bottom: 1px solid #202a39;
+  border-top: 1px solid #fafafa;
+  border-bottom: 1px solid #fafafa;
 }
 
 .user-fcontainer {
