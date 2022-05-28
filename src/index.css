@@ -1471,6 +1471,10 @@ width: 15px; */
 /****************************************** Post *************************************************/
 /*  */
 
+.postlist {
+  text-align: left;
+}
+
 .post-form-info {
   display: flex;
   align-items: center;

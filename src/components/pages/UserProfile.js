@@ -1,6 +1,6 @@
 // imports: main
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // imports: custom hooks
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
@@ -15,6 +15,7 @@ import PostList from "./PostList"
 const UserProfile = () => {
    const {access_token, users_host_url, host_url} = useVariables()
    const {verified_icon, msg_icon} = useIcons()
+   const navigate = useNavigate()
 
    const { id } = useParams()
    const owner = useGetOwner()
@@ -24,6 +25,13 @@ const UserProfile = () => {
    
    // SECTION 1: Grab User
    useEffect(() => {
+      // if (id && owner){
+      //    console.log('id:',id)
+      //    console.log('owner', owner)
+      //    if(id == owner.id){
+      //       setPage("main-user")
+      //    }
+      // }
 
       if (id){
          fetch(users_host_url+id+'/', {
@@ -36,10 +44,10 @@ const UserProfile = () => {
             return res.json()
          })
          .then(data => {
-            setPage("other-user")
-            setUser(data)
-      
+            if(id == owner.id){setPage("main-user")}
+            else {setPage("other-user")}
             
+            setUser(data)
          })
          .catch(err => {
             console.log(err.message)
@@ -54,29 +62,26 @@ const UserProfile = () => {
 
    // SECTION 2: Grab User Post Next 
    useEffect(() => {
-      console.log('user', user)
       
-      const handleFetchPosts = () => {
-         if (user){
-            fetch(users_host_url + user.id + "/posts/", {
-               headers: {"Content-Type": "application/json",
-                        Authorization: `Bearer ${access_token}`}
-            })
-            .then(res => res.json())
-            .then(data => {
-               console.log(data)
-               setPosts(data)
-            })
-            .catch(err => {
-               console.log('userprofile error: ', err.message)
-            })
-         }
+      if (user){
+         fetch(users_host_url + user.id + "/posts/", {
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`}
+         })
+         .then(res => res.json())
+         .then(data => {
+            setPosts(data)
+         })
+         .catch(err => {
+            console.log('userprofile error: ', err.message)
+         })
       }
       
-   }, [page])
+   }, [access_token, users_host_url, page, user])
+
 
    
-   // console.log(user)
+   // console.log('user', user)
    return (
       <div className="userprofile-react">
          <HeaderPostFeed />
@@ -172,17 +177,19 @@ const UserProfile = () => {
                         </Link>
                      </div>
                      
-                     {/* {% if user == request.user %} */}
-                     <div className="profile-all">
-                        <Link to="{% url 'saved-post-page' %}">
-                           <h4 className="grey-dark">Saved</h4>
-                        </Link>
-                     </div>
-                  {/* {% endif %} */}
+                     
+                     { page === "main-user"  && (
+                        <div className="profile-all">
+                           <Link to="{% url 'saved-post-page' %}">
+                              <h4 className="grey-dark">Saved</h4>
+                           </Link>
+                        </div>
+                     )}
                </div>
 
                <div>
                   { posts && <PostList posts={posts} />}
+
                </div>
                
             </section>

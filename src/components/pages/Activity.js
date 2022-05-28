@@ -15,6 +15,7 @@ const Activity = () => {
 
    useEffect(() => {
 
+      console.log(activity_url)
       fetch(activity_url, {
          method:"GET",
          headers: {"Content-Type": "application/json",
@@ -22,7 +23,7 @@ const Activity = () => {
       }
       })
       .then(res => {
-         // console.log(res)
+         console.log(res)
          return res.json()
       })
       .then(data => {
