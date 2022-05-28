@@ -1,124 +1,149 @@
-{/* {% for activity in  request.user.activity_set.all %} */}
-{/* {% if activity.activity_type == 'like_post' %} */}
+// FLOATER JS .......................................................................
+// part 1: floater remove - to remove the floater
+console.log("main.js live")
 
-<div className="activity">
-   <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
-      <div className="activity-2">
-         <div className="img-holder">
-            <img src="{{activity.user.profile.img.url}}" alt="profile" className="img-holder-image" />
-         </div>
-         <p><strong>{"{activity.user.username}"} 
-            {/* {% if activity.user.profile.verified %} */}
-               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification"/>
-            {/* {% endif %} */}
-            </strong> liked your post. <small className="grey font-10">{"{activity.get_time}"}</small></p>
-      </div>
-   </Link>
-   <Link to="{% url 'single-post' activity.post.id %}?q={{request.path}}">
-      <div className="activity-right-info">
-         <div className="img-holder">
-            <img src="{{activity.post.img.url}}" alt="" className="liked-image" />
-         </div>
-      </div>
-   </Link>
-</div>
+const floater_exit = document.querySelector('.floater-exit')           
+const floater_container = document.querySelector('.floater-container')
+const floater_box = document.querySelector(".floater-box")       // purpose: for animation effect
 
-{/* {% if activity.activity_type == 'like_tell' %} */}
-
-   <div className="activity">
-      <Link to="">
-      <div className="activity-2">
-         <div className="img-holder">
-            <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
-         </div>
-         <p><strong>{"{activity.user.username}"} 
-            {/* {% if activity.user.profile.verified %} */}
-               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
-            {/* {% endif %} */}
-         </strong> liked your tell. <small className="grey font-10">{"time"}</small></p>
-      </div>
-      </Link>
-      <Link to="{% url 'single-tell' activity.tell.id %}?q={{request.path}}">
-         <div className="activity-right-info font-lobster">
-            <strong>T</strong>
-         </div>
-      </Link>
-   </div>
-
-{/* {% endif %} */}
+removeFloater = function () {
+   floater_container.classList.add("collapse")
+   floater_box.classList.remove("floater-box")
+}
+floater_exit.addEventListener("click", removeFloater)
 
 
-{/* {% if activity.activity_type == 'comment_post' %} */}
 
-<div className="activity">
-   <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
-   <div className="activity-2">
-      <div className="img-holder">
-         <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
-      </div>
-      <div>
-         <p className="no-margin"><strong>{"{activity.user.username}"} 
-            {/* {% if activity.user.profile.verified %} */}
-               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
-            {/* {% endif %} */}
-         </strong>commented <small className="grey font-10">{"{activity.get_time}"}</small></p>
-         <p className="no-margin"><small>{"{activity.comment_post.comment}"}..</small></p>
-      </div>
-   </div>
-   </Link>
-   <Link to="{% url 'single-post' activity.post.id %}?q={{request.path}}">
-      <div className="activity-right-info">
-         <div className="img-holder">
-            <img src="{{activity.post.img.url}}" alt="" className="liked-image" />
-         </div>
-      </div>
-   </Link>
-</div>
 
-{/* {% endif %} */}
+// FLOATER ADD....................
+// part 2a:
+// floater button: add
+const post_button = document.querySelector(".post-button")
+let options_div = document.querySelector(".options")
+clicks = 0
 
-{/* {% if activity.activity_type == 'comment_tell' %} */}
+// Purpose: when we refresh our page and click on the post button. The animation doesn't work, to fix this i added
+//          the if statement
+if (clicks === 0){
+   floater_box.classList.remove("floater-box")
+}
 
-<div className="activity">
-   <div className="activity-2">
-      <div className="img-holder">
-         <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
-            <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
-         </Link>
-      </div>
-      <div>
-         <p className="no-margin"><Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}"><strong>{"{activity.user.username}"} 
-            {/* {% if activity.user.profile.verified %} */}
-               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
-            {/* {% endif %} */}
-         </strong></Link>commented <small className="grey font-10">{"time"}</small></p>
-         <p className="no-margin"><small>{"activity.comment_tell.comment"}..</small></p>
-      </div>
-   </div>
-   <Link to="{% url 'single-tell' activity.tell.id %}?q={{request.path}}">
-      <div className="activity-right-info font-lobster">
-         <strong>T</strong>
-      </div>
-   </Link>
-</div>
+displayFloater = function () {
+   floater_container.classList.remove("collapse")
+   floater_box.classList.add("floater-box")
+}
 
-{/* {% endif %} */}
+floaterEnable = function (event) {
+   event.preventDefault()
+   
+   options_div.innerHTML = ""
 
-{/* {% if activity.activity_type == 'follow' %} */}
+   post_options = `
+      <a href="post-form.html"><h3>Post</h3></a>
+      <a href="tell-form.html"><h3>Tell</h3></a>
+   `
 
-<div className="activity">
-   <div className="activity-2">
-      <div className="img-holder">
-         <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
-            <img src="{{activity.user.profile.img.url}}" alt="profile-picture" className="img-holder-image" />
-         </Link>
-      </div>
-      <p>
-         <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
-            <strong>{"activity.user.username"} 
-               <img src="{% static 'images/icons/verified/verified-blue2.png' %}" className="width-13" alt="verification" />
-            </strong>
-         </Link> started following you <small className="grey font-10">{"time"}</small>
-      </p>
-   </div>
-</div>
+   options_div.innerHTML += post_options
+   displayFloater()
+}
+if (post_button){
+   post_button.addEventListener("click", floaterEnable)
+}
+
+// Note: to syle the post_floater_box_indexpage you need to comment out the entire part 2
+
+
+
+// part 2b
+// flooter button: user profile
+const user_button = document.querySelector(".user-button") 
+// let options_div = declared already above
+// displayFloater = function () {...} declared above and will be used to 
+
+addUserOptions = function (event) {
+   event.preventDefault()
+   console.log("fired")
+
+   options_div.innerHTML = ""
+
+   user_options = `
+      <a href="edit-profile.html"><h3>Edit Profile</h3></a>
+      <a href="tell-form.html"><h3>Settings</h3></a>
+      <a href="tell-form.html"><h3>Logout</h3></a>
+      <a href="login-form.html"><h3>login</h3></a>
+   `
+   
+   options_div.innerHTML += user_options
+   displayFloater()
+}
+if (user_button !== null){
+   user_button.addEventListener("click", addUserOptions)
+}
+
+
+// FLOATER Javascript logic Ends.........................................................
+
+
+
+
+// POST PAGE
+// objective 1: tap here to post disappears after 1 second of page load
+const tapHeretopost = document.querySelector('#tapheretopost')
+
+removeTapHereToPost = function () {
+   tapHeretopost.toggleAttribute("hidden")
+}
+
+if (tapHeretopost !== null){
+   setTimeout(removeTapHereToPost, 2000);
+}
+
+// objective 2: tap field to choose a file
+const post_file_btn = document.querySelector("#post-file-btn")
+// const default_post_btn = document.querySelectorAll("#post-file")
+
+var loadFile = function(event) {
+   var reader = new FileReader();
+   reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+   };
+   reader.readAsDataURL(event.target.files[0]);
+};
+
+if (post_file_btn !== null){
+   post_file_btn.addEventListener('click', function() {
+      console.log("image clicked on!")
+   })
+}
+
+
+// Comment
+// objective: show commentPage when comment button is clicked on clicked and remove when backbutton is clicked on: both have there animations
+let comment_in = document.querySelector('.comment-in')  // console.log(comment_in)
+
+let comment_button = document.querySelector(".comment-button")
+let comment_out = document.querySelector("#comment-out")  // console.log(comment_out)
+
+// Add comment-in
+showComment = function (event) {
+   event.preventDefault()
+   comment_in.classList.remove("comment-out")
+   comment_in.classList.remove("none")
+}
+
+if (comment_button !== null){
+   comment_button.addEventListener("click", showComment)
+}
+
+// Remove comment-in
+removeComment = function (event) {
+   event.preventDefault()
+   comment_in.classList.add("comment-out")
+   setTimeout(()=>{comment_in.classList.add("none")}, 1000)
+}
+
+// Add comment-out
+if (comment_out !== null){
+   comment_out.addEventListener("click", removeComment)
+}

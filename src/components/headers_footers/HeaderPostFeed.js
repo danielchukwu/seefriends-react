@@ -11,7 +11,7 @@ const HeaderPostFeed = () => {
       <header>
          <div className="header-wrapper">
             <div className="header-1">
-               <Link to={"#"}>
+               <Link to={"/"}>
                   <div className="logo">
                      <img src={sf_logo} alt="seefriends logo" />
                   </div>

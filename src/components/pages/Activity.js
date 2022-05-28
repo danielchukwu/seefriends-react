@@ -7,6 +7,7 @@ import useVariables from "../../customhooks/useVariables"
 import HeaderPostFeed from "../headers_footers/HeaderPostFeed"
 import Footer from "../headers_footers/Footer"
 import ActivityList from "./ActivityList"
+import { Link } from "react-router-dom"
 
 
 const Activity = () => {
@@ -15,15 +16,13 @@ const Activity = () => {
 
    useEffect(() => {
 
-      console.log(activity_url)
+      // console.log(activity_url)
       fetch(activity_url, {
-         method:"GET",
          headers: {"Content-Type": "application/json",
-                  Authorization: `Bearer ${access_token}`
-      }
+                  Authorization: `Bearer ${access_token}`},
       })
       .then(res => {
-         console.log(res)
+         // console.log(res)
          return res.json()
       })
       .then(data => {
@@ -41,6 +40,7 @@ const Activity = () => {
          <HeaderPostFeed />
          
          {activities && <ActivityList activities={activities} />}
+
 
          <Footer />
       </div>
