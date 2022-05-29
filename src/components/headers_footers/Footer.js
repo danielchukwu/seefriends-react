@@ -78,7 +78,7 @@ const Footer = () => {
                      <hr className="hr-mini-bar" />
                      <div className="options">
                         <Link to={"/addpost"}><h3>Post</h3></Link>
-                        <Link to={"/"}><h3>Tell</h3></Link>
+                        <Link to={"/addtell"}><h3>Tell</h3></Link>
                      </div>
                   </div>
                </div>

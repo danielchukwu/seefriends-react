@@ -7,6 +7,7 @@ import TellsFeed from './components/pages/TellsFeed';
 import Activity from './components/pages/Activity';
 import UserProfile from './components/pages/UserProfile';
 import AddPost from './components/pages/AddPost';
+import AddTell from './components/pages/AddTell';
 
 
 function App() {
@@ -17,10 +18,12 @@ function App() {
 
             <Route path="/login" element={ <Login /> } />
 
-            <Route path="/users/activity" element={ <Activity /> } />
             <Route path="/addpost" element={ <AddPost /> } />
+            <Route path="/addtell" element={ <AddTell /> } />
+
             <Route path="/" element={ <PostFeed /> } />
             <Route path="/tellsfeed" element={ <TellsFeed /> } />
+            <Route path="/users/activity" element={ <Activity /> } />
             <Route path="/users/profile/:id" element={ <UserProfile /> } />
             <Route path="/users/profile/" element={ <UserProfile /> } />
 

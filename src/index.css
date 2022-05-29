@@ -972,7 +972,11 @@ footer {
 /* TELLS */
 /* Tells Page <header>...</header> uses alot of styling from the activity page */
 
-
+.addtell-react {
+  height: 100vh;
+  width: 100%;
+  background-color: #fff;
+}
 
 .no-borders {
   border: none;

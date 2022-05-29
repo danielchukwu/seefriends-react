@@ -1,60 +1,67 @@
+// import: main
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import: custom hooks
 import useGetOwner from "../../customhooks/useGetOwner";
 import useVariables from "../../customhooks/useVariables";
-import HeaderAddPost from "../headers_footers/HeaderAddPost";
+
+// import: components
+import HeaderAddPost from "../headers_footers/HeaderAdd";
 
 const AddPost = () => {
-   const owner = useGetOwner()
-   const inputRef = useRef()
-   const formRef = useRef()
-   const {host_url, posts_url, access_token} = useVariables()
-   const [userPic, setUserPic] = useState(null)
-   const [postimg, setPostImg] = useState(null)    // postImage
-   const [submitReady, setSubmitReady] =useState(false)
+   const owner = useGetOwner();
+   const inputRef = useRef();
+   const navigate = useNavigate();
+   const {host_url, posts_url, access_token} = useVariables();
+   const [profilePic, setProfilePic] = useState(null);     // user profile picture     
+   const [previewImg, setPreviewImg] = useState(null);     // image preview
+   const [postImg, setPostImg] = useState(null);           // postImage
+   const [submitReady, setSubmitReady] =useState(false);
    
    // logic: set user picture
    useEffect(() => {
       if (owner){
-         setUserPic(host_url + owner.profile.img)
+         setProfilePic(host_url + owner.profile.img)
       }
       inputRef.current.focus()
       
    }, [host_url, owner])
 
 
-   // logic: load selected picture url into our postimg state
+   // logic: load selected picture for preview and set Image in our postImg state
    let handleLoadFile = function(event) {
       let reader = new FileReader();
       reader.onload = function(){
-         setPostImg(reader.result)
+         setPreviewImg(reader.result)
       };
-      // console.log(event.target.files[0])
+      setPostImg(event.target.files[0]);
       reader.readAsDataURL(event.target.files[0]);
    };
 
-   // form: submission
+   // form: upload our post if ready
    const handleSubmit = () => {
-      const form = formRef.current;
-      const img = postimg;
       const body = inputRef.current.innerHTML;
-      console.log(form)
-      if (img && body.length >= 5){
-         console.log('Form is ready')
+
+      // FormData: will act as a form for us with Content-Type: "multipart/form-data"
+      const uploadData = new FormData();
+      uploadData.append('body', body);
+      uploadData.append('img', postImg, postImg.name);
+
+      if (postImg && body.length >= 5){
 
          fetch(posts_url, {
             method: "POST",
-            headers: {"Content-Type": "application/json",
-                     Authorization: `Bearer ${access_token}`},
-            body: JSON.stringify({img, body})
+            headers: {Authorization: `Bearer ${access_token}`},
+            body: uploadData
          })
             .then(res => {
                return res.json();
             })
             .then(data => {
                console.log(data)
+               navigate('/')
             })
-      } else {
-         console.log('Form is not ready')
+            .catch(err => console.log(err))
       }
       // form.submit()
    }
@@ -62,7 +69,7 @@ const AddPost = () => {
    // form: ready for submission
    const isReady =() => {
       const bodysize = inputRef.current.innerHTML.length
-      if (bodysize >= 5 && postimg){
+      if (bodysize >= 5 && previewImg){
          setSubmitReady(true)
       } else {
          setSubmitReady(false)
@@ -72,23 +79,23 @@ const AddPost = () => {
    // form: is ready checker on image chage
    useEffect(()=> {
       isReady();
-   }, [postimg])
+   }, [previewImg])
 
    return (
       <div className="addpost">
 
-      <HeaderAddPost handleSubmit={handleSubmit} submitReady={submitReady}/>
+      <HeaderAddPost handleSubmit={handleSubmit} submitReady={submitReady} page="addPost" />
 
       <main>
          <section className="form-wrapper background-white">
-            <form ref={formRef} action="" method="POST" id="form">
+            <form action="" method="POST" id="form">
 
                <div className="post-layer-1">
                   <label htmlFor="post-file">
                      <div id="post-file-btn" className="post-file-wrapper">
-                        {!postimg && <h2 id="tapheretopost" className="no-margin white">tap here to post</h2>}
-                        {!postimg && <img id="output" src={""} />}
-                        {postimg && <img id="output" src={postimg} />}
+                        {!previewImg && <h2 id="tapheretopost" className="no-margin white">tap here to post</h2>}
+                        {!previewImg && <img id="output" src={""} />}
+                        {previewImg && <img id="output" src={previewImg} />}
                      </div>
                   </label>
                   <input id="post-file" type="file" onChange={(e) => handleLoadFile(e)} style={{display: "none"}} required />
@@ -96,10 +103,10 @@ const AddPost = () => {
                
                <div className="tf-cover width-p-10 height-p-10">
                   <span className="img-holder-2 flex">
-                     {userPic && <img src={userPic} alt="profile-picture" className="img-holder-image" />}
+                     {profilePic && <img src={profilePic} alt="profile-picture" className="img-holder-image" />}
                   </span>
                   
-                  <div ref={inputRef} onKeyDown={isReady} onChange={isReady} className="textarea" contentEditable={true} placeholder="i love you😉" required></div>
+                  <div ref={inputRef} onKeyDown={isReady} onChange={isReady} className="textarea" contentEditable={true} required></div>
                </div>
       
             </form>
