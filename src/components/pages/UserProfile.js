@@ -9,6 +9,7 @@ import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
 import HeaderPostFeed from "../headers_footers/HeaderPostFeed";
 import PostList from "./PostList"
+import TellsList from "./TellsList";
 
 
 
@@ -21,18 +22,12 @@ const UserProfile = () => {
    const owner = useGetOwner()
    const [user, setUser] = useState()
    const [posts, setPosts] = useState()
+   const [tells, setTells] = useState()
    let [page, setPage] = useState(null)  // main-user, other-user
+   let [pt, setPt] = useState("posts") // user content to fetch: posts or tells
    
    // SECTION 1: Grab User
    useEffect(() => {
-      // if (id && owner){
-      //    console.log('id:',id)
-      //    console.log('owner', owner)
-      //    if(id == owner.id){
-      //       setPage("main-user")
-      //    }
-      // }
-
       if (id){
          fetch(users_host_url+id+'/', {
             method: "GET",
@@ -60,7 +55,8 @@ const UserProfile = () => {
    }, [access_token, users_host_url, owner, id])
 
 
-   // SECTION 2: Grab User Post Next 
+   // SECTION 2
+   // Grab Post if pt === "posts"
    useEffect(() => {
       
       if (user){
@@ -78,6 +74,33 @@ const UserProfile = () => {
       }
       
    }, [access_token, users_host_url, page, user])
+
+   // Grab Tell if pt === "tells"
+   useEffect(() => {
+      
+      if (user){
+         fetch(users_host_url + user.id + "/tells/", {
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`}
+         })
+         .then(res => {
+            return res.json()
+         })
+         .then(data => {
+            setTells(data)
+         })
+         .catch(err => {
+            console.log('userprofile error: ', err.message)
+         })
+      }
+      
+   }, [access_token, users_host_url, page, user])
+
+   // SECTION 3:
+   // logic: switch pt
+   const handleSwitchPt = (value) => {
+      setPt(value);
+   }
 
 
    
@@ -166,21 +189,19 @@ const UserProfile = () => {
                <div className="filter-options width-p-20">
                   {/* {% if page == 'user-post' %} */}
 
-                     <div className="profile-posts">
-                        <Link to="{% url 'other-profile' user.id %}">
-                           <h4>Posts</h4>
-                        </Link>
+                     <div className="profile-posts" onClick={() => handleSwitchPt('posts')}>
+                        {pt === "posts" && <h4>Posts</h4>}
+                        {pt !== "posts" && <h4 className="grey-dark">Posts</h4>}
                      </div>
-                     <div className="tell">
-                        <Link to="{% url 'other-profile-tells' user.id %}">
-                           <h4 className="grey-dark">Tells</h4>
-                        </Link>
+                     <div className="tell" onClick={() => handleSwitchPt('tells')}>
+                        {pt === "tells" && <h4>Tells</h4>}
+                        {pt !== "tells" && <h4 className="grey-dark">Tells</h4>}
                      </div>
                      
                      
                      { page === "main-user"  && (
                         <div className="profile-all">
-                           <Link to="{% url 'saved-post-page' %}">
+                           <Link to={"/users/profile/saved"}>
                               <h4 className="grey-dark">Saved</h4>
                            </Link>
                         </div>
@@ -188,7 +209,8 @@ const UserProfile = () => {
                </div>
 
                <div>
-                  { posts && <PostList posts={posts} />}
+                  { pt === "posts" && posts && <PostList posts={posts} />}
+                  { pt === "tells" && tells && <TellsList tells={tells} />}
 
                </div>
                

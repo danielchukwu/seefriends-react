@@ -45,7 +45,7 @@ const TellsList = ({ tells }) => {
    // console.log(tells)
    return (
 
-      <section className="tell-wrapper">
+      <section className="tellslist tell-wrapper">
 
          {tells.map(tell => (
             <div className="content-wrapper-comment width-p-20 pad-top-10 pad-bot-10" key={tell.id} >
