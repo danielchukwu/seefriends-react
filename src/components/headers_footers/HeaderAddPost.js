@@ -1,16 +1,27 @@
-const HeaderAddPost = () => {
+import { Link, useNavigate } from "react-router-dom";
+import useIcons from "../../customhooks/useIcons";
+
+const HeaderAddPost = ({ handleSubmit, submitReady }) => {
+   const {go_back_icon, done_black_icon32, done_blue_icon32} = useIcons()
+   const navigate = useNavigate()
+
+   
+
    return (
       <header>
          <div className="header-wrapper width-p-20 height-p-10">
             <div className="header-1">
                <div className="pf-logo-container">
-                  <a onclick="history.back()"><img src="images/icons/back icons/back-1.png" alt="" width="25" className="pf-back"/></a>
+                  <Link to="" onClick={() => navigate(-1)}>
+                     <img src={go_back_icon} alt="" width="25" className="pf-back"/>
+                  </Link>
                   <h3 className="no-margin font-25">New Post</h3>
                </div>
             </div>
             <div className="header-2">
                <div className="">
-                  <Link to="#"><img src="images/icons/done/check-markb-32.png" alt="user" id="done" width="25"/></Link>
+                  {!submitReady && <img src={done_black_icon32} alt="user" id="done" width="25"/>}
+                  {submitReady && <img src={done_blue_icon32}  onClick={() => handleSubmit()} alt="user" id="done" width="25"/>}
                </div>
             </div>
          </div>

@@ -1117,6 +1117,18 @@ width: 15px; */
 .tf-cover textarea::-webkit-scrollbar {
   width: 0;
 }
+
+.textarea {
+  font-family:  "Roboto", sans-serif;
+  overflow-y: hidden;
+  border: none;
+  outline: none;
+  resize: none;
+  caret-color: #00B4D8;
+  width: 100%;
+  font-size: 16px;
+  padding: 15px 15px;
+}
 /*  */
 /*  */
 /*  */
