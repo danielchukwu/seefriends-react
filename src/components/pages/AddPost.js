@@ -40,8 +40,20 @@ const AddPost = () => {
 
    // form: upload our post if ready
    const handleSubmit = () => {
-      const body = inputRef.current.innerHTML;
+      let body = inputRef.current.innerHTML;
 
+      // filter out: contenteditable innerHTML <div> tags and <br/> tags
+      while(body.includes('<div>') || body.includes('<br>') ||  body.includes('</div>')){
+         body = body.replace("<div><br>", '\n');
+         body = body.replace("&nbsp;", '');
+         body = body.replace("<br>", '\n');
+         body = body.replace("<div>", '\n');
+         body = body.replace("</div>", '');
+      }
+      while (body.length-1 === body.lastIndexOf('\n')){
+         body = body.slice(0, -1);
+      }
+      
       // FormData: will act as a form for us with Content-Type: "multipart/form-data"
       const uploadData = new FormData();
       uploadData.append('body', body);
@@ -82,7 +94,7 @@ const AddPost = () => {
    }, [previewImg])
 
    return (
-      <div className="addpost">
+      <div className="addpost-react">
 
       <HeaderAddPost handleSubmit={handleSubmit} submitReady={submitReady} page="addPost" />
 

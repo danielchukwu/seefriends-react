@@ -99,7 +99,7 @@ const PostList = ({ posts }) => {
                   </div>
 
                   <div className="content-layer-2">
-                     <p className="no-margin"><strong><Link to="{% url 'other-profile' content.post.owner.id %}">{post.owner.profile.username} </Link></strong>{post.body}</p>
+                     <p className="no-margin pre-wrap"><strong><Link to="{% url 'other-profile' content.post.owner.id %}">{post.owner.profile.username} </Link></strong>{post.body}</p>
                   </div>
 
                   {/* {% for comment in content.post.commentonpost_set.all|slice:1 %} */}

@@ -581,6 +581,10 @@ right: 14.5px; */
   text-align: center;
 }
 
+#done {
+  cursor: pointer;
+}
+
 /* FOOTER */
 footer {
   background-color: #fff;
@@ -976,6 +980,15 @@ footer {
   height: 100vh;
   width: 100%;
   background-color: #fff;
+}
+.addpost-react {
+  height: 100vh;
+  width: 100%;
+  background-color: #fff;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
 }
 
 .no-borders {

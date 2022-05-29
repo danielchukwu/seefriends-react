@@ -73,7 +73,8 @@ const TellsList = ({ tells }) => {
                         </div>
                      </div>
                      <div className="content-layer-2 pad-top-5">
-                        <p className="no-margin">{tell.body}</p>
+                        {/* <pre className="no-margin tellbody"><span>{tell.body}</span></pre> */}
+                        <p className="no-margin pre-wrap">{tell.body}</p>
                      </div>
 
                      {/* First Comment Section */}
