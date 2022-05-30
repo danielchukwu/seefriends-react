@@ -359,10 +359,9 @@ main {
 }
 
 .content-wrapper-comment {
-  /* background-color: #1b1a17; */
   margin: 0 auto;
   max-width: 550px;
-  box-shadow: 0 -1px rgba(0, 0, 0, 0.224);
+  border-bottom: 1px solid #1b1a1711;
 }
 .content-wrapper-tells {
   /* background-color: #1b1a17; */
@@ -732,13 +731,40 @@ footer {
 }
 
 .filter-options {
-  display: flex;
-  justify-content: space-evenly;
-  /* background-color: #202a39;
-  color: #fff; */
   border-top: 1px solid #fafafa;
   border-bottom: 1px solid #fafafa;
 }
+
+.saved-options {
+  position: absolute;
+  top: 3.4rem;
+  background-color: #fff;
+  width: 100%;
+  border-top: 1px solid #fafafa;
+}
+
+.options-wrapper {
+  border-bottom: 1px solid #fafafa;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/* .saved-options .selected {
+  border-bottom: 2px solid #000;
+} */
+
+/* .saved-options {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px 0;
+} */
+
+/* .saved-options h3 {
+  margin: 0;
+  padding: 12px 40px;
+} */
 
 .user-fcontainer {
   max-width: 270px;
@@ -798,7 +824,7 @@ footer {
 .pf-back {
   position: relative;
   top: 3px;
-  padding-right: 25px;
+  padding-right: 15px;
 }
 
 
@@ -887,9 +913,18 @@ footer {
   position: relative;
 }
 
-.activity-wrapper {
+.activity-container {
   background-color: #fff;
+}
+
+.activity-wrapper {
   padding: 15px 0;
+  /* max-width: 550px;
+  margin: 0 auto; */
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .activity {
@@ -1869,17 +1904,6 @@ small a {
 /************************************** SAVED *******************************/
 /*  */
 
-.saved-options {
-  display: flex;
-  justify-content: center;
-  padding: 10px 20px 0;
-}
-
-.saved-options h3 {
-  margin: 0;
-  padding: 12px 40px;
-}
-
 /*  */
 /*  */
 /*  */
@@ -2118,10 +2142,6 @@ small a {
 
 .cl1-left strong {
   font-size: 16px;
-}
-
-.saved-options .selected {
-  border-bottom: 2px solid #000;
 }
 
 .img-holder .liked-image {

@@ -7,6 +7,8 @@ const useVariables = () => {
    const owner_url = 'http://127.0.0.1:8000/api/users/';
    const users_host_url = 'http://127.0.0.1:8000/api/users/';
    const activity_url = 'http://127.0.0.1:8000/api/users/activity/';
+   const saved_posts_url = 'http://127.0.0.1:8000/api/users/saved-posts/';
+   const saved_tells_url = 'http://127.0.0.1:8000/api/users/saved-tells/';
 
    const token_url = 'http://127.0.0.1:8000/api/users/token/';
    const refresh_url = 'http://127.0.0.1:8000/api/users/token/refresh/';
@@ -23,8 +25,10 @@ const useVariables = () => {
 
    
    return {
-      host_url, posts_url, tells_url, owner_url, activity_url, users_host_url,
+      host_url, posts_url, tells_url, owner_url, activity_url, users_host_url, saved_posts_url, saved_tells_url,
+
       token_url, refresh_url, token_key,
+      
       access_token, refresh_token,
    };
 }

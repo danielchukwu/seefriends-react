@@ -187,25 +187,29 @@ const UserProfile = () => {
                {/*  */}
 
                <div className="filter-options width-p-20">
-                  {/* {% if page == 'user-post' %} */}
+                  
+                  <div className="options-wrapper">
 
-                     <div className="profile-posts" onClick={() => handleSwitchPt('posts')}>
+                     <div className="profile-posts pointer" onClick={() => handleSwitchPt('posts')}>
                         {pt === "posts" && <h4>Posts</h4>}
                         {pt !== "posts" && <h4 className="grey-dark">Posts</h4>}
                      </div>
-                     <div className="tell" onClick={() => handleSwitchPt('tells')}>
+                     <div className="tell pointer" onClick={() => handleSwitchPt('tells')}>
                         {pt === "tells" && <h4>Tells</h4>}
                         {pt !== "tells" && <h4 className="grey-dark">Tells</h4>}
                      </div>
                      
                      
                      { page === "main-user"  && (
-                        <div className="profile-all">
+                        <div className="profile-all pointer">
                            <Link to={"/users/profile/saved"}>
                               <h4 className="grey-dark">Saved</h4>
                            </Link>
                         </div>
                      )}
+
+                  </div>
+
                </div>
 
                <div>

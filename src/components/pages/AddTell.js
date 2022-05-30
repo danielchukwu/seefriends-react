@@ -35,6 +35,7 @@ const AddTell = () => {
       while(body.includes('<div>') || body.includes('<br>') ||  body.includes('</div>')){
          body = body.replace("<div><br>", '\n');
          body = body.replace("&nbsp;", '');
+         body = body.replace("&amp;", '&');
          body = body.replace("<br>", '\n');
          body = body.replace("<div>", '\n');
          body = body.replace("</div>", '');

@@ -39,7 +39,9 @@ const Activity = () => {
       <div className="activity-page-react">
          <HeaderPostFeed />
          
-         {activities && <ActivityList activities={activities} />}
+         <div className="activity-container">
+            {activities && <ActivityList activities={activities} />}
+         </div>
 
 
          <Footer />
