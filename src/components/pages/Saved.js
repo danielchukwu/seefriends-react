@@ -1,9 +1,14 @@
+// imports: main
 import { useEffect, useState } from "react";
+// imports: custom hooks
 import useGetOwner from "../../customhooks/useGetOwner";
 import useVariables from "../../customhooks/useVariables";
-import HeaderSaved from "../headers_footers/HeaderSaved";
+// imports: components
+import HeaderSaved from "../headers_footers/HeaderGBT";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
+
+
 
 const Saved = () => {
    const { saved_posts_url, saved_tells_url, access_token} = useVariables();
@@ -55,7 +60,7 @@ const Saved = () => {
    return (
       <div className="saved-react">
 
-         <HeaderSaved />
+         <HeaderSaved title={"Saved"} />
          <div className="saved-options">
 
             <div className="options-wrapper">
