@@ -349,6 +349,19 @@ main {
   margin-top: 54px;
 }
 
+.margin-l-5 {
+  margin-left: 5px;
+}
+.margin-l-10 {
+  margin-left: 10px;
+}
+.margin-r-5 {
+  margin-right: 5px;
+}
+.margin-r-10 {
+  margin-right: 10px;
+}
+
 .welcome-user {
   font-family: "Sacramento", cursive;
   font-size: 30px;
@@ -768,6 +781,7 @@ footer {
 
 .user-fcontainer {
   max-width: 270px;
+  max-height: 32.5px;
   margin: 5px auto 10px;
 
   /* background-color: #11af6b; */
@@ -778,7 +792,8 @@ footer {
   display: inline-block;
   background-color: #4d77ff;
   width: 100%;
-  padding: 7px 0;
+  padding: 8px 0;
+  /* border: 1px solid #4166df; */
   /* margin: 10px 0 10px; */
   /* margin-bottom: 10px; */
   border-radius: 10px;
@@ -794,7 +809,7 @@ footer {
 .following-btn {
   color: #000;
   width: 100%;
-  padding: 7px 42px;
+  padding: 7px 35px;
   border: 1px solid rgb(224, 224, 224);
   background-color: #fff;
   /* margin: 10px 0 10px; */
@@ -1895,6 +1910,11 @@ small a {
   /* margin-bottom: 10px; */
   border-radius: 10px;
   font-weight: 500;
+}
+
+.friends-btn {
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 /*  */

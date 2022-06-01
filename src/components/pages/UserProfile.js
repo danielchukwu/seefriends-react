@@ -5,10 +5,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
+// import Follow from "../../customfunctions/Follow";
 // imports: components
 import Footer from "../headers_footers/Footer";
 import HeaderPostFeed from "../headers_footers/HeaderPostFeed";
-import PostList from "./PostList"
+import PostList from "./PostList";
 import TellsList from "./TellsList";
 
 
@@ -16,15 +17,23 @@ import TellsList from "./TellsList";
 const UserProfile = () => {
    const {access_token, users_host_url, host_url} = useVariables()
    const {verified_icon, msg_icon} = useIcons()
-   const navigate = useNavigate()
-
+   // const navigate = useNavigate()
+   
    const { id } = useParams()
    const owner = useGetOwner()
    const [user, setUser] = useState()
    const [posts, setPosts] = useState()
    const [tells, setTells] = useState()
    let [page, setPage] = useState(null)  // main-user, other-user
-   let [pt, setPt] = useState("posts") // user content to fetch: posts or tells
+   let [pt, setPt] = useState("posts")   // user content to fetch: posts or tells
+   
+   // Follow & Unfollow state
+   const [isFollowing, setIsFollowing] = useState();  // true or false
+
+   // fff: count holders
+   const [followerCount, setFollowerCount] = useState(); // follower count
+   const [friendsCount, setFriendsCount] = useState();   // friends count
+   const [isFollowingYou, setIsFollowingYou] = useState(false);   // this will be a friends helper state. used to make friends incrementation when we follow user faster
    
    // SECTION 1: Grab User
    useEffect(() => {
@@ -36,16 +45,17 @@ const UserProfile = () => {
          }
          })
          .then(res => {
-            return res.json()
+            return res.json();
          })
          .then(data => {
             if(id == owner.id){setPage("main-user")}
             else {setPage("other-user")}
+            setUser(data);
             
-            setUser(data)
+            // logic: when owner loads up lets do some page and fff count holder logics
          })
          .catch(err => {
-            console.log(err.message)
+            console.log(err.message);
          })
       } else {
          setPage("main-user")
@@ -53,6 +63,23 @@ const UserProfile = () => {
       }
       
    }, [access_token, users_host_url, owner, id])
+
+   // 
+   useEffect(() => {
+      if (owner && user){
+         // logic: set page logic
+         if(id == owner.id){setPage("main-user")}
+         else {setPage("other-user")}
+   
+         // logic: set followers and friends count in state and setIsFollowingYou if user is following you
+         setFollowerCount(user.profile.followers.length);
+         setFriendsCount(user.profile.friends.length);
+         if (user.profile.following.includes(owner.id)){
+            console.log("setting setIsFollowingYou = true");
+            setIsFollowingYou(true);
+         }
+      }
+   }, [owner, user])
 
 
    // SECTION 2
@@ -101,9 +128,59 @@ const UserProfile = () => {
    const handleSwitchPt = (value) => {
       setPt(value);
    }
-
-
    
+
+   // SCTION 4:
+   // logic: when user loads check to see if we are following the user
+   useEffect(() => {
+      if (user && owner){
+         if (user.profile.followers.includes(owner.id)){
+            setIsFollowing(true);
+         }else {
+            setIsFollowing(false);
+         }
+      }
+   }, [user])
+
+   // logic: Follow and Unfollow
+   const handleFollow = (which, id) => {
+      if (which === "follow"){
+         setIsFollowing(true)
+         setFollowerCount(followerCount+1)
+         if (isFollowingYou) setFriendsCount(friendsCount+1)
+         
+         fetch(users_host_url+id+'/follow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`
+         }
+      })
+      .then(res => {
+         return res.json();
+      })
+      .then(data => {
+         console.log(data);
+      })
+   } else if (which === "unfollow"){
+      setIsFollowing(false)
+      setFollowerCount(followerCount-1)
+      if (isFollowingYou) setFriendsCount(friendsCount-1)
+      
+      fetch(users_host_url+id+'/unfollow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`}
+         })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               console.log(data);
+            })
+      }
+   }
+   
+
    // console.log('user', user)
    return (
       <div className="userprofile-react">
@@ -130,7 +207,7 @@ const UserProfile = () => {
 
                   {page === "main-user" && (
                      <div className="user-box">
-                        <Link to="{% url 'update-profile' %}">
+                        <Link to={""}>
                            <div className="edit-profile-btn">
                               <p className="no-margin">Edit Profile</p>
                            </div>
@@ -138,25 +215,22 @@ const UserProfile = () => {
                      </div>
                   )}
 
-                  {page === "other-user" && !user.profile.followers.includes(owner.id) && (
+                  {/* {page === "other-user" && isFollowing( */}
+                  {(page === "other-user" && !isFollowing) && (
                      <div className="follow-box">
-                        <Link to="{% url 'follow' user.id %}">
-                           <div className="follow-btn">
-                              <p className="no-margin">follow</p>
-                           </div>
-                        </Link>
+                        <div className="follow-btn" onClick={() => handleFollow("follow", user.id)}>
+                           <p className="no-margin">follow</p>
+                        </div>
                      </div>
                   )}
 
-                  {page === "other-user" && user.profile.followers.includes(owner.id) && (
+                  {(page === "other-user" && isFollowing) && (
                      <div className="following-box">
-                        <Link to="{% url 'unfollow' user.id %}">
-                           <div className="following-btn">
-                              <p className="no-margin">following</p>
-                           </div>
-                        </Link>
+                        <div className="following-btn" onClick={() => handleFollow("unfollow", user.id)}>
+                           <p className="no-margin">following</p>
+                        </div>
                         <Link to="{% url 'message' user.id %}">
-                           <img src={msg_icon} className="small-img" alt="" />
+                           <img src={msg_icon} className="small-img margin-l-10" alt="" />
                         </Link>
                      </div>
                   )}
@@ -167,19 +241,19 @@ const UserProfile = () => {
                <div className="profile-layer-3">
                   <div className="followers-count">
                      <Link to={`/users/profile/${user.id}/fff/Followers`}>
-                        <p>{user.profile.followers.length}</p>
+                        {followerCount && <p>{followerCount}</p>}
                         <small>followers</small>
                      </Link>
                   </div>
                   <div className="following-count">
                      <Link to={`/users/profile/${user.id}/fff/Following`}>
-                        <p>{user.profile.following.length}</p>
+                        {followerCount && friendsCount && <p>{user.profile.following.length}</p>}
                         <small>following</small>
                      </Link>
                   </div>
                   <div className="following-count">
                      <Link to={`/users/profile/${user.id}/fff/Friends`}>
-                        <p>{user.profile.friends.length}</p>
+                        {friendsCount && <p>{friendsCount}</p>}
                         <small>friends</small>
                      </Link>
                   </div>
