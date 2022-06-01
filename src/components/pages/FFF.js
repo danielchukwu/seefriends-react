@@ -14,7 +14,7 @@ const FFF = () => {
    const {id, page: pagetitle} = useParams();
    const {access_token, users_host_url, host_url} = useVariables()
    const {user:profileOwner} = useUser(id);
-   const owner = useGetOwner()
+   const {owner, setOwner} = useGetOwner()
    // const {verified_icon} = useIcons()
    // const navigate = useNavigate()
    const [followers, setFollowers ] = useState(null)
@@ -22,9 +22,6 @@ const FFF = () => {
    const [friends, setFriends ] = useState(null)
 
    const [fff, setFff] = useState(pagetitle) // page: followers, following, or fiends 
-
-   // Follow & Unfollow state
-   const [isFollowing, setIsFollowing] = useState();  // true or false
 
    // SECTION 1: Fetch Followers, Following, Friends
    useEffect(() => {
@@ -85,55 +82,6 @@ const FFF = () => {
    }, [access_token, users_host_url, id])
    
 
-   // SECTION 2: 
-   // logic: when user loads check to see if we are following the user
-   // useEffect(() => {
-   //    if (user && owner){
-   //       if (user.profile.followers.includes(owner.id)){
-   //          setIsFollowing(true);
-   //       }else {
-   //          setIsFollowing(false);
-   //       }
-   //    }
-   // }, [user])
-   
-   // // logic: Follow and Unfollow
-   // const handleFollow = (which, id) => {
-   //    if (which === "follow"){
-   //       setIsFollowing(true)
-   //       setFollowerCount(followerCount+1)
-   //       if (isFollowingYou) setFriendsCount(friendsCount+1)
-         
-   //       fetch(users_host_url+id+'/follow/', {
-   //          method: "GET",
-   //          headers: {"Content-Type": "application/json",
-   //          Authorization: `Bearer ${access_token}`
-   //       }
-   //    })
-   //    .then(res => {
-   //       return res.json();
-   //    })
-   //    .then(data => {
-   //       console.log(data);
-   //    })
-   // } else if (which === "unfollow"){
-   //    setIsFollowing(false)
-   //    setFollowerCount(followerCount-1)
-   //    if (isFollowingYou) setFriendsCount(friendsCount-1)
-      
-   //    fetch(users_host_url+id+'/unfollow/', {
-   //          method: "GET",
-   //          headers: {"Content-Type": "application/json",
-   //                   Authorization: `Bearer ${access_token}`}
-   //       })
-   //          .then(res => {
-   //             return res.json();
-   //          })
-   //          .then(data => {
-   //             console.log(data);
-   //          })
-   //    }
-   // }
    
    return (
       <div className="fff-react">
@@ -143,9 +91,9 @@ const FFF = () => {
          <div className="fff-body">
             {/* {followers && <FFFList users={followers} page={fff} />} */}
 
-            {followers && fff == "Followers" && <FFFList users={followers} profileOwner={profileOwner} owner={owner} page={fff} />}
-            {following && fff == "Following" && <FFFList users={following} profileOwner={profileOwner} owner={owner} page={fff} />}
-            {friends && fff == "Friends" &&  <FFFList users={friends} profileOwner={profileOwner} owner={owner} page={fff} />}
+            {followers && fff == "Followers" && <FFFList users={followers} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
+            {following && fff == "Following" && <FFFList users={following} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
+            {friends && fff == "Friends" &&  <FFFList users={friends} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
          </div>
       </div>
    );

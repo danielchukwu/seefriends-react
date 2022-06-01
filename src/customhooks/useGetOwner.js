@@ -25,7 +25,7 @@ const useGetOwner = () => {
       })
    }, [owner_url, access_token])
    
-   return owner;
+   return {owner, setOwner};
 }
 
 export default useGetOwner;

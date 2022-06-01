@@ -20,20 +20,16 @@ const UserProfile = () => {
    // const navigate = useNavigate()
    
    const { id } = useParams()
-   const owner = useGetOwner()
+   const {owner, setOwner} = useGetOwner()
    const [user, setUser] = useState()
    const [posts, setPosts] = useState()
    const [tells, setTells] = useState()
-   let [page, setPage] = useState(null)  // main-user, other-user
+   let [page, setPage] = useState("main-user")  // main-user, other-user
    let [pt, setPt] = useState("posts")   // user content to fetch: posts or tells
-   
-   // Follow & Unfollow state
-   const [isFollowing, setIsFollowing] = useState();  // true or false
 
    // fff: count holders
    const [followerCount, setFollowerCount] = useState(); // follower count
-   const [friendsCount, setFriendsCount] = useState();   // friends count
-   const [isFollowingYou, setIsFollowingYou] = useState(false);   // this will be a friends helper state. used to make friends incrementation when we follow user faster
+   const [friendsCount, setFriendsCount] = useState();   // friends countfriends incrementation when we follow user faster
    
    // SECTION 1: Grab User
    useEffect(() => {
@@ -64,26 +60,24 @@ const UserProfile = () => {
       
    }, [access_token, users_host_url, owner, id])
 
-   // 
+   // set user-profile type: is it main-user profile or other-user profile
    useEffect(() => {
       if (owner && user){
          // logic: set page logic
-         if(id == owner.id){setPage("main-user")}
-         else {setPage("other-user")}
+         if (id){
+            if(id == owner.id) setPage("main-user");
+            else setPage("other-user");
+         }
    
          // logic: set followers and friends count in state and setIsFollowingYou if user is following you
          setFollowerCount(user.profile.followers.length);
          setFriendsCount(user.profile.friends.length);
-         if (user.profile.following.includes(owner.id)){
-            console.log("setting setIsFollowingYou = true");
-            setIsFollowingYou(true);
-         }
       }
    }, [owner, user])
 
 
-   // SECTION 2
-   // Grab Post if pt === "posts"
+   // SECTION 2: Posts & Tells
+   // 1. fetch user posts (if pt === "posts")
    useEffect(() => {
       
       if (user){
@@ -102,7 +96,7 @@ const UserProfile = () => {
       
    }, [access_token, users_host_url, page, user])
 
-   // Grab Tell if pt === "tells"
+   // 2. fetch user tells (if pt === "tells")
    useEffect(() => {
       
       if (user){
@@ -123,53 +117,49 @@ const UserProfile = () => {
       
    }, [access_token, users_host_url, page, user])
 
-   // SECTION 3:
-   // logic: switch pt
+
+   // SECTION 3: Switch User Profile Content -> post or tells
    const handleSwitchPt = (value) => {
       setPt(value);
    }
-   
+
 
    // SCTION 4:
-   // logic: when user loads check to see if we are following the user
-   useEffect(() => {
-      if (user && owner){
-         if (user.profile.followers.includes(owner.id)){
-            setIsFollowing(true);
-         }else {
-            setIsFollowing(false);
-         }
-      }
-   }, [user])
+   // toggleFollow
+   const toggleFollow = (id) => {
+      const newUser = user;
+      const newOwner = owner;
 
-   // logic: Follow and Unfollow
-   const handleFollow = (which, id) => {
-      if (which === "follow"){
-         setIsFollowing(true)
+      if (owner.profile.following.includes(id)){
+         // unfollow
+         newOwner.profile.following = newOwner.profile.following.filter(eachid => eachid !== id);
+         setOwner(newOwner);
+         setFollowerCount(followerCount-1);
+         if (user.profile.following.includes(owner.id)) setFriendsCount(friendsCount-1)
+         
+         fetch(users_host_url+id+'/unfollow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`}
+                  })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               console.log(data);
+            })
+            
+      } else {
+         // follow
+         newOwner.profile.following.push(id);
+         setOwner(newOwner)
          setFollowerCount(followerCount+1)
-         if (isFollowingYou) setFriendsCount(friendsCount+1)
+         if (user.profile.following.includes(owner.id)) setFriendsCount(friendsCount+1)
          
          fetch(users_host_url+id+'/follow/', {
             method: "GET",
             headers: {"Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`
-         }
-      })
-      .then(res => {
-         return res.json();
-      })
-      .then(data => {
-         console.log(data);
-      })
-   } else if (which === "unfollow"){
-      setIsFollowing(false)
-      setFollowerCount(followerCount-1)
-      if (isFollowingYou) setFriendsCount(friendsCount-1)
-      
-      fetch(users_host_url+id+'/unfollow/', {
-            method: "GET",
-            headers: {"Content-Type": "application/json",
-                     Authorization: `Bearer ${access_token}`}
+            Authorization: `Bearer ${access_token}`}
          })
             .then(res => {
                return res.json();
@@ -177,11 +167,13 @@ const UserProfile = () => {
             .then(data => {
                console.log(data);
             })
-      }
-   }
-   
 
-   // console.log('user', user)
+      }
+      // console.log("user:", user)
+   }
+
+
+
    return (
       <div className="userprofile-react">
          <HeaderPostFeed />
@@ -216,17 +208,17 @@ const UserProfile = () => {
                   )}
 
                   {/* {page === "other-user" && isFollowing( */}
-                  {(page === "other-user" && !isFollowing) && (
+                  {(page === "other-user" && !owner.profile.following.includes(user.id)) && (
                      <div className="follow-box">
-                        <div className="follow-btn" onClick={() => handleFollow("follow", user.id)}>
+                        <div className="follow-btn" onClick={() => toggleFollow(user.id)}>
                            <p className="no-margin">follow</p>
                         </div>
                      </div>
                   )}
 
-                  {(page === "other-user" && isFollowing) && (
+                  {(page === "other-user" && owner.profile.following.includes(user.id)) && (
                      <div className="following-box">
-                        <div className="following-btn" onClick={() => handleFollow("unfollow", user.id)}>
+                        <div className="following-btn" onClick={() => toggleFollow(user.id)}>
                            <p className="no-margin">following</p>
                         </div>
                         <Link to="{% url 'message' user.id %}">

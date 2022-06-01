@@ -14,7 +14,7 @@ import useGetOwner from '../../customhooks/useGetOwner'
 
 
 const PostList = ({ posts }) => {
-   const owner = useGetOwner();
+   const {owner} = useGetOwner();
    const {host_url} = useVariables()
    const {verified_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32} = useIcons();
    

@@ -9,7 +9,7 @@ import useVariables from "../../customhooks/useVariables";
 import HeaderAddPost from "../headers_footers/HeaderAdd";
 
 const AddPost = () => {
-   const owner = useGetOwner();
+   const {owner, setOwner} = useGetOwner();
    const inputRef = useRef();
    const navigate = useNavigate();
    const {host_url, posts_url, access_token} = useVariables();

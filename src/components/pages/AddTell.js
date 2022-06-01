@@ -10,7 +10,7 @@ import HeaderAddTell from "../headers_footers/HeaderAdd";
 
 
 const AddTell = () => {
-   const owner = useGetOwner();
+   const {owner, setOwner} = useGetOwner();
    const inputRef = useRef();
    const navigate = useNavigate();
 

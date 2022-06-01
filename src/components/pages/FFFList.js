@@ -1,12 +1,55 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 
-const FFFList = ({users, page, profileOwner}) => {
-   const { host_url } = useVariables();
+const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
+   const {access_token, users_host_url, host_url} = useVariables()
    const { verified_icon } = useIcons();
-   const owner = useGetOwner()
+
+   // toggleFollow
+   const toggleFollow = (id) => {
+      const newUsers = [...users];
+      const user = newUsers.find(user => user.id === id);
+      if (owner.profile.following.includes(user.id)){
+         // unfollow
+         owner.profile.following = owner.profile.following.filter(eachid => eachid !== id);
+         setUsers(newUsers)
+
+         fetch(users_host_url+id+'/unfollow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`}
+         })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               console.log(data);
+            })
+      
+      } else {
+         // follow
+         owner.profile.following.push(id);
+         setUsers(newUsers)
+
+         fetch(users_host_url+id+'/follow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`}
+         })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               console.log(data);
+            })
+
+      }
+      // console.log("user:", user)
+   }
+   
    
    return (
       <section>
@@ -57,22 +100,18 @@ const FFFList = ({users, page, profileOwner}) => {
                   {owner.profile.following.includes(user.id) && (
 
                      <div className="activity-right-info">
-                        <Link to="{% url 'unfollow' follower.me.id %}?q={{request.GET.q}}">
-                           <div className="following-btn-fff-sub">
-                              <p className="no-margin">following</p>
-                           </div>
-                        </Link>
+                        <div className="following-btn-fff-sub pointer" onClick={() => toggleFollow(user.id)}>
+                           <p className="no-margin">following</p>
+                        </div>
                      </div>
                   )}
 
                   {!owner.profile.following.includes(user.id) && (
 
                      <div className="activity-right-info">
-                        <Link to="{% url 'follow' follower.me.id %}?q={{request.GET.q}}">
-                           <div className="follow-btn-fff-sub">
-                              <p className="no-margin">follow</p>
-                           </div>
-                        </Link>
+                        <div className="follow-btn-fff-sub pointer" onClick={() => toggleFollow(user.id)}>
+                           <p className="no-margin">follow</p>
+                        </div>
                      </div>
                   )}
                {/*  */}

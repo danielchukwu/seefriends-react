@@ -8,7 +8,7 @@ import useGetOwner from '../../customhooks/useGetOwner';
 // imports: images
 
 const TellsList = ({ tells }) => {
-   const owner = useGetOwner();
+   const {owner} = useGetOwner();
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon} = useIcons();
    const {host_url} = useVariables();
 

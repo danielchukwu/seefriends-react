@@ -14,7 +14,7 @@ import Footer from '../headers_footers/Footer';
 
 
 const PostFeed = () => {
-   const owner = useGetOwner(null)
+   const {owner, setOwner} = useGetOwner()
    const [posts, setPosts] = useState(null)
    const {posts_url, access_token} = useVariables()
    const navigate = useNavigate()

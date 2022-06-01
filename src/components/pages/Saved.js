@@ -12,7 +12,7 @@ import TellsList from "./TellsList";
 
 const Saved = () => {
    const { saved_posts_url, saved_tells_url, access_token} = useVariables();
-   const owner = useGetOwner();
+   const {owner} = useGetOwner();
    const [pt, setPt] = useState("posts")
    const [posts, setPosts] = useState();
    const [tells, setTells] = useState();
