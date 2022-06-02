@@ -8,13 +8,15 @@ import ActLikeTell from './activity_components/ActLikeTell'
 import ActCommentTell from './activity_components/ActCommentTell'
 import ActFollow from './activity_components/ActFollow'
 import ActFriends from './activity_components/ActFriends'
+// import { createContext } from 'react'
 
 // imports: components
 
+// const activityContext = createContext();
 
 const ActivityList = ({ activities }) => {
-   const { host_url } = useVariables()
-   const { verified_icon } = useIcons()
+   const { host_url, posts_url, tells_url, users_host_url } = useVariables();
+   const { verified_icon } = useIcons();
    
    const getActivityType = (activity) => {
       // like_post, like_tell, comment_post, comment_tell, follow

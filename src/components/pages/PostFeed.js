@@ -51,7 +51,7 @@ const PostFeed = () => {
 
          <HeaderPostFeed />
 
-         <main className='postfeed'>
+         <main className='postfeed margin-b-60'>
             <div className="welcome-user pad-top-10">
                {owner && <h3>Welcome {owner.username}</h3>}
             </div>

@@ -12,7 +12,7 @@ const Footer = () => {
    const [floaterUpEnabled, setFloaterUpEnabled] = useState(false)
    const [floaterProfileEnabled, setFloaterProfileEnabled] = useState(false)
    const {owner} = useGetOwner()
-   if (owner) console.log(owner)
+   // if (owner) console.log(owner)
    
    const handleUploadFloater = () => {
       // console.log("You Clicked me!")

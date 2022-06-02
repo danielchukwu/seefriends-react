@@ -39,9 +39,9 @@ const Activity = () => {
       <div className="activity-page-react">
          <HeaderPostFeed />
          
-         <div className="activity-container">
+         <main className="activity-container margin-b-60">
             {activities && <ActivityList activities={activities} />}
-         </div>
+         </main>
 
 
          <Footer />

@@ -42,7 +42,7 @@ const PostList = ({ posts }) => {
       return post.commenters.length
    }
    
-   // console.log(posts)
+   console.log(posts)
    return ( 
 
       posts.map((post) => (

@@ -4,7 +4,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 300px;
   /* min-height: 300vh; */
-  margin-bottom: 70px;
+  /* margin-bottom: 70px; */
   color: #1a1a1b;
 }
 
@@ -366,6 +366,15 @@ main {
 }
 .margin-r-10 {
   margin-right: 10px;
+}
+.margin-b-50 {
+  margin-bottom: 50px;
+}
+.margin-b-60 {
+  margin-bottom: 60px;
+}
+.margin-b-70 {
+  margin-bottom: 70px;
 }
 
 .welcome-user {

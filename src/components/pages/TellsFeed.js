@@ -43,7 +43,7 @@ const TellsFeed = () => {
       <div className="tellsfeed">
          <HeaderPostFeed />
 
-         <main>
+         <main className="margin-b-60">
             {tells && <TellsList tells={tells} />}
          </main>
 

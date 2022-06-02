@@ -178,7 +178,7 @@ const UserProfile = () => {
       <div className="userprofile-react">
          <HeaderPostFeed />
          
-         <main>
+         <main className="margin-b-60">
             
             {user && (
             <section className="profile-header">

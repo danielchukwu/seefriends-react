@@ -10,6 +10,7 @@ import AddPost from './components/pages/AddPost';
 import AddTell from './components/pages/AddTell';
 import Saved from './components/pages/Saved';
 import FFF from './components/pages/FFF';
+import PostSingle from './components/pages/PostSingle';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
 
             <Route path="/" element={ <PostFeed /> } />
             <Route path="/tellsfeed" element={ <TellsFeed /> } />
+
+            <Route path="/posts/:id" element={ <PostSingle /> } />
             
             <Route path="/users/activity" element={ <Activity /> } />
             <Route path="/users/profile" element={ <UserProfile /> } />
