@@ -65,11 +65,11 @@ const Saved = () => {
 
             <div className="options-wrapper">
                
-               <div className="profile-posts" onClick={() => setPt("posts")}>
+               <div className="profile-posts pointer" onClick={() => setPt("posts")}>
                   {pt === "posts" && <h4>Posts</h4>}
                   {pt !== "posts" && <h4 className="grey-dark">Posts</h4>}
                </div>
-               <div className="tell"  onClick={() => setPt("tells")}>
+               <div className="tell pointer"  onClick={() => setPt("tells")}>
                   {pt === "tells" && <h4>Tells</h4>}
                   {pt !== "tells" && <h4 className="grey-dark">Tells</h4>}
                </div>

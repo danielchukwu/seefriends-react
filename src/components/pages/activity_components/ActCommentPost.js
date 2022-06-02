@@ -11,10 +11,9 @@ const ActCommentPost = ({activity, host_url, verified_icon}) => {
             </div>
             <div>
                <p className="no-margin"><strong>{activity.profile.username}
-                  {/* {% if activity.user.profile.verified %} */}
-                     {activity.profile.verified && <img src={verified_icon} className="width-13" alt="verification" />}
-                  {/* {% endif %} */}
-               </strong>commented <small className="grey font-10">{activity.date}</small></p>
+                  {activity.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
+                  </strong>commented <small className="grey font-10">{activity.date}</small>
+               </p>
                <p className="no-margin"><small>{activity.comment.slice(0, 40)}{activity.comment.length > 30 ? "..." : ""}</small></p>
             </div>
          </div>

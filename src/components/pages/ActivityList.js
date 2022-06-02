@@ -7,6 +7,7 @@ import ActCommentPost from './activity_components/ActCommentPost'
 import ActLikeTell from './activity_components/ActLikeTell'
 import ActCommentTell from './activity_components/ActCommentTell'
 import ActFollow from './activity_components/ActFollow'
+import ActFriends from './activity_components/ActFriends'
 
 // imports: components
 
@@ -40,6 +41,9 @@ const ActivityList = ({ activities }) => {
 
                   {/* Follow */}
                   {(getActivityType(activity) === "follow" && <ActFollow activity={activity} host_url={host_url} verified_icon={verified_icon} />)}
+
+                  {/* Friends */}
+                  {(getActivityType(activity) === "friends" && <ActFriends activity={activity} host_url={host_url} verified_icon={verified_icon} />)}
                </div>
 
                

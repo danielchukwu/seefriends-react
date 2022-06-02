@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const ActLikeTell = ({activity, host_url, verified_icon}) => {
+const ActFriends = ({activity, host_url, verified_icon}) => {
    return (
       <div className="activity">
          <Link to="">
@@ -10,16 +10,16 @@ const ActLikeTell = ({activity, host_url, verified_icon}) => {
             </div>
             <p><strong>{activity.profile.username} 
                {activity.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
-            </strong>liked your tell <small className="grey font-10">{activity.date}</small></p>
+            </strong>is now your friend <small className="grey font-10">{activity.date}</small></p>
          </div>
          </Link>
          <Link to="">
             <div className="activity-right-info font-lobster">
-               <strong>T</strong>
+               <strong>F</strong>
             </div>
          </Link>
       </div>
    );
 }
 
-export default ActLikeTell;
+export default ActFriends;

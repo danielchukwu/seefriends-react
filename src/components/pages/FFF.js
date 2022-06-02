@@ -90,15 +90,15 @@ const FFF = () => {
 
          <div className="fff-op-wrapper">
                
-            <div className="fff-op" onClick={() => setFff("Followers")}>
+            <div className="fff-op pointer" onClick={() => setFff("Followers")}>
                {fff.toLowerCase() === "followers" && <h4>Followers</h4>}
                {fff.toLowerCase() !== "followers" && <h4 className="grey-dark">Followers</h4>}
             </div>
-            <div className="fff-op" onClick={() => setFff("Following")}>
+            <div className="fff-op pointer" onClick={() => setFff("Following")}>
                {fff.toLowerCase() === "following" && <h4>Following</h4>}
                {fff.toLowerCase() !== "following" && <h4 className="grey-dark">Following</h4>}
             </div>
-            <div className="fff-op" onClick={() => setFff("Friends")}>
+            <div className="fff-op pointer" onClick={() => setFff("Friends")}>
                {fff.toLowerCase() === "friends" && <h4>Friends</h4>}
                {fff.toLowerCase() !== "friends" && <h4 className="grey-dark">Friends</h4>}
             </div>

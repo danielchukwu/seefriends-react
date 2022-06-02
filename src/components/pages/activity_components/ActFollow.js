@@ -14,7 +14,7 @@ const ActFollow = ({activity, host_url, verified_icon}) => {
             <p>
                <Link to="{% url 'other-profile' activity.user.id %}?q={{request.path}}">
                   <strong>{activity.profile.username} 
-                     {activity.profile.verified && <img src={verified_icon} className="width-13" alt="verification" />}
+                     {activity.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
                   </strong>
                </Link> started following you <small className="grey font-10">{activity.date}</small>
             </p>

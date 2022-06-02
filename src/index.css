@@ -967,11 +967,17 @@ footer {
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
+  max-height: 50px;
 }
 .activity-2 {
   display: flex;
   align-items: center;
   /* padding: 10px 20px; */
+}
+
+.activity-2 p {
+  /* margin: 0; */
+  /* margin: 16px 0; */
 }
 
 .activity-right-info {
