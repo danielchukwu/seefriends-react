@@ -1,11 +1,13 @@
 // imports: main
 import { Link } from "react-router-dom";
+import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 // imports: hooks
 
 
 const HeaderPostFeed = () => {
    const {sf_logo, discover_icon, msg_icon} = useIcons()
+   const {owner} = useGetOwner()
 
    return ( 
       <header>
@@ -22,9 +24,7 @@ const HeaderPostFeed = () => {
                   <Link to={"#"}><img src={discover_icon} alt="" /></Link>
                   <Link to={"#"}><img src={msg_icon} alt="user" /></Link>
 
-                  {/* {% if chats_count > 0 %} */}
-                  <div className="red-circle red-circle-mp">{3}</div>
-                  {/* {% endif %} */}
+                  { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
                </div>
             </div>
          </div>

@@ -1055,8 +1055,8 @@ footer {
   /* height: 150vh; */
   max-width: 550px;
   /* padding-top: 20px; */
-  margin: 0 auto 50px;
-  box-shadow: 0 1px rgba(0, 0, 0, 0.224);
+  margin: 0 auto;
+  /* box-shadow: 0 1px rgba(0, 0, 0, 0.224); */
 
 }
 

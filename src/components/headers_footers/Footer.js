@@ -11,9 +11,11 @@ const Footer = () => {
    const {feed_icon, tells_icon, upload_icon, activity_icon, account_icon} = useIcons()
    const [floaterUpEnabled, setFloaterUpEnabled] = useState(false)
    const [floaterProfileEnabled, setFloaterProfileEnabled] = useState(false)
+   const {owner} = useGetOwner()
+   if (owner) console.log(owner)
    
    const handleUploadFloater = () => {
-      console.log("You Clicked me!")
+      // console.log("You Clicked me!")
       setFloaterUpEnabled(!floaterUpEnabled)
    }
    const handleProfileFloater = () => {
@@ -53,9 +55,7 @@ const Footer = () => {
             <Link to={"/users/activity"}>
                <div className="f-activity" title="activity">
                   <img src={activity_icon} alt="activity" className="small-img" />
-                  {/* {% if request.user.profile.activity_count > 0 %} */}
-                  <div className="red-circle red-circle-ac">{5}</div>
-                  {/* {% endif %} */}
+                  {owner && owner.profile.activity_count > 0 && <div className="red-circle red-circle-ac">{owner.profile.activity_count}</div>}
                </div>
             </Link>
 
