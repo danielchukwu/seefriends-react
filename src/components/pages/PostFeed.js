@@ -19,7 +19,7 @@ const PostFeed = () => {
    const {posts_url, access_token} = useVariables()
    const navigate = useNavigate()
    
-   
+   // Logic: Fetch User Post
    useEffect(()=> {
       
       fetch(posts_url, {
@@ -56,7 +56,7 @@ const PostFeed = () => {
                {owner && <h3>Welcome {owner.username}</h3>}
             </div>
 
-            {posts && <PostList posts={posts} />}
+            {posts && <PostList posts={posts} setPosts={setPosts} />}
 
          </main>
 

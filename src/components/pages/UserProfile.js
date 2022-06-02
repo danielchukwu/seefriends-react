@@ -9,6 +9,7 @@ import useVariables from "../../customhooks/useVariables";
 // imports: components
 import Footer from "../headers_footers/Footer";
 import HeaderPostFeed from "../headers_footers/HeaderPostFeed";
+import HeaderGBT from "../headers_footers/HeaderGBT";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
 
@@ -176,7 +177,9 @@ const UserProfile = () => {
 
    return (
       <div className="userprofile-react">
-         <HeaderPostFeed />
+         {owner && user && owner.id === user.id && <HeaderPostFeed />}
+         {owner && user && owner.id !== user.id && <HeaderGBT title={user.profile.username} />}
+         
          
          <main className="margin-b-60">
             

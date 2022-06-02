@@ -13,7 +13,7 @@ import useGetOwner from '../../customhooks/useGetOwner'
 
 
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, setPosts }) => {
    const {owner} = useGetOwner();
    const {host_url} = useVariables()
    const {verified_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32} = useIcons();
@@ -41,6 +41,28 @@ const PostList = ({ posts }) => {
    const getCommentsCount = (post) => {
       return post.commenters.length
    }
+
+   // logic: Like Post
+   const toggleLike = (id) => {
+      let newPost = posts;
+      const post = newPost.find(post => post.id === id);
+
+      if (post.likers.includes(owner.id)){
+         // dislike
+         console.log("Dislike!");
+         console.log("Before:", post.likers);
+         post.likers = post.likers.filter(eachid => eachid !== owner.id); // without me
+         setPosts(newPost)
+         console.log("after:", post.likers);
+         
+      } else {
+         // like
+         console.log("Before:", post.likers);
+         post.likers.push(owner.id)
+         console.log("after:", post.likers);
+         setPosts(newPost)
+      }
+   }
    
    console.log(posts)
    return ( 
@@ -53,11 +75,13 @@ const PostList = ({ posts }) => {
 
                <div className="content-layer-1 fc-top">
                   <div className="cl-left flex">
-                     <div className="img-holder">
-                        <img src={host_url+post.owner.profile.img} alt="" className="img-holder-image" />
-                     </div>
+                     <Link to={`/users/profile/${post.owner.id}`}>
+                        <div className="img-holder">
+                           <img src={host_url+post.owner.profile.img} alt="" className="img-holder-image" />
+                        </div>
+                     </Link>
                      <div className="content-owner">
-                        <Link to="#"><h3>{post.owner.username}
+                        <Link to={`/users/profile/${post.owner.id}`}><h3>{post.owner.username}
                         {checkPostOwnerVerified(post) && <img src={verified_icon} className="small-img-feed verified-pos3" alt="verification" />}
                         </h3></Link>
                      </div>
@@ -75,8 +99,8 @@ const PostList = ({ posts }) => {
 
                   {/* {% if request.user not in content.post.likers.all %} */}
                   <div className="heart-p position-rel">
-                     {owner && !checkLiked(post) && <img src={heart_white_icon32} alt="" className="heartw" data-pid={post.id} />}
-                     {owner && checkLiked(post) && <img src={heart_red_icon32} alt="" className="heartr" data-pid={post.id} />}
+                     {owner && !post.likers.includes(owner.id) && <img src={heart_white_icon32} alt="" className="heartw" data-pid={post.id} onClick={() => toggleLike(post.id)} />}
+                     {owner && post.likers.includes(owner.id) && <img src={heart_red_icon32} alt="" className="heartr" data-pid={post.id}  onClick={() => toggleLike(post.id)} /> }
                   </div>
                   {/* {% endif %} */}
 
@@ -99,14 +123,14 @@ const PostList = ({ posts }) => {
                   </div>
 
                   <div className="content-layer-2">
-                     <p className="no-margin pre-wrap"><strong><Link to="{% url 'other-profile' content.post.owner.id %}">{post.owner.profile.username} </Link></strong>{post.body}</p>
+                     <p className="no-margin pre-wrap"><strong><Link to={`/users/profile/${post.owner.id}`}>{post.owner.profile.username} </Link></strong>{post.body}</p>
                   </div>
 
                   {/* {% for comment in content.post.commentonpost_set.all|slice:1 %} */}
                   {getCommentsCount(post) > 0 && (
                      <div className="content-layer-3">
                         <p className="no-margin pad-top-5">
-                           <Link to="{% url 'other-profile' comment.owner.id %}">
+                           <Link to={`/users/profile/${post.comments[0].owner.id}`}>
                               <strong>
                                  { getFirstCommentInfo(post, 'username') }<img src={verified_icon} className="width-12 verified-pos1" alt="verification" />
                               </strong>

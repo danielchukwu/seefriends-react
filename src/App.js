@@ -36,7 +36,6 @@ function App() {
             <Route path="/users/profile/:id" element={ <UserProfile /> } />
             <Route path="/users/profile/saved" element={ <Saved /> } />
 
-            <Route path='users/profile/:id/fff' element={ <FFF />} />
             <Route path='users/profile/:id/fff/:page' element={ <FFF />} />
             
 

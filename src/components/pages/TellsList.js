@@ -41,6 +41,13 @@ const TellsList = ({ tells }) => {
       return tell.comments.length
    }
 
+   // logic: Like Post
+   const toggleLike = (id) => {
+      let newTell = tells;
+      const tell = newTell.find(tell => tell.id === id);
+      console.log(tell)
+   }
+
    
    console.log(tells)
    return (
@@ -57,7 +64,7 @@ const TellsList = ({ tells }) => {
                               <img src={host_url + tell.owner.profile.img} alt="profile" className="img-holder-image" />
                            </div>
                            <div className="content-owner">
-                              <Link to={"#"}>
+                              <Link to={`/users/profile/${tell.owner.id}`}>
                                  <h3 className="no-margin">{tell.owner.profile.username}
                                     {checkTellOwnerVerified(tell) && <img src={verified_icon} className="small-img-feed verified-pos2" alt="verification" />}
                                  </h3>
@@ -80,9 +87,12 @@ const TellsList = ({ tells }) => {
                      {/* First Comment Section */}
                      {getCommentsCount(tell) > 0 && (
                      <div className="content-layer-3">
-                        <p className="no-margin pad-top-5"><Link to={"#"}><strong>{getfirstComment(tell, "username")}{getfirstComment(tell, "verified") && <img src={verified_icon}className="width-12 verified-pos1" alt="verification" />}
-                              
-                           </strong></Link> {getfirstComment(tell, "comment")}
+                        <p className="no-margin pad-top-5">
+                           <Link to={`/users/profile/${tell.comments[0].owner.id}`}>
+                              <strong>
+                                 {getfirstComment(tell, "username")}{getfirstComment(tell, "verified") && <img src={verified_icon}className="width-12 verified-pos1" alt="verification" />}
+                              </strong>
+                           </Link> {getfirstComment(tell, "comment")}
                         </p>
                      </div>
                      )}
@@ -97,7 +107,7 @@ const TellsList = ({ tells }) => {
 
                               {getCommentsCount(tell) > 1 && <small className="grey no-margin pad-top-5 pad-bot-5">see {getCommentsCount(tell) - 1} other comments</small>}
                            </Link>
-                           <small className="grey no-margin">{"may 4"}</small>
+                           <small className="grey no-margin">{tell.date}</small>
                      </div>
                      {/*  */}
                   </div>
