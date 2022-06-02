@@ -20,7 +20,7 @@ const ActCommentTell = ({activity, host_url, verified_icon}) => {
                <p className="no-margin"><small>{activity.comment.slice(0, 40)}{activity.comment.length > 40 ? "..." : ""}</small></p>
             </div>
          </div>
-         <Link to="">
+         <Link to={"/tells/"+activity.tell}>
             <div className="activity-right-info font-lobster">
                <strong>T</strong>
             </div>

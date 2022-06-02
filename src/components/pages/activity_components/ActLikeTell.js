@@ -14,7 +14,7 @@ const ActLikeTell = ({activity, host_url, verified_icon}) => {
             </strong>liked your tell <small className="grey font-10">{activity.date}</small></p>
          </div>
          </Link>
-         <Link to="">
+         <Link to={"/tells/"+activity.tell}>
             <div className="activity-right-info font-lobster">
                <strong>T</strong>
             </div>

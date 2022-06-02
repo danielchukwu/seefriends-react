@@ -42,7 +42,7 @@ const TellsList = ({ tells }) => {
    }
 
    
-   // console.log(tells)
+   console.log(tells)
    return (
 
       <section className="tellslist tell-wrapper">
