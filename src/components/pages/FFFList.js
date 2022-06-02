@@ -61,7 +61,7 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                         <img src={host_url + profileOwner.profile.img} alt="profile-picture" className="img-holder-image" />
                      </div>
                      <h3 className="no-margin width-p-10"><strong>{profileOwner.profile.username}
-                        {profileOwner.profile.verified && <img src={verified_icon} className="width-13" alt="verification" />}
+                        {profileOwner.profile.verified && <img src={verified_icon} className="width-15 verified-pos2" alt="verification" />}
                      </strong></h3>
                   </div>
                </Link>
@@ -78,7 +78,6 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
             
          )}
 
-         <hr className="hr-line"></hr>
 
          {users.map(user => (
                
@@ -90,14 +89,14 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                   </div>
                   <Link to={`/users/profile/${user.id}/`}>
                      <p><strong>{user.profile.username}
-                     {user.profile.verified && <img src={verified_icon} className="width-13" alt="verification" />}
+                     {user.profile.verified && <img src={verified_icon} className="width-13 verified-pos2" alt="verification" />}
                      </strong></p>
                   </Link>
                </div>
       
                {/* Follow or Unfollow */}
 
-                  {owner.profile.following.includes(user.id) && (
+                  {owner.profile.following.includes(user.id) && owner.id !== user.id && (
 
                      <div className="activity-right-info">
                         <div className="following-btn-fff-sub pointer" onClick={() => toggleFollow(user.id)}>
@@ -106,7 +105,7 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                      </div>
                   )}
 
-                  {!owner.profile.following.includes(user.id) && (
+                  {!owner.profile.following.includes(user.id) && owner.id !== user.id && (
 
                      <div className="activity-right-info">
                         <div className="follow-btn-fff-sub pointer" onClick={() => toggleFollow(user.id)}>
@@ -114,6 +113,16 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                         </div>
                      </div>
                   )}
+
+                  {owner.id === user.id && (
+
+                     <div className="activity-right-info">
+                        <div className="following-btn-fff-sub pointer" onClick={() => toggleFollow(user.id)}>
+                           <p className="no-margin">You😎✌</p>
+                        </div>
+                     </div>
+                  )}
+                  
                {/*  */}
 
             </div>

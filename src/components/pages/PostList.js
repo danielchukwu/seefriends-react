@@ -58,7 +58,7 @@ const PostList = ({ posts }) => {
                      </div>
                      <div className="content-owner">
                         <Link to="#"><h3>{post.owner.username}
-                        {checkPostOwnerVerified(post) && <img src={verified_icon} className="small-img-feed" alt="verification" />}
+                        {checkPostOwnerVerified(post) && <img src={verified_icon} className="small-img-feed verified-pos3" alt="verification" />}
                         </h3></Link>
                      </div>
                   </div>
@@ -108,7 +108,7 @@ const PostList = ({ posts }) => {
                         <p className="no-margin pad-top-5">
                            <Link to="{% url 'other-profile' comment.owner.id %}">
                               <strong>
-                                 { getFirstCommentInfo(post, 'username') } <img src={verified_icon} className="width-10" alt="verification" />
+                                 { getFirstCommentInfo(post, 'username') }<img src={verified_icon} className="width-12 verified-pos1" alt="verification" />
                               </strong>
                            </Link>
                            { getFirstCommentInfo(post, 'comment') }

@@ -86,7 +86,24 @@ const FFF = () => {
    return (
       <div className="fff-react">
 
-         <HeaderFFF title={pagetitle} />
+         {fff && <HeaderFFF title={fff} />}
+
+         <div className="fff-op-wrapper">
+               
+            <div className="fff-op" onClick={() => setFff("Followers")}>
+               {fff.toLowerCase() === "followers" && <h4>Followers</h4>}
+               {fff.toLowerCase() !== "followers" && <h4 className="grey-dark">Followers</h4>}
+            </div>
+            <div className="fff-op" onClick={() => setFff("Following")}>
+               {fff.toLowerCase() === "following" && <h4>Following</h4>}
+               {fff.toLowerCase() !== "following" && <h4 className="grey-dark">Following</h4>}
+            </div>
+            <div className="fff-op" onClick={() => setFff("Friends")}>
+               {fff.toLowerCase() === "friends" && <h4>Friends</h4>}
+               {fff.toLowerCase() !== "friends" && <h4 className="grey-dark">Friends</h4>}
+            </div>
+
+         </div>
          
          <div className="fff-body">
             {/* {followers && <FFFList users={followers} page={fff} />} */}

@@ -190,7 +190,7 @@ const UserProfile = () => {
                <div className="profile-layer-2">
                   <div className="username">
                      <h2>@{user.profile.username}
-                        {user.profile.verified && <img src={verified_icon} className="width-13" alt="verification" />}
+                        {user.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
                      </h2>
                   </div>
                   <small>{user.profile.bio}</small>

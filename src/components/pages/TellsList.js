@@ -59,7 +59,7 @@ const TellsList = ({ tells }) => {
                            <div className="content-owner">
                               <Link to={"#"}>
                                  <h3 className="no-margin">{tell.owner.profile.username}
-                                    {checkTellOwnerVerified(tell) && <img src={verified_icon} className="small-img-feed" alt="verification" />}
+                                    {checkTellOwnerVerified(tell) && <img src={verified_icon} className="small-img-feed verified-pos2" alt="verification" />}
                                  </h3>
                               </Link>
                            </div>
@@ -80,7 +80,7 @@ const TellsList = ({ tells }) => {
                      {/* First Comment Section */}
                      {getCommentsCount(tell) > 0 && (
                      <div className="content-layer-3">
-                        <p className="no-margin pad-top-5"><Link to={"#"}><strong>{getfirstComment(tell, "username")} {getfirstComment(tell, "verified") && <img src={verified_icon}className="width-10" alt="verification" />}
+                        <p className="no-margin pad-top-5"><Link to={"#"}><strong>{getfirstComment(tell, "username")}{getfirstComment(tell, "verified") && <img src={verified_icon}className="width-12 verified-pos1" alt="verification" />}
                               
                            </strong></Link> {getfirstComment(tell, "comment")}
                         </p>
