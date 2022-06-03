@@ -1,5 +1,5 @@
 // import: main
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // import: images
 import drake from '../../images/dr-1.jpg'
@@ -8,25 +8,18 @@ import drake from '../../images/dr-1.jpg'
 import useVariables from '../../customhooks/useVariables'
 import useIcons from '../../customhooks/useIcons'
 import useGetOwner from '../../customhooks/useGetOwner'
+import { ACTIONS } from '../../App'
+import { useDoubleTap } from 'use-double-tap'
 
 
 
 
 
-const PostList = ({ posts, setPosts }) => {
+const PostList = ({ posts, setPosts, page }) => {
    const {owner} = useGetOwner();
-   const {host_url} = useVariables()
-   const {verified_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32} = useIcons();
-   
-   const checkPostOwnerVerified = (post) => {
-      return post.owner.profile.verified;
-   }
-
-   const checkLiked = (postdata) => {
-      const telllikes = postdata.likers;
-      if (telllikes.length === 0) {return false;}      
-      return telllikes.includes(owner.id);
-   }
+   const {host_url, access_token, posts_url} = useVariables()
+   const {verified_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256: big_heart} = useIcons();
+   const navigate = useNavigate();
 
    const getFirstCommentInfo = (post, which) => {
       const comment = post.comments[0]
@@ -47,27 +40,51 @@ const PostList = ({ posts, setPosts }) => {
       let newPost = posts;
       const post = newPost.find(post => post.id === id);
 
-      if (post.likers.includes(owner.id)){
-         // dislike
-         console.log("Dislike!");
-         console.log("Before:", post.likers);
-         post.likers = post.likers.filter(eachid => eachid !== owner.id); // without me
-         setPosts(newPost)
-         console.log("after:", post.likers);
-         
+      post.liked = !post.liked;   // sets liked: to true or false. it's where the magic happens
+      if (post.liked){
+         post.likers.push(owner.id);
       } else {
-         // like
-         console.log("Before:", post.likers);
-         post.likers.push(owner.id)
-         console.log("after:", post.likers);
-         setPosts(newPost)
+         post.likers.pop();
       }
+      setPosts([...newPost]) 
+
+      // Send Like to Backend
+      fetch(posts_url+id+'/like/', {
+         method: "GET",
+         headers: {"Content-Type": "application/json",
+                  Authorization: `Bearer ${access_token}`
+      }
+      })
+         .then(res => {
+            return res.json();
+         })
+         .then(data => {
+            console.log(data)
+         })
+         .catch(err => {
+            console.log(err.message);
+         })
+
+   }
+
+   // Doubleclick Liking
+   const double_click_Like = (post, e) => {
+      let big_heart = e.target.parentNode.childNodes[0];
+      big_heart.classList = big_heart.classList.length > 1 ? "big-heart" : "big-heart none"
+      setTimeout(() => {
+         big_heart.classList = "big-heart none"
+      }, 500)
+
+      if (!post.liked){
+         toggleLike(post.id);
+      }
+
    }
    
-   console.log(posts)
    return ( 
-
+      
       posts.map((post) => (
+         
          <section className="postlist background-white mobile-page-center border-rad-20" key={post.id}>
          
          <div className="content-wrapper">
@@ -82,7 +99,7 @@ const PostList = ({ posts, setPosts }) => {
                      </Link>
                      <div className="content-owner">
                         <Link to={`/users/profile/${post.owner.id}`}><h3>{post.owner.username}
-                        {checkPostOwnerVerified(post) && <img src={verified_icon} className="small-img-feed verified-pos3" alt="verification" />}
+                        {post.owner.profile.verified && <img src={verified_icon} className="small-img-feed verified-pos3" alt="verification" />}
                         </h3></Link>
                      </div>
                   </div>
@@ -92,15 +109,16 @@ const PostList = ({ posts, setPosts }) => {
                </div>
 
                <div className="content-1">
-                  <div className="big-heart-parent">
-                     <img src={drake} alt="" className="big-heart none" />
-                     <img src={host_url+post.img} alt="post" className="post-img" />
+                  <div className="big-heart-parent" onDoubleClick={(e) => double_click_Like(post, e)} data>
+                     <img src={big_heart} alt="" className="big-heart none" />
+                     {/* <img src={host_url+post.img} alt="post" className="post-img" /> */}
+                     <img src={page === "postfeed"? post.img : host_url+post.img} alt="post" className="post-img" />
                   </div>
 
                   {/* {% if request.user not in content.post.likers.all %} */}
                   <div className="heart-p position-rel">
-                     {owner && !post.likers.includes(owner.id) && <img src={heart_white_icon32} alt="" className="heartw" data-pid={post.id} onClick={() => toggleLike(post.id)} />}
-                     {owner && post.likers.includes(owner.id) && <img src={heart_red_icon32} alt="" className="heartr" data-pid={post.id}  onClick={() => toggleLike(post.id)} /> }
+                     {owner && !post.liked && <img src={heart_white_icon32} alt="" className="heartw" onClick={() => toggleLike(post.id)} />}
+                     {owner && post.liked && <img src={heart_red_icon32} alt="" className="heartr" onClick={() => toggleLike(post.id)} /> }
                   </div>
                   {/* {% endif %} */}
 

@@ -46,3 +46,9 @@ function App() {
 }
 
 export default App;
+
+export const ACTIONS = {
+  ADD_POST: "add-post",
+  LIKE_POST: "like-post",
+  DISLIKE_POST: "dislike-post",
+}

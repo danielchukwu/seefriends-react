@@ -647,30 +647,30 @@ footer {
 
 .big-heart {
   position: absolute;
-  width: 500px;
+  width: 250px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: big-heart 0.6s ease-in;
+  animation: big-heart 0.5s ease-in;
   opacity: 0;
 }
 
 @keyframes big-heart {
   0% {
-    width: 20px;
+    width: 50px;
+  }
+  25% {
+    width: 80px;
   }
   50% {
-    width: 300px;
+    width: 100px;
   }
-  60% {
-    width: 310px;
-  }
-  90% {
+  75% {
     opacity: 0.8;
-    width: 450px;
+    width: 100px;
   }
   100% {
-    width: 500px;
+    width: 100px;
     opacity: 0;
   }
 }

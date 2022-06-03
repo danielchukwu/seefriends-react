@@ -24,6 +24,10 @@ import options_icon from "../images/icons/options/option-black.png";
 import heart_white_icon32 from '../images/icons/heart/heartw-32.png';
 import heart_red_icon32 from '../images/icons/heart/heartr-32.png';
 
+import heart_red_icon256 from '../images/icons/heart/heartr-256.png';
+
+
+
 
 const useIcons = () => {
 
@@ -33,7 +37,7 @@ const useIcons = () => {
       // footers
       feed_icon, tells_icon, upload_icon, activity_icon, account_icon, 
       // posts and tells
-      verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32
+      verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256
    };
    
 }
