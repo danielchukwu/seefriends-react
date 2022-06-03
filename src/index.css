@@ -631,6 +631,7 @@ footer {
   z-index: 1;
   box-sizing: border-box;
   border-top: 1px solid #fafafa;
+  padding: 0px 10px;
 }
 .footer-wrapper {
   width: 100%;
@@ -1542,6 +1543,11 @@ width: 15px; */
 .comment-post-btn {
   color: #2FA4FF;
   padding-bottom: 15px;
+  border: none;
+  background-color: #fff;
+}
+.disabled {
+  color: #6c7780;
 }
 
 .seperator {
