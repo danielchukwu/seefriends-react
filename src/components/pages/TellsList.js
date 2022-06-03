@@ -7,21 +7,11 @@ import useVariables from '../../customhooks/useVariables';
 import useGetOwner from '../../customhooks/useGetOwner';
 // imports: images
 
-const TellsList = ({ tells }) => {
+const TellsList = ({ tells, setTells }) => {
    const {owner} = useGetOwner();
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon} = useIcons();
-   const {host_url} = useVariables();
+   const {host_url, tells_url, access_token} = useVariables();
 
-
-   const checkTellOwnerVerified = (tell) => {
-      return tell.owner.profile.verified;
-   }
-   
-   const checkLiked = (telldata) => {
-      const telllikes = telldata.likers;
-      if (telllikes.length === 0) {return false;}      
-      return telllikes.includes(owner.id);
-   }
 
    const getfirstComment = (tell, which) => {
       // if (tell.comments.length === 0) return;
@@ -36,20 +26,39 @@ const TellsList = ({ tells }) => {
       }
    }
 
-   const getCommentsCount = (tell) => {
-      // console.log(tell.comments.length)
-      return tell.comments.length
-   }
-
-   // logic: Like Post
+   // logic: Like Tell
    const toggleLike = (id) => {
       let newTell = tells;
       const tell = newTell.find(tell => tell.id === id);
-      console.log(tell)
+
+      tell.liked = !tell.liked;   // sets liked: to true or false. it's where the magic happens
+      if (tell.liked){
+         tell.likers.push(owner.id);
+      } else {
+         tell.likers.pop();
+      }
+      setTells([...newTell]) 
+
+      // Send Like to Backend
+      fetch(tells_url+id+'/like/', {
+         method: "GET",
+         headers: {"Content-Type": "application/json",
+                  Authorization: `Bearer ${access_token}`
+      }
+      })
+         .then(res => {
+            return res.json();
+         })
+         .then(data => {
+            console.log(data)
+         })
+         .catch(err => {
+            console.log(err.message);
+         })
+
    }
 
-   
-   console.log(tells)
+   // console.log(tells)
    return (
 
       <section className="tellslist tell-wrapper">
@@ -66,7 +75,7 @@ const TellsList = ({ tells }) => {
                            <div className="content-owner">
                               <Link to={`/users/profile/${tell.owner.id}`}>
                                  <h3 className="no-margin">{tell.owner.profile.username}
-                                    {checkTellOwnerVerified(tell) && <img src={verified_icon} className="small-img-feed verified-pos2" alt="verification" />}
+                                    {tell.owner.profile.verified && <img src={verified_icon} className="small-img-feed verified-pos2" alt="verification" />}
                                  </h3>
                               </Link>
                            </div>
@@ -74,8 +83,8 @@ const TellsList = ({ tells }) => {
                         {/* {% if request.user not in tell.likers.all %} */}
                         <div className="tcon" data-tid={tell.id}>
                            
-                           {owner && !checkLiked(tell) && <img src={heart_black_icon} className="theartb" alt="like" />}
-                           {owner && checkLiked(tell) && <img src={heart_red_icon} className="theartr" alt="dislike" />}
+                           {owner && !tell.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggleLike(tell.id)} />}
+                           {owner && tell.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggleLike(tell.id)} />}
                            <small><strong className="lcount">{tell.likers.length}</strong></small>
                         </div>
                      </div>
@@ -85,7 +94,7 @@ const TellsList = ({ tells }) => {
                      </div>
 
                      {/* First Comment Section */}
-                     {getCommentsCount(tell) > 0 && (
+                     {tell.comments.length > 0 && (
                      <div className="content-layer-3">
                         <p className="no-margin pad-top-5">
                            <Link to={`/users/profile/${tell.comments[0].owner.id}`}>
@@ -100,12 +109,12 @@ const TellsList = ({ tells }) => {
 
                      {/* CommentCount and Date Section */}
                      <div className="content-layer-4-updated flex">
-                           <Link to={"#"}>
-                              {getCommentsCount(tell) === 0 && <small className="grey no-margin pad-top-5 pad-bot-5">no comments</small>}
+                           <Link to={`/tells/${tell.id}/comments`}>
+                              {tell.comments.length === 0 && <small className="grey no-margin pad-top-5 pad-bot-5">no comments</small>}
 
-                              {getCommentsCount(tell) === 1 && <small className="grey no-margin pad-top-5 pad-bot-5">there's no other comment</small>}
+                              {tell.comments.length === 1 && <small className="grey no-margin pad-top-5 pad-bot-5">there's no other comment</small>}
 
-                              {getCommentsCount(tell) > 1 && <small className="grey no-margin pad-top-5 pad-bot-5">see {getCommentsCount(tell) - 1} other comments</small>}
+                              {tell.comments.length > 1 && <small className="grey no-margin pad-top-5 pad-bot-5">see {tell.comments.length - 1} other comments</small>}
                            </Link>
                            <small className="grey no-margin">{tell.date}</small>
                      </div>

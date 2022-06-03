@@ -223,7 +223,7 @@ header {
   height: 55px;
   top: 0;
   z-index: 1;
-  border-bottom: 1px solid #1b1a1711;
+  border-bottom: 1px solid #fafafa;
 }
 
 .header-wrapper {
@@ -427,9 +427,6 @@ main {
 }
 
 .content-2 {
-  border-bottom: 1px solid #202a39;
-  border-left: 1px solid #202a39;
-  border-right: 1px solid #202a39;
   background-color: #ffffff;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -622,17 +619,18 @@ footer {
   z-index: 1;
   display: flex;
   align-items: center;
-  border-top: 1px solid #1b1a1711;
+  border-top: 1px solid #fafafa;
 }
 
 .footer {
   background-color: #fff;
   position: fixed;
   width: 100%;
-  height: 54px;
+  min-height: 55px;
   bottom: 0;
   z-index: 1;
   box-sizing: border-box;
+  border-top: 1px solid #fafafa;
 }
 .footer-wrapper {
   width: 100%;
@@ -1176,7 +1174,7 @@ width: 15px; */
 
 .tcon small{
   position: absolute;
-  bottom: -22px;
+  bottom: -25px;
   right: 4.3px;
 }
 
@@ -1230,6 +1228,18 @@ width: 15px; */
   width: 100%;
   font-size: 16px;
   padding: 15px 15px;
+}
+
+
+.comment-btn-container {
+  font-size: 16px;
+  font-family: "Roboto" sans-serif;
+  display: flex;
+  align-items: flex-end;
+  justify-content: bottom;
+  outline: none;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 /*  */
 /*  */
@@ -1513,7 +1523,7 @@ width: 15px; */
   overflow-y: auto;
 }
 
-.comment-floater-box {
+.comment-header-container {
   box-sizing: border-box;
   padding: 75px 10px 5px;
   height: 100%;
@@ -1521,6 +1531,24 @@ width: 15px; */
   background-color: #fff;
 }
 
+.comments-list-container {
+  box-sizing: border-box;
+  padding: 20px 10px 5px;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+
+.comment-post-btn {
+  color: #2FA4FF;
+  padding-bottom: 15px;
+}
+
+.seperator {
+  background-color: #fff;
+  padding-top: 5px;
+  border-bottom: 1px solid #fafafa;
+}
 .comment-wrapper p {
   padding-left: 10px;
   margin: 0;
@@ -1538,8 +1566,12 @@ width: 15px; */
 
 .comment-btn-wrappers {
   display: flex;
-  border-top: 1px solid #696969;
 }
+
+#comment-form {
+  width: 100%;
+}
+
 
 #comment {
   width: 100%;
@@ -1557,9 +1589,6 @@ width: 15px; */
   font-weight: 900;
   background-color: #fff;
   cursor: pointer;
-}
-
-#comment:active {
 }
 
 /* .options {

@@ -77,8 +77,8 @@ const Saved = () => {
             </div>
 
             <div>
-                  { pt === "posts" && posts && <PostList posts={posts} />}
-                  { pt === "tells" && tells && <TellsList tells={tells} />}
+                  { pt === "posts" && posts && <PostList posts={posts} setPosts={setPosts} />}
+                  { pt === "tells" && tells && <TellsList tells={tells} setTells={setTells} />}
             </div>
 
          </div>

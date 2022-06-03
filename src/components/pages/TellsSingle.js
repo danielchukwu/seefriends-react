@@ -49,7 +49,7 @@ const TellsSingle = () => {
          <HeaderGBT title={"Tell"} />
 
          <main className="margin-b-60">
-            {tell && <TellsList tells={tell} />}
+            {tell && <TellsList tells={tell} setTells={setTell} />}
          </main>
 
          {/* <Footer /> */}

@@ -1,25 +1,19 @@
 // import: main
 import { Link, useNavigate } from 'react-router-dom'
 
-// import: images
-import drake from '../../images/dr-1.jpg'
-
 // import: custom hooks
 import useVariables from '../../customhooks/useVariables'
 import useIcons from '../../customhooks/useIcons'
 import useGetOwner from '../../customhooks/useGetOwner'
-import { ACTIONS } from '../../App'
-import { useDoubleTap } from 'use-double-tap'
 
 
 
 
 
-const PostList = ({ posts, setPosts, page }) => {
+const PostList = ({ posts, setPosts}) => {
    const {owner} = useGetOwner();
    const {host_url, access_token, posts_url} = useVariables()
    const {verified_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256: big_heart} = useIcons();
-   const navigate = useNavigate();
 
    const getFirstCommentInfo = (post, which) => {
       const comment = post.comments[0]
@@ -30,9 +24,6 @@ const PostList = ({ posts, setPosts, page }) => {
       } else {
          return null
       }
-   }
-   const getCommentsCount = (post) => {
-      return post.commenters.length
    }
 
    // logic: Like Post
@@ -112,7 +103,7 @@ const PostList = ({ posts, setPosts, page }) => {
                   <div className="big-heart-parent" onDoubleClick={(e) => double_click_Like(post, e)} data>
                      <img src={big_heart} alt="" className="big-heart none" />
                      {/* <img src={host_url+post.img} alt="post" className="post-img" /> */}
-                     <img src={page === "postfeed"? post.img : host_url+post.img} alt="post" className="post-img" />
+                     <img src={post.img} alt="post" className="post-img" />
                   </div>
 
                   {/* {% if request.user not in content.post.likers.all %} */}
@@ -145,7 +136,7 @@ const PostList = ({ posts, setPosts, page }) => {
                   </div>
 
                   {/* {% for comment in content.post.commentonpost_set.all|slice:1 %} */}
-                  {getCommentsCount(post) > 0 && (
+                  {post.commenters.length > 0 && (
                      <div className="content-layer-3">
                         <p className="no-margin pad-top-5">
                            <Link to={`/users/profile/${post.comments[0].owner.id}`}>
@@ -160,12 +151,12 @@ const PostList = ({ posts, setPosts, page }) => {
                   {/* {% endfor %} */}
 
                   <div className="cl-4 flex pad-bot-20">
-                     <Link to="{% url 'post-comments-page' content.post.id %}">
-                        {getCommentsCount(post) === 0 && <small className="grey no-margin pad-top-5 pad-bot-5">no comments</small>}
+                     <Link to={`/posts/${post.id}/comments`}>
+                        {post.comments.length === 0 && <small className="grey no-margin pad-top-5 pad-bot-5">no comments</small>}
 
-                        {getCommentsCount(post) === 1 && <small className="grey no-margin pad-top-5 pad-bot-5">there's no other comment</small>}
+                        {post.comments.length === 1 && <small className="grey no-margin pad-top-5 pad-bot-5">there's no other comment</small>}
 
-                        {getCommentsCount(post) > 1 && <small className="grey no-margin pad-top-5 pad-bot-5">see {getCommentsCount(post) - 1} other comments</small>}
+                        {post.comments.length > 1 && <small className="grey no-margin pad-top-5 pad-bot-5">see {post.comments.length - 1} other comments</small>}
                      </Link>
                      <small className="grey">{post.date}</small>
                   </div>

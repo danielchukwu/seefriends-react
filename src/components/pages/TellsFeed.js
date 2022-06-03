@@ -16,6 +16,7 @@ const TellsFeed = () => {
    const {tells_url, access_token } = useVariables()
    const navigate = useNavigate()
    
+   // Logic: Fetch Tells
    useEffect(() => {
       fetch(tells_url, {
          method: "GET",
@@ -44,7 +45,7 @@ const TellsFeed = () => {
          <HeaderPostFeed />
 
          <main className="margin-b-60">
-            {tells && <TellsList tells={tells} />}
+            {tells && <TellsList tells={tells} setTells={setTells} />}
          </main>
 
          <Footer />

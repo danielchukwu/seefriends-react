@@ -62,7 +62,7 @@ const PostFeed = () => {
                {owner && <h3>Welcome {owner.username}</h3>}
             </div>
 
-            {posts && <PostList posts={posts} setPosts={setPosts} page={"postfeed"} />}
+            {posts && <PostList posts={posts} setPosts={setPosts}/>}
 
          </main>
 

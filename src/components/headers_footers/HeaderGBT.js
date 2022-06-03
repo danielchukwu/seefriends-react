@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useIcons from "../../customhooks/useIcons";
 
 // HeaderGBT : Header Go back and Title
-const HeaderSaved = ({title}) => {
+const HeaderGBT = ({title}) => {
    const {go_back_icon} = useIcons()
    const navigate = useNavigate()
 
@@ -24,4 +24,4 @@ const HeaderSaved = ({title}) => {
    );
 }
 
-export default HeaderSaved;
+export default HeaderGBT;

@@ -19,8 +19,6 @@ const PostSingle = () => {
    const {posts_url, access_token} = useVariables()
    const navigate = useNavigate()
    
-   console.log(posts_url+id+"/")
-   
    useEffect(()=> {
       
       if (id){
@@ -57,7 +55,7 @@ const PostSingle = () => {
 
          <main className='postfeed'>
 
-            {post && <PostList posts={post} />}
+            {post && <PostList posts={post} host_img_url={false}/>}
 
          </main>
 

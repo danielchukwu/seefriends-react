@@ -119,12 +119,6 @@ const UserProfile = () => {
    }, [access_token, users_host_url, page, user])
 
 
-   // SECTION 3: Switch User Profile Content -> post or tells
-   const handleSwitchPt = (value) => {
-      setPt(value);
-   }
-
-
    // SCTION 4:
    // toggleFollow
    const toggleFollow = (id) => {
@@ -259,11 +253,11 @@ const UserProfile = () => {
                   
                   <div className="options-wrapper">
 
-                     <div className="profile-posts pointer" onClick={() => handleSwitchPt('posts')}>
+                     <div className="profile-posts pointer" onClick={() => setPt('posts')}>
                         {pt === "posts" && <h4>Posts</h4>}
                         {pt !== "posts" && <h4 className="grey-dark">Posts</h4>}
                      </div>
-                     <div className="tell pointer" onClick={() => handleSwitchPt('tells')}>
+                     <div className="tell pointer" onClick={() => setPt('tells')}>
                         {pt === "tells" && <h4>Tells</h4>}
                         {pt !== "tells" && <h4 className="grey-dark">Tells</h4>}
                      </div>
@@ -282,8 +276,8 @@ const UserProfile = () => {
                </div>
 
                <div>
-                  { pt === "posts" && posts && <PostList posts={posts} />}
-                  { pt === "tells" && tells && <TellsList tells={tells} />}
+                  { pt === "posts" && posts && <PostList posts={posts} setPosts={setPosts} />}
+                  { pt === "tells" && tells && <TellsList tells={tells} setTells={setTells} />}
 
                </div>
                

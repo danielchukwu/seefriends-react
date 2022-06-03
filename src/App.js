@@ -12,6 +12,7 @@ import Saved from './components/pages/Saved';
 import FFF from './components/pages/FFF';
 import PostSingle from './components/pages/PostSingle';
 import TellsSingle from './components/pages/TellsSingle';
+import Comment from './components/pages/Comment';
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
 
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />
+
+            <Route path="/:type/:id/comments" element={ <Comment /> } /> //:type = posts, tells
             
             <Route path="/users/activity" element={ <Activity /> } />
             <Route path="/users/profile" element={ <UserProfile /> } />
@@ -37,8 +40,6 @@ function App() {
             <Route path="/users/profile/saved" element={ <Saved /> } />
 
             <Route path='users/profile/:id/fff/:page' element={ <FFF />} />
-            
-
           </Routes>
       </div>
     </Router>
