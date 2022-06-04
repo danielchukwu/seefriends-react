@@ -105,10 +105,11 @@ const Comment = () => {
                   return res.json();
                })
                .then(data => {
-                  const newPost = post;
+                  // override temporary comment data with main comment data
+                  let newPost = post;
+                  newPost.comments.shift();
                   newPost.comments.unshift(data);
                   setPost({...newPost})
-                  console.log(data)
                })
                .catch(err => console.log(err))
          } else if (type === "tells"){
@@ -117,18 +118,23 @@ const Comment = () => {
                headers: {Authorization: `Bearer ${access_token}`},
                body: uploadData
             })
-               .then(res => {
-                  return res.json();
-               })
+            .then(res => {
+               return res.json();
+            })
+               // override temporary comment data with main comment data
                .then(data => {
-                  console.log(data)
+                  let newPost = post;
+                  newPost.comments.shift();
+                  newPost.comments.unshift(data);
+                  setPost({...newPost})
                })
                .catch(err => console.log(err))
          }
       }
 
-      // const newPost = post;
-      // setPost({...newPost})
+      let newPost = post;
+      newPost.comments.unshift({comment: inputRef.current.innerHTML, created: Date.now(), id: Date.now(), owner: owner, tell: id, updated: Date.now()});
+      setPost({...newPost})
 
       inputRef.current.innerHTML = "";
       inputRef.current.focus();

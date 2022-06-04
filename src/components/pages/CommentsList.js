@@ -40,7 +40,6 @@ const CommentsList = ({post, setPost, type, owner}) => {
 
    }
 
-
    return (
       <div className="">
          <div className="comment-header-container">
@@ -64,7 +63,7 @@ const CommentsList = ({post, setPost, type, owner}) => {
                   </div>
                </div>
                <div className="content-layer-2">
-                  <p className="no-margin pad-top-10">{post.body}</p>
+                  <p className="no-margin pad-top-10 pre-wrap">{post.body}</p>
                </div>
             </div>
 
@@ -72,11 +71,11 @@ const CommentsList = ({post, setPost, type, owner}) => {
 
          <div className="seperator"></div>
 
-         <div className="comments-list-container">
+         {post.comments.length > 0 && <div className="comments-list-container">
             <div className="comment-wrapper">
                {/* {% for comment in post.commentonpost_set.all %} */}
                {post.comments.map((commenter) => (
-                  <div className="a_comment">
+                  <div className="a_comment" key={commenter.id}>
                      <div className="img-holder">
                         <img src={host_url+commenter.owner.profile.img} alt="profile-picture" className="img-holder-image" />
                      </div>
@@ -87,7 +86,7 @@ const CommentsList = ({post, setPost, type, owner}) => {
                ))}
                {/* {% endfor %} */}
             </div>
-         </div>
+         </div>}
 
       </div>
    
