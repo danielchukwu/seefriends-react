@@ -1,5 +1,5 @@
 // imports: main
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 // imports: custom hooks
 import useGetOwner from "../../customhooks/useGetOwner";
@@ -12,6 +12,7 @@ import HeaderPostFeed from "../headers_footers/HeaderPostFeed";
 import HeaderGBT from "../headers_footers/HeaderGBT";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
+import { reducerPost, reducerTell } from "../../App";
 
 
 
@@ -20,13 +21,13 @@ const UserProfile = () => {
    const {verified_icon, msg_icon} = useIcons()
    // const navigate = useNavigate()
    
-   const { id } = useParams()
-   const {owner, setOwner} = useGetOwner()
-   const [user, setUser] = useState()
-   const [posts, setPosts] = useState()
-   const [tells, setTells] = useState()
-   let [page, setPage] = useState("main-user")  // main-user, other-user
-   let [pt, setPt] = useState("posts")   // user content to fetch: posts or tells
+   const { id } = useParams();
+   const {owner, setOwner} = useGetOwner();
+   const [user, setUser] = useState();
+   const [posts, dispatchPost] = useReducer(reducerPost, []);
+   const [tells, dispatchTell] = useReducer(reducerTell, []);
+   let [page, setPage] = useState("main-user");  // main-user, other-user
+   let [pt, setPt] = useState("posts");   // user content to fetch: posts or tells
 
    // fff: count holders
    const [followerCount, setFollowerCount] = useState(); // follower count
@@ -88,7 +89,7 @@ const UserProfile = () => {
          })
          .then(res => res.json())
          .then(data => {
-            setPosts(data)
+            dispatchPost({ type: "add-post", payload: {posts: data}});
          })
          .catch(err => {
             console.log('userprofile error: ', err.message)
@@ -109,7 +110,7 @@ const UserProfile = () => {
             return res.json()
          })
          .then(data => {
-            setTells(data)
+            dispatchTell({ type: "add-tell", payload: {tells: data}});
          })
          .catch(err => {
             console.log('userprofile error: ', err.message)
@@ -276,8 +277,8 @@ const UserProfile = () => {
                </div>
 
                <div>
-                  { pt === "posts" && posts && <PostList posts={posts} setPosts={setPosts} />}
-                  { pt === "tells" && tells && <TellsList tells={tells} setTells={setTells} />}
+                  { pt === "posts" && posts && <PostList posts={posts} dispatchPost={dispatchPost} />}
+                  { pt === "tells" && tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}
 
                </div>
                

@@ -52,6 +52,34 @@ function reducer(posts, action){
 
          return [...newPost]
 
+      case "save-post":
+         const post1 = newPost.find(post => post.id === id);
+         if (post1.savers.includes(owner.id)){
+            post1.savers = post1.savers.filter(id => id !== owner.id);
+         } else {
+            post1.savers.push(owner.id);
+         }
+         console.log("savers", post1.savers)
+
+         // Send Like to Backend
+         fetch(posts_url+id+'/save-post/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`
+         }
+         })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               console.log(data)
+            })
+            .catch(err => {
+               console.log(err.message);
+            })
+
+         return [...newPost]
+
       default:
          return posts
    }

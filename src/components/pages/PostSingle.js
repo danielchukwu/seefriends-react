@@ -1,5 +1,5 @@
 // imports: main
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // imports: custom hooks
@@ -9,13 +9,14 @@ import useVariables from '../../customhooks/useVariables';
 import PostList from './PostList'
 import HeaderGBT from '../headers_footers/HeaderGBT'
 import Footer from '../headers_footers/Footer';
+import { reducerPost } from '../../App';
 
 
 
 const PostSingle = () => {
    const { id } = useParams()
    // const {owner, setOwner} = useGetOwner()
-   const [post, setPost] = useState(null)
+   const [post, dispatchPost] = useReducer(reducerPost, []);
    const {posts_url, access_token} = useVariables()
    const navigate = useNavigate()
    
@@ -34,7 +35,7 @@ const PostSingle = () => {
             if (data.detail){
                throw Error("unknown user")
             }
-            setPost([data])
+            dispatchPost({ type: "add-post", payload: {posts: [data]}});
          })
          .catch(err => {
             if (err.message === "unknown user"){
@@ -55,7 +56,7 @@ const PostSingle = () => {
 
          <main className='postfeed'>
 
-            {post && <PostList posts={post} host_img_url={false}/>}
+            {post && <PostList posts={post} dispatchPost={dispatchPost}/>}
 
          </main>
 

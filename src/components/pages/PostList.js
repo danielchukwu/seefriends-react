@@ -27,8 +27,22 @@ const PostList = ({ posts, setPosts, dispatchPost}) => {
    }
 
    // logic: Like Post
-   const toggleLike = (id) => {
-      dispatchPost({type: "like-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token}})
+   const toggle = (id, toggleType) => {
+      switch (toggleType){
+         case "like":
+            dispatchPost({type: "like-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token}});
+            break;
+         case "save":
+            dispatchPost({type: "save-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token}});
+            break;
+         case "tell":
+            break;
+         case "msg":
+            break;
+         default:
+            console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
+
+      }
    }
 
    // Doubleclick Liking
@@ -40,11 +54,13 @@ const PostList = ({ posts, setPosts, dispatchPost}) => {
       }, 500)
 
       if (!post.liked){
-         toggleLike(post.id);
+         toggle(post.id, "like");
       }
    }
+
+   // 
    
-   console.log(posts)
+   // console.log(posts)
    return ( 
       
       posts.map((post) => (
@@ -80,8 +96,8 @@ const PostList = ({ posts, setPosts, dispatchPost}) => {
 
                   {/* {% if request.user not in content.post.likers.all %} */}
                   <div className="heart-p position-rel">
-                     {owner && !post.liked && <img src={heart_white_icon32} alt="" className="heartw" onClick={() => toggleLike(post.id)} />}
-                     {owner && post.liked && <img src={heart_red_icon32} alt="" className="heartr" onClick={() => toggleLike(post.id)} /> }
+                     {owner && !post.liked && <img src={heart_white_icon32} alt="" className="heartw" onClick={() => toggle(post.id, "like")} />}
+                     {owner && post.liked && <img src={heart_red_icon32} alt="" className="heartr" onClick={() => toggle(post.id, "like")} /> }
                   </div>
                   {/* {% endif %} */}
 
@@ -95,8 +111,8 @@ const PostList = ({ posts, setPosts, dispatchPost}) => {
                         <Link to="#"><strong className="font-lobster" title="tell on">T</strong></Link>
                         <p>7</p>
                         
-                        {owner && !post.savers.includes(owner.id) && <img src={save_icon} title="save post" alt="" />}
-                        {owner && post.savers.includes(owner.id) && <img src={saved_icon} title="save post" alt="" />}
+                        {owner && !post.savers.includes(owner.id) && <img src={save_icon} title="save post" alt="" onClick={() => toggle(post.id, "save")} />}
+                        {owner && post.savers.includes(owner.id) && <img src={saved_icon} title="save post" alt="" onClick={() => toggle(post.id, "save")} />}
                         <p>{post.savers.length}</p>
                      </div>
                      <div className="cl1-right pl-new">

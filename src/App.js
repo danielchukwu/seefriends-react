@@ -53,3 +53,147 @@ export const ACTIONS = {
   LIKE_POST: "like-post",
   DISLIKE_POST: "dislike-post",
 }
+
+export function reducerPost(posts, action){
+  const newPost = action.payload.posts;
+  const owner = action.payload.owner;
+  const posts_url = action.payload.posts_url;
+  const access_token = action.payload.access_token;
+  const id = action.payload.id;
+  
+  switch (action.type){
+    case "add-post":
+      return [...posts, ...action.payload.posts];
+
+    case "like-post":
+      const post = newPost.find(post => post.id === id);
+
+      post.liked = !post.liked;   // sets liked: to true or false. it's where the magic happens
+      if (post.liked){
+          post.likers.push(owner.id);
+      } else {
+          post.likers.pop();
+      }
+
+      // Send Like to Backend
+      fetch(posts_url+id+'/like/', {
+          method: "GET",
+          headers: {"Content-Type": "application/json",
+                  Authorization: `Bearer ${access_token}`
+      }
+      })
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            console.log(data)
+          })
+          .catch(err => {
+            console.log(err.message);
+          })
+
+      return [...newPost]
+
+    case "save-post":
+      const post1 = newPost.find(post => post.id === id);
+      if (post1.savers.includes(owner.id)){
+          post1.savers = post1.savers.filter(id => id !== owner.id);
+      } else {
+          post1.savers.push(owner.id);
+      }
+      console.log("savers", post1.savers)
+
+      // Send Like to Backend
+      fetch(posts_url+id+'/save-post/', {
+          method: "GET",
+          headers: {"Content-Type": "application/json",
+                  Authorization: `Bearer ${access_token}`
+      }
+      })
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            console.log(data)
+          })
+          .catch(err => {
+            console.log(err.message);
+          })
+
+      return [...newPost]
+
+    default:
+      return posts
+}
+}
+
+export function reducerTell (tells, action){
+  const newTell = action.payload.tells;
+  const owner = action.payload.owner;
+  const tells_url = action.payload.tells_url;
+  const access_token = action.payload.access_token;
+  const id = action.payload.id;
+  
+    switch (action.type){
+      case "add-tell":
+        return [...tells, ...action.payload.tells];
+    
+      case "like-tell":
+        let tell = newTell.find(tell => tell.id === id);
+
+        tell.liked = !tell.liked;   // sets liked: to true or false. it's where the magic happens
+        if (tell.liked){
+          tell.likers.push(owner.id);
+        } else {
+          tell.likers.pop();
+        }
+
+        // Send Like to Backend
+        fetch(tells_url+id+'/like/', {
+          method: "GET",
+          headers: {"Content-Type": "application/json",
+                    Authorization: `Bearer ${access_token}`
+        }
+        })
+          .then(res => {
+              return res.json();
+          })
+          .then(data => {
+              console.log(data)
+          })
+          .catch(err => {
+              console.log(err.message);
+          })
+
+        return [...newTell]
+
+      case "save-tell":
+        // Send saved post to Backend
+        const tell1 = newTell.find(tell => tell.id === id);
+        if (tell1.savers.includes(owner.id)){
+          tell1.savers = tell1.savers.filter(id => id !== owner.id);
+        } else {
+          tell1.savers.push(owner.id);
+        }
+        
+        fetch(tells_url+id+'/save-tell/', {
+          method: "GET",
+          headers: {"Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`
+        }
+        })
+          .then(res => {
+              return res.json();
+          })
+          .then(data => {
+              console.log(data)
+          })
+          .catch(err => {
+              console.log(err.message);
+          })
+          
+        return [...newTell]
+      default:
+        return tells
+    }
+}

@@ -1,5 +1,6 @@
 // imports: main
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
+import { reducerPost, reducerTell } from "../../App";
 // imports: custom hooks
 import useGetOwner from "../../customhooks/useGetOwner";
 import useVariables from "../../customhooks/useVariables";
@@ -14,8 +15,8 @@ const Saved = () => {
    const { saved_posts_url, saved_tells_url, access_token} = useVariables();
    const {owner} = useGetOwner();
    const [pt, setPt] = useState("posts")
-   const [posts, setPosts] = useState();
-   const [tells, setTells] = useState();
+   const [posts, dispatchPost] = useReducer(reducerPost, []);
+   const [tells, dispatchTell] = useReducer(reducerTell, []);
 
 
    // SECTION 1:
@@ -31,7 +32,7 @@ const Saved = () => {
          })
          .then(res => res.json())
          .then(data => {
-            setPosts(data)
+            dispatchPost({ type: "add-post", payload: {posts: data}});
          })
          .catch(err => {
             console.log('userprofile error: ', err.message)
@@ -44,7 +45,7 @@ const Saved = () => {
          })
          .then(res => res.json())
          .then(data => {
-            setTells(data)
+            dispatchTell({ type: "add-tell", payload: {tells: data}});
          })
          .catch(err => {
             console.log('userprofile error: ', err.message)
@@ -77,8 +78,8 @@ const Saved = () => {
             </div>
 
             <div>
-                  { pt === "posts" && posts && <PostList posts={posts} setPosts={setPosts} />}
-                  { pt === "tells" && tells && <TellsList tells={tells} setTells={setTells} />}
+                  { pt === "posts" && posts && <PostList posts={posts} dispatchPost={dispatchPost} />}
+                  { pt === "tells" && tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}
             </div>
 
          </div>

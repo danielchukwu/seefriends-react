@@ -27,8 +27,21 @@ const TellsList = ({ tells, dispatchTell }) => {
    }
 
    // logic: Like Tell
-   const toggleLike = (id) => {
-      dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}})
+   const toggle = (id, toggleType) => {
+      switch(toggleType){
+         case "like":
+            dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
+            break;
+         case "save":
+            dispatchTell({type: "save-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
+            break;
+         case "tell":
+            break;
+         case "msg":
+            break;
+         default:
+            console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
+      }
 
    }
 
@@ -57,13 +70,12 @@ const TellsList = ({ tells, dispatchTell }) => {
                         {/* {% if request.user not in tell.likers.all %} */}
                         <div className="tcon" data-tid={tell.id}>
                            
-                           {owner && !tell.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggleLike(tell.id)} />}
-                           {owner && tell.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggleLike(tell.id)} />}
+                           {owner && !tell.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.id, "like")} />}
+                           {owner && tell.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.id, "like")} />}
                            <small><strong className="lcount">{tell.likers.length}</strong></small>
                         </div>
                      </div>
                      <div className="content-layer-2 pad-top-5">
-                        {/* <pre className="no-margin tellbody"><span>{tell.body}</span></pre> */}
                         <p className="no-margin pre-wrap">{tell.body}</p>
                      </div>
 
@@ -101,8 +113,8 @@ const TellsList = ({ tells, dispatchTell }) => {
                      <p >5</p>
                      <Link to="#"><strong className="font-lobster" title="">T</strong></Link>
                      <p>7</p>
-                     {owner && !tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" />}
-                     {owner && tell.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" />}
+                     {owner && !tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.id, "save")}/>}
+                     {owner && tell.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" onClick={() => toggle(tell.id, "save")} />}
                      <p>{tell.savers.length}</p>
                   </div>
                   <div className="cl1-right">
