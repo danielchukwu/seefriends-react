@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 const ActCommentTell = ({activity, host_url, verified_icon}) => {
 
-   console.log("users/profile/"+activity.profile.user)
    return (
       <div className="activity">
          <div className="activity-2">

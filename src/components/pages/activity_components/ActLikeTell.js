@@ -9,7 +9,7 @@ const ActLikeTell = ({activity, host_url, verified_icon}) => {
                <img src={host_url + activity.profile.img} alt="profile" className="img-holder-image" />
             </div>
             <p><strong>
-               <Link to={`/users/profile/${activity.profile.user}`}>{activity.profile.username}</Link>
+               {activity.profile.username}
                {activity.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
             </strong>liked your tell <small className="grey font-10">{activity.date}</small></p>
          </div>

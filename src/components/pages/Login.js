@@ -20,7 +20,7 @@ const Login = () => {
 
       const username = usernameRef.current.value
       const password = passwordRef.current.value
-      console.log({username, password})
+      // console.log({username, password})
 
       fetch(token_url, {
          method: "POST",

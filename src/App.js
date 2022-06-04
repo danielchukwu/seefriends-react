@@ -32,7 +32,7 @@ function App() {
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />
 
-            <Route path="/:type/:id/comments" element={ <Comment /> } /> //:type = posts, tells
+            <Route path="/:type/:id/comments" element={ <Comment /> } /> {/* :type = posts, tells */}
             
             <Route path="/users/activity" element={ <Activity /> } />
             <Route path="/users/profile" element={ <UserProfile /> } />

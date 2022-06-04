@@ -47,11 +47,8 @@ const PostFeed = () => {
    
    }, [posts_url, access_token, navigate])
 
-   useEffect(() => {
-      console.log("someChanged")
-   }, [posts])
 
-   console.log(posts)
+   // console.log(posts)
    return (
       <div className="postfeed">
 

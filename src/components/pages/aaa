@@ -1,149 +1,151 @@
-// FLOATER JS .......................................................................
-// part 1: floater remove - to remove the floater
-console.log("main.js live")
+// APP.JS
+import { BrowserRouter as Router, Route, Routes, useNavigate,   } from 'react-router-dom'
+import './index.css'
 
-const floater_exit = document.querySelector('.floater-exit')           
-const floater_container = document.querySelector('.floater-container')
-const floater_box = document.querySelector(".floater-box")       // purpose: for animation effect
-
-removeFloater = function () {
-   floater_container.classList.add("collapse")
-   floater_box.classList.remove("floater-box")
-}
-floater_exit.addEventListener("click", removeFloater)
-
-
-
-
-// FLOATER ADD....................
-// part 2a:
-// floater button: add
-const post_button = document.querySelector(".post-button")
-let options_div = document.querySelector(".options")
-clicks = 0
-
-// Purpose: when we refresh our page and click on the post button. The animation doesn't work, to fix this i added
-//          the if statement
-if (clicks === 0){
-   floater_box.classList.remove("floater-box")
-}
-
-displayFloater = function () {
-   floater_container.classList.remove("collapse")
-   floater_box.classList.add("floater-box")
-}
-
-floaterEnable = function (event) {
-   event.preventDefault()
-   
-   options_div.innerHTML = ""
-
-   post_options = `
-      <a href="post-form.html"><h3>Post</h3></a>
-      <a href="tell-form.html"><h3>Tell</h3></a>
-   `
-
-   options_div.innerHTML += post_options
-   displayFloater()
-}
-if (post_button){
-   post_button.addEventListener("click", floaterEnable)
-}
-
-// Note: to syle the post_floater_box_indexpage you need to comment out the entire part 2
+import Login from './components/pages/Login';
+import PostFeed from './components/pages/PostFeed';
+import TellsFeed from './components/pages/TellsFeed';
+import Activity from './components/pages/Activity';
+import UserProfile from './components/pages/UserProfile';
+import AddPost from './components/pages/AddPost';
+import AddTell from './components/pages/AddTell';
+import Saved from './components/pages/Saved';
+import FFF from './components/pages/FFF';
+import PostSingle from './components/pages/PostSingle';
+import TellsSingle from './components/pages/TellsSingle';
+import Comment from './components/pages/Comment';
+import useGetOwner from './customhooks/useGetOwner';
+import { useState, useEffect } from 'react';
+import useVariables from './customhooks/useVariables';
 
 
+function App() {
+  // 1. Posts
+  const {owner, setOwner} = useGetOwner();
+  const [posts, setPosts] = useState()
+  const {posts_url, access_token, host_url} = useVariables()
+  // const navigate = useNavigate()
 
-// part 2b
-// flooter button: user profile
-const user_button = document.querySelector(".user-button") 
-// let options_div = declared already above
-// displayFloater = function () {...} declared above and will be used to 
+  // Logic: Fetch User Post
+  useEffect(()=> {
+    
+    fetch(posts_url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.detail){
+          throw Error("unknown user")
+        }
+        setPosts(data);
+    })
+    .catch(err => {
+        if (err.message === "unknown user"){
+          console.log(owner)
+        }
+        console.log(err.message)
+    })
 
-addUserOptions = function (event) {
-   event.preventDefault()
-   console.log("fired")
+  }, [posts_url, access_token])
 
-   options_div.innerHTML = ""
-
-   user_options = `
-      <a href="edit-profile.html"><h3>Edit Profile</h3></a>
-      <a href="tell-form.html"><h3>Settings</h3></a>
-      <a href="tell-form.html"><h3>Logout</h3></a>
-      <a href="login-form.html"><h3>login</h3></a>
-   `
-   
-   options_div.innerHTML += user_options
-   displayFloater()
-}
-if (user_button !== null){
-   user_button.addEventListener("click", addUserOptions)
-}
-
-
-// FLOATER Javascript logic Ends.........................................................
+  useEffect(() => {
+    console.log("someChanged")
+  }, [posts])
 
 
 
 
-// POST PAGE
-// objective 1: tap here to post disappears after 1 second of page load
-const tapHeretopost = document.querySelector('#tapheretopost')
 
-removeTapHereToPost = function () {
-   tapHeretopost.toggleAttribute("hidden")
+
+  return (
+    <Router>
+      <div className="App">
+          <Routes>
+
+            <Route path="/login" element={ <Login /> } />
+
+            <Route path="/addpost" element={ <AddPost /> } />
+            <Route path="/addtell" element={ <AddTell /> } />
+
+            <Route path="/" element={ <PostFeed posts={posts} setPosts={setPosts} owner={owner} /> } />
+            <Route path="/tellsfeed" element={ <TellsFeed /> } />
+
+            <Route path="/posts/:id" element={ <PostSingle /> } />
+            <Route path="/tells/:id" element={ <TellsSingle /> } />
+
+            <Route path="/:type/:id/comments" element={ <Comment /> } /> {/* :type = posts, tells */}
+            
+            <Route path="/users/activity" element={ <Activity /> } />
+            <Route path="/users/profile" element={ <UserProfile /> } />
+            <Route path="/users/profile/:id" element={ <UserProfile /> } />
+            <Route path="/users/profile/saved" element={ <Saved /> } />
+
+            <Route path='users/profile/:id/fff/:page' element={ <FFF />} />
+          </Routes>
+      </div>
+    </Router>
+  );
 }
 
-if (tapHeretopost !== null){
-   setTimeout(removeTapHereToPost, 2000);
-}
+export default App;
 
-// objective 2: tap field to choose a file
-const post_file_btn = document.querySelector("#post-file-btn")
-// const default_post_btn = document.querySelectorAll("#post-file")
-
-var loadFile = function(event) {
-   var reader = new FileReader();
-   reader.onload = function(){
-      var output = document.getElementById('output');
-      output.src = reader.result;
-   };
-   reader.readAsDataURL(event.target.files[0]);
-};
-
-if (post_file_btn !== null){
-   post_file_btn.addEventListener('click', function() {
-      console.log("image clicked on!")
-   })
+export const ACTIONS = {
+  ADD_POST: "add-post",
+  LIKE_POST: "like-post",
+  DISLIKE_POST: "dislike-post",
 }
 
 
-// Comment
-// objective: show commentPage when comment button is clicked on clicked and remove when backbutton is clicked on: both have there animations
-let comment_in = document.querySelector('.comment-in')  // console.log(comment_in)
 
-let comment_button = document.querySelector(".comment-button")
-let comment_out = document.querySelector("#comment-out")  // console.log(comment_out)
 
-// Add comment-in
-showComment = function (event) {
-   event.preventDefault()
-   comment_in.classList.remove("comment-out")
-   comment_in.classList.remove("none")
+
+
+
+
+// POSTFEED
+// imports: main
+import { useEffect, useReducer, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// imports: custom hooks
+import useVariables from '../../customhooks/useVariables';
+import useGetOwner from "../../customhooks/useGetOwner";
+
+// imports: components
+import PostList from './PostList';
+import HeaderPostFeed from '../headers_footers/HeaderPostFeed';
+import Footer from '../headers_footers/Footer';
+import { ACTIONS } from '../../App';
+
+
+
+const PostFeed = ({ posts, setPosts, owner }) => {
+  const navigate = useNavigate()
+
+
+   console.log(posts)
+   return (
+      <div className="postfeed">
+
+         <HeaderPostFeed />
+
+         <main className='postfeed margin-b-60'>
+            <div className="welcome-user pad-top-10">
+               {owner && <h3>Welcome {owner.username}</h3>}
+            </div>
+
+            {posts && <PostList posts={posts} setPosts={setPosts}/>}
+
+         </main>
+
+         <Footer />
+         
+      </div>
+   );
 }
 
-if (comment_button !== null){
-   comment_button.addEventListener("click", showComment)
-}
-
-// Remove comment-in
-removeComment = function (event) {
-   event.preventDefault()
-   comment_in.classList.add("comment-out")
-   setTimeout(()=>{comment_in.classList.add("none")}, 1000)
-}
-
-// Add comment-out
-if (comment_out !== null){
-   comment_out.addEventListener("click", removeComment)
-}
+export default PostFeed;

@@ -33,11 +33,13 @@ const ActivityList = ({ activities }) => {
                <div key={activity.id}>
                   {/* Like Post */}
                   {getActivityType(activity) === "like_post" && <ActLikePost activity={activity} host_url={host_url} verified_icon={verified_icon} />}
+                  
                   {/* Comment Post */}
                   {getActivityType(activity) === "comment_post" && <ActCommentPost activity={activity} host_url={host_url} verified_icon={verified_icon} />}
 
                   {/* Like Tell */}
                   {(getActivityType(activity) === "like_tell" && <ActLikeTell activity={activity} host_url={host_url} verified_icon={verified_icon} />)}
+                  
                   {/* Comment Tell */}
                   {(getActivityType(activity) === "comment_tell" && <ActCommentTell activity={activity} host_url={host_url} verified_icon={verified_icon} />)}
 

@@ -100,9 +100,8 @@ const PostList = ({ posts, setPosts}) => {
                </div>
 
                <div className="content-1">
-                  <div className="big-heart-parent" onDoubleClick={(e) => double_click_Like(post, e)} data>
+                  <div className="big-heart-parent" onDoubleClick={(e) => double_click_Like(post, e)}>
                      <img src={big_heart} alt="" className="big-heart none" />
-                     {/* <img src={host_url+post.img} alt="post" className="post-img" /> */}
                      <img src={post.img} alt="post" className="post-img" />
                   </div>
 

@@ -12,7 +12,7 @@ const ActCommentPost = ({activity, host_url, verified_icon}) => {
             </div>
             <div>
                <p className="no-margin"><strong>
-                  <Link to={`/users/profile/${activity.profile.user}`}>{activity.profile.username}</Link>
+                  {activity.profile.username}
                   {activity.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
                   </strong>commented <small className="grey font-10">{activity.date}</small>
                </p>
