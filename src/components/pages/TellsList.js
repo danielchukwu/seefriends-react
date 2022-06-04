@@ -7,9 +7,9 @@ import useVariables from '../../customhooks/useVariables';
 import useGetOwner from '../../customhooks/useGetOwner';
 // imports: images
 
-const TellsList = ({ tells, setTells }) => {
+const TellsList = ({ tells, dispatchTell }) => {
    const {owner} = useGetOwner();
-   const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon} = useIcons();
+   const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon} = useIcons();
    const {host_url, tells_url, access_token} = useVariables();
 
 
@@ -28,33 +28,7 @@ const TellsList = ({ tells, setTells }) => {
 
    // logic: Like Tell
    const toggleLike = (id) => {
-      let newTell = tells;
-      const tell = newTell.find(tell => tell.id === id);
-
-      tell.liked = !tell.liked;   // sets liked: to true or false. it's where the magic happens
-      if (tell.liked){
-         tell.likers.push(owner.id);
-      } else {
-         tell.likers.pop();
-      }
-      setTells([...newTell]) 
-
-      // Send Like to Backend
-      fetch(tells_url+id+'/like/', {
-         method: "GET",
-         headers: {"Content-Type": "application/json",
-                  Authorization: `Bearer ${access_token}`
-      }
-      })
-         .then(res => {
-            return res.json();
-         })
-         .then(data => {
-            console.log(data)
-         })
-         .catch(err => {
-            console.log(err.message);
-         })
+      dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}})
 
    }
 
@@ -127,8 +101,9 @@ const TellsList = ({ tells, setTells }) => {
                      <p >5</p>
                      <Link to="#"><strong className="font-lobster" title="">T</strong></Link>
                      <p>7</p>
-                     <img src={save_icon} alt="" />
-                     <p>6</p>
+                     {owner && !tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" />}
+                     {owner && tell.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" />}
+                     <p>{tell.savers.length}</p>
                   </div>
                   <div className="cl1-right">
                      <img src={options_icon} alt="" />

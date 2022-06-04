@@ -10,10 +10,10 @@ import useGetOwner from '../../customhooks/useGetOwner'
 
 
 
-const PostList = ({ posts, setPosts}) => {
+const PostList = ({ posts, setPosts, dispatchPost}) => {
    const {owner} = useGetOwner();
    const {host_url, access_token, posts_url} = useVariables()
-   const {verified_icon, send_small_icon, save_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256: big_heart} = useIcons();
+   const {verified_icon, send_small_icon, save_icon, saved_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256: big_heart} = useIcons();
 
    const getFirstCommentInfo = (post, which) => {
       const comment = post.comments[0]
@@ -28,34 +28,7 @@ const PostList = ({ posts, setPosts}) => {
 
    // logic: Like Post
    const toggleLike = (id) => {
-      let newPost = posts;
-      const post = newPost.find(post => post.id === id);
-
-      post.liked = !post.liked;   // sets liked: to true or false. it's where the magic happens
-      if (post.liked){
-         post.likers.push(owner.id);
-      } else {
-         post.likers.pop();
-      }
-      setPosts([...newPost]) 
-
-      // Send Like to Backend
-      fetch(posts_url+id+'/like/', {
-         method: "GET",
-         headers: {"Content-Type": "application/json",
-                  Authorization: `Bearer ${access_token}`
-      }
-      })
-         .then(res => {
-            return res.json();
-         })
-         .then(data => {
-            console.log(data)
-         })
-         .catch(err => {
-            console.log(err.message);
-         })
-
+      dispatchPost({type: "like-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token}})
    }
 
    // Doubleclick Liking
@@ -69,9 +42,9 @@ const PostList = ({ posts, setPosts}) => {
       if (!post.liked){
          toggleLike(post.id);
       }
-
    }
    
+   console.log(posts)
    return ( 
       
       posts.map((post) => (
@@ -122,8 +95,9 @@ const PostList = ({ posts, setPosts}) => {
                         <Link to="#"><strong className="font-lobster" title="tell on">T</strong></Link>
                         <p>7</p>
                         
-                        <img src={save_icon} title="save post" alt="" />
-                        <p>6</p>
+                        {owner && !post.savers.includes(owner.id) && <img src={save_icon} title="save post" alt="" />}
+                        {owner && post.savers.includes(owner.id) && <img src={saved_icon} title="save post" alt="" />}
+                        <p>{post.savers.length}</p>
                      </div>
                      <div className="cl1-right pl-new">
                         <strong className="like_count" id="">{post.likers.length}</strong>
