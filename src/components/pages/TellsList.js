@@ -1,18 +1,45 @@
 // imports: main
+import { useState } from 'react';
 // import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // imports: custom hooks
 import useIcons from '../../customhooks/useIcons';
 import useVariables from '../../customhooks/useVariables';
 import useGetOwner from '../../customhooks/useGetOwner';
+import TellOn from '../pop_ups/TellOn';
 // imports: images
 
 const TellsList = ({ tells, dispatchTell }) => {
    const {owner} = useGetOwner();
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon} = useIcons();
    const {host_url, tells_url, access_token} = useVariables();
+   const [tPost, setTPost] = useState();
 
 
+
+   // logic: Post Events: Like, save, tell-on, msg
+   const toggle = (id, toggleType, body) => {
+      console.log(body)
+      switch(toggleType){
+         case "like":
+            dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
+            break;
+         case "save":
+            dispatchTell({type: "save-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
+            break;
+         case "tell-on-tell":
+            dispatchTell({type: "tell-on-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token, body: body}});
+            
+            break;
+         case "msg":
+            break;
+         default:
+         console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
+      }
+
+   }
+
+   // logic: first comment
    const getfirstComment = (tell, which) => {
       // if (tell.comments.length === 0) return;
       const comment = tell.comments[0];
@@ -26,23 +53,10 @@ const TellsList = ({ tells, dispatchTell }) => {
       }
    }
 
-   // logic: Like Tell
-   const toggle = (id, toggleType) => {
-      switch(toggleType){
-         case "like":
-            dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
-            break;
-         case "save":
-            dispatchTell({type: "save-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
-            break;
-         case "tell":
-            break;
-         case "msg":
-            break;
-         default:
-            console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
-      }
 
+   // logic: tell on POST
+   const handleTellOnTell = (tell) => {
+      setTPost(tell);
    }
 
    // console.log(tells)
@@ -111,8 +125,13 @@ const TellsList = ({ tells, dispatchTell }) => {
                   <div className="cl1-left">
                      <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
                      <p >5</p>
-                     <Link to="#"><strong className="font-lobster" title="">T</strong></Link>
-                     <p>7</p>
+
+                     
+                     <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell)}>T</strong>
+                     <p>{tell.tellers_count}</p>
+
+
+                     
                      {owner && !tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.id, "save")}/>}
                      {owner && tell.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" onClick={() => toggle(tell.id, "save")} />}
                      <p>{tell.savers.length}</p>
@@ -123,6 +142,9 @@ const TellsList = ({ tells, dispatchTell }) => {
                </div>
             </div>
          ))}
+
+         {/* Tell on Tell */}
+         {tPost && <TellOn tPost={tPost} setTPost={setTPost} type="tell" toggle={toggle} />}
 
       </section>
       

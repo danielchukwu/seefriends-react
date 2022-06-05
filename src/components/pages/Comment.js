@@ -67,7 +67,6 @@ const Comment = () => {
             console.log(err.message)
          })
       }
-
    }, [type])
 
    // form: upload our post if ready
@@ -75,19 +74,6 @@ const Comment = () => {
       e.preventDefault();
       
       let body = inputRef.current.innerHTML;
-
-      // filter out: contenteditable innerHTML <div> tags and <br/> tags
-      while(body.includes('<div>') || body.includes('<br>') ||  body.includes('</div>')){
-         body = body.replace("<div><br>", ' '); // no new line for commenting instead space
-         body = body.replace("&nbsp;", '');
-         body = body.replace("&amp;", '&');
-         body = body.replace("<br>", ' '); // no new line for commenting instead space
-         body = body.replace("<div>", ' '); // no new line for commenting instead space
-         body = body.replace("</div>", '');
-      }
-      while (body.length-1 === body.lastIndexOf('\n')){
-         body = body.slice(0, -1);
-      }
 
       // FormData: will act as a form for us with Content-Type: "multipart/form-data"
       const uploadData = new FormData();
@@ -141,15 +127,22 @@ const Comment = () => {
    }
 
    // form: ready for submission
-   const isReady =() => {
+   const isReady =(e) => {
       const bodysize = inputRef.current.innerHTML.length
       if (bodysize !== 0){
          setSubmitReady(true)
+         if (e.key === 'Enter'){
+            handleSubmit(e);
+         }
       } else {
          setSubmitReady(false)
       }
    }
 
+   // logic: focus on input
+   setTimeout(()=> {
+      inputRef.current.focus()
+   }, 200)
 
    console.log(post)
    

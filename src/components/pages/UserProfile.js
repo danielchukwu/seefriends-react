@@ -46,8 +46,10 @@ const UserProfile = () => {
             return res.json();
          })
          .then(data => {
-            if(id == owner.id){setPage("main-user")}
-            else {setPage("other-user")}
+            if (owner){
+               if(id == owner.id){setPage("main-user")}
+               else {setPage("other-user")}
+            }
             setUser(data);
             
             // logic: when owner loads up lets do some page and fff count holder logics

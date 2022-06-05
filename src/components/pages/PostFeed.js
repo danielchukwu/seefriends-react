@@ -10,86 +10,14 @@ import useGetOwner from "../../customhooks/useGetOwner";
 import PostList from './PostList';
 import HeaderPostFeed from '../headers_footers/HeaderPostFeed';
 import Footer from '../headers_footers/Footer';
-import { ACTIONS } from '../../App';
+import { ACTIONS, reducerPost } from '../../App';
 
-function reducer(posts, action){
-   const newPost = action.payload.posts;
-   const owner = action.payload.owner;
-   const posts_url = action.payload.posts_url;
-   const access_token = action.payload.access_token;
-   const id = action.payload.id;
-   
-   switch (action.type){
-      case "add-post":
-         return [...posts, ...action.payload.posts];
-   
-      case "like-post":
-         const post = newPost.find(post => post.id === id);
-
-         post.liked = !post.liked;   // sets liked: to true or false. it's where the magic happens
-         if (post.liked){
-            post.likers.push(owner.id);
-         } else {
-            post.likers.pop();
-         }
-
-         // Send Like to Backend
-         fetch(posts_url+id+'/like/', {
-            method: "GET",
-            headers: {"Content-Type": "application/json",
-                     Authorization: `Bearer ${access_token}`
-         }
-         })
-            .then(res => {
-               return res.json();
-            })
-            .then(data => {
-               console.log(data)
-            })
-            .catch(err => {
-               console.log(err.message);
-            })
-
-         return [...newPost]
-
-      case "save-post":
-         const post1 = newPost.find(post => post.id === id);
-         if (post1.savers.includes(owner.id)){
-            post1.savers = post1.savers.filter(id => id !== owner.id);
-         } else {
-            post1.savers.push(owner.id);
-         }
-         console.log("savers", post1.savers)
-
-         // Send Like to Backend
-         fetch(posts_url+id+'/save-post/', {
-            method: "GET",
-            headers: {"Content-Type": "application/json",
-                     Authorization: `Bearer ${access_token}`
-         }
-         })
-            .then(res => {
-               return res.json();
-            })
-            .then(data => {
-               console.log(data)
-            })
-            .catch(err => {
-               console.log(err.message);
-            })
-
-         return [...newPost]
-
-      default:
-         return posts
-   }
-}
 
 const PostFeed = () => {
    const {owner, setOwner} = useGetOwner()
    // const [posts, setPosts] = useState(null)
    // const [posts, setPosts] = useState()
-   const [posts, dispatchPost] = useReducer(reducer, [])
+   const [posts, dispatchPost] = useReducer(reducerPost, [])
    const {posts_url, access_token} = useVariables()
    const navigate = useNavigate()
    
@@ -135,6 +63,7 @@ const PostFeed = () => {
 
          </main>
 
+         
          <Footer />
          
       </div>

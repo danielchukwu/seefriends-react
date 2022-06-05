@@ -63,7 +63,7 @@ export function reducerPost(posts, action){
   
   switch (action.type){
     case "add-post":
-      return [...posts, ...action.payload.posts];
+      return [...action.payload.posts];
 
     case "like-post":
       const post = newPost.find(post => post.id === id);
@@ -122,6 +122,32 @@ export function reducerPost(posts, action){
 
       return [...newPost]
 
+    case "tell-on-post":
+      console.log("Tell On Post Dispatch!");
+
+      const newPosts = posts;
+      const post2 = newPosts.find(post => post.id === id);
+      post2.tellers_count += 1;
+      
+
+      const uploadData = new FormData();
+      uploadData.append('body', action.payload.body);
+      
+      fetch(posts_url + id + "/tell-on-post/", {
+          method: "POST",
+          headers: {Authorization: `Bearer ${access_token}`},
+          body: uploadData
+      })
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            console.log(data)
+          })
+          .catch(err => console.log(err))
+
+      return [...newPost]
+
     default:
       return posts
 }
@@ -136,7 +162,7 @@ export function reducerTell (tells, action){
   
     switch (action.type){
       case "add-tell":
-        return [...tells, ...action.payload.tells];
+        return [...action.payload.tells];
     
       case "like-tell":
         let tell = newTell.find(tell => tell.id === id);
@@ -193,6 +219,33 @@ export function reducerTell (tells, action){
           })
           
         return [...newTell]
+
+      case "tell-on-tell":
+        // FormData: will act as a form for us with Content-Type: "multipart/form-data"
+        const tell2 = newTell.find(tell => tell.id === id);
+        tell2.tellers_count += 1;
+
+        // newTell.unShift({id: Date.now(), comments: [], created: Date.now(), date: "0 seconds ago", liked: false, likers: [], owner: owner, savers: [], tell_on_tell: tell2, tell_on_post: null, tellers: [], tellers_count: 0, type: "tell"})
+
+        const uploadData = new FormData();
+        uploadData.append('body', action.payload.body);
+        
+        fetch(tells_url + id + "/tell-on-tell/", {
+            method: "POST",
+            headers: {Authorization: `Bearer ${access_token}`},
+            body: uploadData
+        })
+            .then(res => {
+              return res.json();
+            })
+            .then(data => {
+              newTell.unshift(data)
+              console.log(newTell)
+              return [...newTell]
+            })
+            .catch(err => console.log(err))
+      
+      return [...newTell]
       default:
         return tells
     }
