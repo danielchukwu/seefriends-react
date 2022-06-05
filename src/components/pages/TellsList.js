@@ -22,7 +22,13 @@ const TellsList = ({ tells, dispatchTell }) => {
       console.log(body)
       switch(toggleType){
          case "like":
-            dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
+            console.log(body)
+            if (body === "like-parent-tell" || body === "like-parent-post"){ // if body: like parent tell
+               dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token, body: body}});
+            } 
+            else { // body: like tell
+               dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
+            }
             break;
          case "save":
             dispatchTell({type: "save-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token}});
@@ -165,31 +171,34 @@ const TellsList = ({ tells, dispatchTell }) => {
                      </div>
                      {/* Fix Needed */}
                      <div className="tcon" data-tid={tell.tell_on_tell.id}>
-                        {owner && !tell.tell_on_tell.likers.includes(owner.id) && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.tell_on_tell.id, "like")} />}
-                        {owner && tell.tell_on_tell.likers.includes(owner.id) && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.tell_on_tell.id, "like")} />}
+                        {owner && !tell.tell_on_tell.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.id, "like", "like-parent-tell")} />}
+                        
+                        {owner && tell.tell_on_tell.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.id, "like", "like-parent-tell")} />}
                         <small><strong className="lcount">{tell.tell_on_tell.likers.length}</strong></small>
                      </div>
                   </div>
                   <div className="tb-container  height-p-10">
                      <span className="vertical-rule"></span>
-                     <div className="tb">
-                        <p className="no-margin">{tell.tell_on_tell.body}</p>
+                     <Link to={"/tells/"+tell.tell_on_tell.id}>
+                        <div className="tb">
+                           <p className="no-margin">{tell.tell_on_tell.body}</p>
 
-                        {/* <div className="cl1-left pad-top-5">
-                           
-                           <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
-                           <p >5</p>
+                           {/* <div className="cl1-left pad-top-5">
+                              
+                              <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                              <p >5</p>
 
-                           <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell.tell_on_tell)}>T</strong>
-                           <p>{tell.tell_on_tell.tellers_count}</p>
+                              <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell.tell_on_tell)}>T</strong>
+                              <p>{tell.tell_on_tell.tellers_count}</p>
 
-                           {owner && !tell.tell_on_tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_tell.id, "save")}/>}
-                           {owner && tell.tell_on_tell.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_tell.id, "save")} />}
-                           <p>{tell.tell_on_tell.savers.length}</p>
-                           
-                        </div> */}
+                              {owner && !tell.tell_on_tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_tell.id, "save")}/>}
+                              {owner && tell.tell_on_tell.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_tell.id, "save")} />}
+                              <p>{tell.tell_on_tell.savers.length}</p>
+                              
+                           </div> */}
 
-                     </div>
+                        </div>
+                     </Link>
                   </div>
                </div>
                
@@ -290,35 +299,38 @@ const TellsList = ({ tells, dispatchTell }) => {
                         </div>
                         {/* Fix Needed */}
                         <div className="tcon" data-tid={tell.tell_on_post.id}>
-                           {owner && !tell.tell_on_post.likers.includes(owner.id) && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.tell_on_post.id, "like")} />}
-                           {owner && tell.tell_on_post.likers.includes(owner.id) && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.tell_on_post.id, "like")} />}
+                           {owner && !tell.tell_on_post.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.id, "like", "like-parent-post")} />}
+
+                           {owner && tell.tell_on_post.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.id, "like", "like-parent-post")} />}
                            <small><strong className="lcount">{tell.tell_on_post.likers.length}</strong></small>
                         </div>
                      </div>
                      <div className="tb-container  height-p-10">
                         <span className="vertical-rule"></span>
-                        <div className="tb pad-right-20">
-                           <div className="big-heart-parent">
-                              <img src="images/icons/heart/heart-red.png" alt="" className="big-heart none" />
-                              <img src={tell.tell_on_post.img} alt="post" className="post-img border-rad-20" />
-                           </div>
-                           <p className="no-margin">{tell.tell_on_post.body}</p>
+                        <Link to={"/posts/"+tell.tell_on_post.id}>
+                           <div className="tb pad-right-20">
+                              <div className="big-heart-parent">
+                                 <img src="images/icons/heart/heart-red.png" alt="" className="big-heart none" />
+                                 <img src={tell.tell_on_post.img} alt="post" className="post-img border-rad-20" />
+                              </div>
+                              <p className="no-margin">{tell.tell_on_post.body}</p>
 
-                           {/* <div className="cl1-left pad-top-5">
-                           
-                              <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
-                              <p >5</p>
-
-                              <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell.tell_on_post)}>T</strong>
-                              <p>{tell.tell_on_post.tellers_count}</p>
+                              {/* <div className="cl1-left pad-top-5">
                               
-                              {owner && !tell.tell_on_post.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_post.id, "save")}/>}
-                              {owner && tell.tell_on_post.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_post.id, "save")} />}
-                              <p>{tell.tell_on_post.savers.length}</p>
-                           
-                           </div> */}
+                                 <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                                 <p >5</p>
 
-                        </div>
+                                 <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell.tell_on_post)}>T</strong>
+                                 <p>{tell.tell_on_post.tellers_count}</p>
+                                 
+                                 {owner && !tell.tell_on_post.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_post.id, "save")}/>}
+                                 {owner && tell.tell_on_post.savers.includes(owner.id) && <img src={saved_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_post.id, "save")} />}
+                                 <p>{tell.tell_on_post.savers.length}</p>
+                              
+                              </div> */}
+
+                           </div>
+                        </Link>
                      </div>
                   </div>
 

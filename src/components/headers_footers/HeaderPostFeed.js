@@ -21,7 +21,7 @@ const HeaderPostFeed = () => {
             </div>
             <div className="header">
                <div className="inbox">
-                  <Link to={"#"}><img src={discover_icon} alt="" /></Link>
+                  <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>
                   <Link to={"#"}><img src={msg_icon} alt="user" /></Link>
 
                   { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}

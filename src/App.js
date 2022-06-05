@@ -13,6 +13,8 @@ import FFF from './components/pages/FFF';
 import PostSingle from './components/pages/PostSingle';
 import TellsSingle from './components/pages/TellsSingle';
 import Comment from './components/pages/Comment';
+import Discover from './components/pages/Discover';
+import Search from './components/headers_footers/Search';
 
 
 function App() {
@@ -28,6 +30,9 @@ function App() {
 
             <Route path="/" element={ <PostFeed /> } />
             <Route path="/tellsfeed" element={ <TellsFeed /> } />
+
+            <Route path="/discover" element={ <Discover /> } />
+            <Route path="/search" element={ <Search /> } />
 
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />
@@ -52,6 +57,8 @@ export const ACTIONS = {
   ADD_POST: "add-post",
   LIKE_POST: "like-post",
   DISLIKE_POST: "dislike-post",
+
+  POSTS_URL: "http://127.0.0.1:8000/api/posts/"
 }
 
 export function reducerPost(posts, action){
@@ -60,6 +67,7 @@ export function reducerPost(posts, action){
   const posts_url = action.payload.posts_url;
   const access_token = action.payload.access_token;
   const id = action.payload.id;
+  const body = action.payload.body;
   
   switch (action.type){
     case "add-post":
@@ -131,7 +139,7 @@ export function reducerPost(posts, action){
       
 
       const uploadData = new FormData();
-      uploadData.append('body', action.payload.body);
+      uploadData.append('body', body);
       
       fetch(posts_url + id + "/tell-on-post/", {
           method: "POST",
@@ -156,9 +164,10 @@ export function reducerPost(posts, action){
 export function reducerTell (tells, action){
   const newTell = action.payload.tells;
   const owner = action.payload.owner;
-  const tells_url = action.payload.tells_url;
   const access_token = action.payload.access_token;
-  const id = action.payload.id;
+  let tells_url = action.payload.tells_url;
+  let id = action.payload.id;
+  const body = action.payload.body;
   
     switch (action.type){
       case "add-tell":
@@ -167,11 +176,28 @@ export function reducerTell (tells, action){
       case "like-tell":
         let tell = newTell.find(tell => tell.id === id);
 
-        tell.liked = !tell.liked;   // sets liked: to true or false. it's where the magic happens
-        if (tell.liked){
-          tell.likers.push(owner.id);
-        } else {
-          tell.likers.pop();
+        // logic: Handle tell type likes event: tell, tellonTell, tellonPost
+        if (body === "like-parent-tell"){ // if true: like parent tell
+          id = tell.tell_on_tell.id;  // switch id to parent id
+          tell.tell_on_tell.liked = !tell.tell_on_tell.liked;
+
+          if (tell.tell_on_tell.liked) tell.tell_on_tell.likers.push(owner.id)
+          else {tell.tell_on_tell.likers.pop()}
+
+        } else if (body === "like-parent-post") {
+          id = tell.tell_on_post.id;  // switch id to parent id
+          tells_url = ACTIONS.POSTS_URL // switch tells url to post url
+
+          tell.tell_on_post.liked = !tell.tell_on_post.liked;
+
+          if (tell.tell_on_post.liked) tell.tell_on_post.likers.push(owner.id)
+          else {tell.tell_on_post.likers.pop()}
+        }
+        else { // if false: like normal tell
+          tell.liked = !tell.liked;   // sets liked: to true or false. it's where the magic happens
+
+          if (tell.liked) {tell.likers.push(owner.id)} 
+          else {tell.likers.pop();}
         }
 
         // Send Like to Backend
@@ -228,7 +254,7 @@ export function reducerTell (tells, action){
         // newTell.unShift({id: Date.now(), comments: [], created: Date.now(), date: "0 seconds ago", liked: false, likers: [], owner: owner, savers: [], tell_on_tell: tell2, tell_on_post: null, tellers: [], tellers_count: 0, type: "tell"})
 
         const uploadData = new FormData();
-        uploadData.append('body', action.payload.body);
+        uploadData.append('body', body);
         
         fetch(tells_url + id + "/tell-on-tell/", {
             method: "POST",
