@@ -8,7 +8,7 @@ import useVariables from "../../customhooks/useVariables";
 
 // import: components
 import Footer from "../headers_footers/Footer";
-import HeaderPostFeed from "../headers_footers/HeaderPostFeed";
+import Header from "../headers_footers/Header";
 import TellsList from "./TellsList";
 
 
@@ -46,7 +46,7 @@ const TellsFeed = () => {
    
    return (
       <div className="tellsfeed">
-         <HeaderPostFeed />
+         <Header />
 
          <main className="margin-b-60">
             {tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}

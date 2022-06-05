@@ -5,7 +5,7 @@ import useIcons from "../../customhooks/useIcons";
 // imports: hooks
 
 
-const HeaderPostFeed = () => {
+const Header = () => {
    const {sf_logo, discover_icon, msg_icon} = useIcons()
    const {owner} = useGetOwner()
 
@@ -32,4 +32,4 @@ const HeaderPostFeed = () => {
    );
 }
 
-export default HeaderPostFeed;
+export default Header;

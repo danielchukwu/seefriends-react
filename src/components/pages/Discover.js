@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
-import HeaderPostFeed from "../headers_footers/HeaderPostFeed";
+import Header from "../headers_footers/Header";
 
 const Discover = () => {
    const [posts, setPosts] = useState();
@@ -41,7 +41,7 @@ const Discover = () => {
    return (
       <div className="discover-react">
          
-         <HeaderPostFeed />
+         <Header />
 
          <main className="mobile-page-center">
             <section className="discover-container margin-b-60">

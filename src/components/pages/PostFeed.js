@@ -8,7 +8,7 @@ import useGetOwner from "../../customhooks/useGetOwner";
 
 // imports: components
 import PostList from './PostList';
-import HeaderPostFeed from '../headers_footers/HeaderPostFeed';
+import Header from '../headers_footers/Header';
 import Footer from '../headers_footers/Footer';
 import { ACTIONS, reducerPost } from '../../App';
 
@@ -52,7 +52,7 @@ const PostFeed = () => {
    return (
       <div className="postfeed">
 
-         <HeaderPostFeed />
+         <Header />
 
          <main className='postfeed margin-b-60'>
             <div className="welcome-user pad-top-10">

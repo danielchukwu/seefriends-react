@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import useVariables from "../../customhooks/useVariables"
 
 // imports: components
-import HeaderPostFeed from "../headers_footers/HeaderPostFeed"
+import Header from "../headers_footers/Header"
 import Footer from "../headers_footers/Footer"
 import ActivityList from "./ActivityList"
 import { Link } from "react-router-dom"
@@ -37,7 +37,7 @@ const Activity = () => {
 
    return (
       <div className="activity-page-react">
-         <HeaderPostFeed />
+         <Header />
          
          <main className="activity-container margin-b-60">
             {activities && <ActivityList activities={activities} />}
