@@ -2259,6 +2259,11 @@ small a {
 /************************************** SEARCH *******************************/
 /*  */
 
+.search-react {
+  height: 100vh;
+  background-color: #fff;
+}
+
 .search {
   width: 90%;
 }
@@ -2269,14 +2274,14 @@ small a {
   box-sizing: border-box;
   outline: none;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 300;
   border-radius: 30px;
-  border: 2px solid #696969;
+  border: none;
+  background-color: #efefef;
 }
 
 #search:focus {
   transition: 1s ease;
-  border: 2px solid #111111;
 }
 
 .search-container {

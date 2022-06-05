@@ -149,7 +149,7 @@ const Comment = () => {
    return (
       <div className="comment-react">
 
-         <Header  page="Comments" left={"go-back"} right={"search"} />
+         <Header  page="Comments" left={"go-back"} right={"search-chats"} />
          
          {post && <CommentsList post={post} setPost={setPost} type={type} owner={owner}/>}
 
@@ -162,7 +162,7 @@ const Comment = () => {
                      {"me" && <img src={host_url + owner.profile.img} alt="profile-picture" className="img-holder-image" />}
                   </span>
                   
-                  <div ref={inputRef} onKeyDown={isReady} onChange={isReady} className="textarea" contentEditable={true} required></div>
+                  <div ref={inputRef} onChange={isReady} className="textarea" contentEditable={true} required></div>
 
                   {submitReady && <button className="comment-post-btn">post</button>}
                   {!submitReady && <button className="comment-post-btn disabled" disabled>post</button>}

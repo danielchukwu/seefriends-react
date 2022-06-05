@@ -21,6 +21,7 @@ import send_small_icon from "../images/icons/send/send-16.png";
 import save_icon from "../images/icons/bookmark/bookmark-16.png";
 import saved_icon from "../images/icons/bookmark/bookmarkb-16.png";
 import options_icon from "../images/icons/options/option-black.png";
+import cancel_icon from "../images/icons/cancel/close.png";
 
 import heart_white_icon32 from '../images/icons/heart/heartw-32.png';
 import heart_red_icon32 from '../images/icons/heart/heartr-32.png';
@@ -38,7 +39,7 @@ const useIcons = () => {
       // footers
       feed_icon, tells_icon, upload_icon, activity_icon, account_icon, 
       // posts and tells
-      verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256
+      verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256, cancel_icon
    };
    
 }
