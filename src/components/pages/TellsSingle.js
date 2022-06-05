@@ -8,7 +8,7 @@ import useVariables from "../../customhooks/useVariables";
 
 // import: components
 // import Footer from "../headers_footers/Footer";
-import HeaderGBT from "../headers_footers/HeaderGBT";
+import Header from "../headers_footers/Header";
 import TellsList from "./TellsList";
 
 const TellsSingle = () => {
@@ -48,7 +48,7 @@ const TellsSingle = () => {
    
    return (
       <div className="tellsfeed">
-         <HeaderGBT title={"Tell"} />
+         <Header page="Tell" left={"go-back"} right={"search-chats"} />
 
          <main className="margin-b-60">
             {tell && <TellsList tells={tell} dispatchTell={dispatchTell} />}

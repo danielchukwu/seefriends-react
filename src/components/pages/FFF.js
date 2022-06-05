@@ -7,7 +7,7 @@ import useVariables from "../../customhooks/useVariables";
 // imports: custom hooks
 
 // imports: components
-import HeaderFFF from "../headers_footers/HeaderGBT";
+import Header from "../headers_footers/Header";
 import FFFList from "./FFFList";
 
 const FFF = () => {
@@ -86,7 +86,7 @@ const FFF = () => {
    return (
       <div className="fff-react">
 
-         {fff && <HeaderFFF title={fff} />}
+         {fff && <Header page={fff} left={"go-back"} right={""} />}
 
          <div className="fff-op-wrapper">
                

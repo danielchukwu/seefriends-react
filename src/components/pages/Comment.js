@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
-import HeaderGBT from "../headers_footers/HeaderGBT";
+import Header from "../headers_footers/Header";
 import useGetOwner from "../../customhooks/useGetOwner";
 import CommentsList from "./CommentsList";
 
@@ -149,7 +149,7 @@ const Comment = () => {
    return (
       <div className="comment-react">
 
-         <HeaderGBT title={"Comments"} />
+         <Header  page="Comments" left={"go-back"} right={"search"} />
          
          {post && <CommentsList post={post} setPost={setPost} type={type} owner={owner}/>}
 

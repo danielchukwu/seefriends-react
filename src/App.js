@@ -14,7 +14,7 @@ import PostSingle from './components/pages/PostSingle';
 import TellsSingle from './components/pages/TellsSingle';
 import Comment from './components/pages/Comment';
 import Discover from './components/pages/Discover';
-import Search from './components/headers_footers/Search';
+import Search from './components/pages/Search';
 
 
 function App() {

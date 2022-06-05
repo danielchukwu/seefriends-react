@@ -46,7 +46,7 @@ const TellsFeed = () => {
    
    return (
       <div className="tellsfeed">
-         <Header />
+         <Header  page="Tells" left={"logo"} right={"search-chats"} />
 
          <main className="margin-b-60">
             {tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}

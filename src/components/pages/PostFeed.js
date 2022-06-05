@@ -52,7 +52,7 @@ const PostFeed = () => {
    return (
       <div className="postfeed">
 
-         <Header />
+         <Header page="Posts" left={"logo"} right={"search-chats"} />
 
          <main className='postfeed margin-b-60'>
             <div className="welcome-user pad-top-10">

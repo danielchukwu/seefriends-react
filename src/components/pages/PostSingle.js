@@ -7,7 +7,7 @@ import useVariables from '../../customhooks/useVariables';
 
 // imports: components
 import PostList from './PostList'
-import HeaderGBT from '../headers_footers/HeaderGBT'
+import Header from '../headers_footers/Header'
 import Footer from '../headers_footers/Footer';
 import { reducerPost } from '../../App';
 
@@ -52,7 +52,7 @@ const PostSingle = () => {
    return (
       <div className="postfeed">
 
-         <HeaderGBT title="Post" />
+         <Header page="Post" left={"go-back"} right={"search-chats"} />
 
          <main className='postfeed'>
 

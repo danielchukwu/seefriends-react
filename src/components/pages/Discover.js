@@ -41,7 +41,7 @@ const Discover = () => {
    return (
       <div className="discover-react">
          
-         <Header />
+         <Header page="Discover" left={"go-back"} right={"search-chats"} />
 
          <main className="mobile-page-center">
             <section className="discover-container margin-b-60">

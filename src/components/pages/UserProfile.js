@@ -9,7 +9,6 @@ import useVariables from "../../customhooks/useVariables";
 // imports: components
 import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
-import HeaderGBT from "../headers_footers/HeaderGBT";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
 import { reducerPost, reducerTell } from "../../App";
@@ -174,8 +173,8 @@ const UserProfile = () => {
 
    return (
       <div className="userprofile-react">
-         {owner && user && owner.id === user.id && <Header />}
-         {owner && user && owner.id !== user.id && <HeaderGBT title={user.profile.username} />}
+         {owner && user && owner.id === user.id && <Header  page={owner.profile.username} left={"logo"} right={"search-chats"} />}
+         {owner && user && owner.id !== user.id && <Header page={user.profile.username} left={"go-back"} right={"search-chats"} />}
          
          
          <main className="margin-b-60">

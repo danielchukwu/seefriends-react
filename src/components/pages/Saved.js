@@ -5,7 +5,7 @@ import { reducerPost, reducerTell } from "../../App";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useVariables from "../../customhooks/useVariables";
 // imports: components
-import HeaderSaved from "../headers_footers/HeaderGBT";
+import Header from "../headers_footers/Header";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
 
@@ -61,7 +61,7 @@ const Saved = () => {
    return (
       <div className="saved-react">
 
-         <HeaderSaved title={"Saved"} />
+         <Header page="Saved" left={"go-back"} right={""} />
          <div className="saved-options">
 
             <div className="options-wrapper">
