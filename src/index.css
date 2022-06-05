@@ -154,6 +154,9 @@ hr {
 .pad-left-10 {
   padding-left: 10px;
 }
+.pad-left-9 {
+  padding-left: 10px;
+}
 
 .pad-right-20 {
   padding-right: 20px;
@@ -1100,7 +1103,7 @@ footer {
   padding: 20px 0 0;
 }
 
-.tell-on-container {
+.told-on-container {
   width: 100%;
 }
 
