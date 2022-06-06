@@ -1,9 +1,48 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
+import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
 
 const Messages = () => {
    const {verified_icon, user_icon, sf_logo, options_icon} = useIcons();
+   const {access_token, messages_url, host_url} = useVariables();
+   const {owner} = useGetOwner();
+
+   const [messages, setMessages] = useState();
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      
+      fetch(messages_url, {
+         method: "GET",
+         headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`
+         }
+      })
+      .then(res => res.json())
+      .then(data => {
+         if (data.detail){
+            throw Error("unknown user")
+         }
+         setMessages(data);
+         console.log(data)
+      })
+      .catch(err => {
+         if (err.message === "unknown user"){
+            navigate('/login')
+         }
+         console.log(err.message)
+      })
+
+   
+   }, [messages_url, access_token])
+
+   const get_unreadMessagesCount = (messages) => {
+      return messages.filter(message => message.unread_messages > 0).length
+   }
 
    return (
       <div className="messages-react">
@@ -35,12 +74,12 @@ const Messages = () => {
          <section className="inbox-menu">
             <div className="inbox-options">
                <Link to={"/"}>
-                  <div className="chat-c"><h4 className="no-margin black">Chats</h4>
-                     <span>{2}</span>
+                  <div className="chat-c pick"><h4 className="no-margin black">Messages</h4>
+                     {messages && get_unreadMessagesCount(messages) > 0 && <span>{get_unreadMessagesCount(messages)}</span>}
                   </div>
                </Link>
                <Link to={"/"}>
-                  <div className="chat-c pick"><h4 className="no-margin black">Requests</h4>
+                  <div className="chat-c"><h4 className="no-margin black">Requests</h4>
                      <span>{2}</span>
                   </div>
                </Link>
@@ -50,85 +89,77 @@ const Messages = () => {
             </div>
          </section>
 
-         {/* <section class="chat-wrapper mobile-page-center width-p-10">
+         {messages && (
+            <section className="message-wrapper mobile-page-center width-p-10">
 
-            {% for chat in chats %}
+               {/* unread messages */}
+               {messages.map( message => (
+               <div key={message.id}>
 
-            {% if chat.body_set.all.0.is_read == False %}
-            <a href="{% url 'message' chat.owner.id %}">
-            <div class="chat">
-               <div class="img-holder-c">
-                  <img src="{{chat.owner.profile.img.url}}" alt="profile-picture" class="img-holder-image">
-               </div>
-               <div class="chat-content">
-                  <div class="c-top">
-                     <h3 class="no-margin">{{chat.owner.profile.name|title}}
-                        {% if chat.owner.profile.verified %}
-                        <img src="{% static 'images/icons/verified/verified-blue2.png' %}" class="width-15" alt="verification">
-                        {% endif %}
-                     </h3>
-                     <p class="grey-dark no-margin black">{{chat.last_body.created|date:"H:i"}}</p> <!-- message: msg.3 -->
+                  { message.unread_messages > 0 &&
+                  <Link to={"/"}>
+                  <div className="chat">
+                     <div className="img-holder-c">
+                        <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                     </div>
+                     <div className="chat-content">
+                        <div className="c-top">
+                           <h3 className="no-margin">{message.owner.profile.name}
+                              {message.owner.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
+                           </h3>
+                           <p className="grey-dark no-margin black">{message.time}</p> {/* message: msg.3 */}
+                        </div>
+                        <div className="c-bottom">
+                           <p className="no-margin black" style={{overflow: "hidden"}}>{message.last_body.body.slice(0, 32)}{message.last_body.body.length > 32 ? "..." : ""}</p>
+                           {/* {% endif %} */}
+                           <span className="chat-circle">{message.unread_messages}</span>
+                        </div>
+                     </div>
                   </div>
-                  <div class="c-bottom">
-                     {% if chat.last_body.get_body_count > 35 %}
-                     <p class="no-margin grey-dark black" style="overflow: hidden;">{{chat.last_body.body|slice:35}}...</p>
-                     {% else %}
-                     <p class="no-margin grey-dark black" style="overflow: hidden;">{{chat.last_body.body|slice:35}}</p>
-                     {% endif %}
-                     <span class="chat-circle">{{chat.unread_messages}}</span>
+                  </Link>}
+
+                  
+                  {/* read messages */}
+                  { message.unread_messages === 0 &&
+                  <Link to={"/"}>
+                  <div className="chat">
+                     <div className="img-holder-c">
+                        <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                     </div>
+                     <div className="chat-content">
+                        <div className="c-top">
+                           <h3 className="no-margin">{message.owner.profile.name}
+                              {message.owner.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
+                           </h3>
+                           <p className="grey-dark no-margin black">{message.time}</p> {/* message: msg.3 */}
+                        </div>
+                        <div className="c-bottom">
+                           <p className="no-margin grey-dark" style={{overflow: "hidden"}}>{message.last_body.body}</p>
+
+                           {/* if you sent the message and it has been read */}
+                           {message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">
+                              <div className="c1 msg-blue"></div>
+                              <div className="c1 msg-blue"></div>
+                           </span>}
+
+                           {/* if you sent the message and it has not been read */}
+                           {!message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">
+                              <div className="c1"></div>
+                              <div className="c1"></div>
+                           </span>}
+
+                        </div>
+                     </div>
                   </div>
+                  </Link>}
                </div>
-            </div>
-            </a>
+               ))}
 
-            {% else %}
-            
-            <a href="{% url 'message' chat.owner.id %}">
-            <div class="chat">
-               <div class="img-holder-c">
-                  <img src="{{chat.owner.profile.img.url}}" alt="profile-picture" class="img-holder-image">
-               </div>
-               <div class="chat-content">
-                  <div class="c-top">
-                     <h3 class="no-margin">{{chat.owner.profile.name|title}}
-                        {% if chat.owner.profile.verified %}
-                        <img src="{% static 'images/icons/verified/verified-blue2.png' %}" class="width-15" alt="verification">
-                        {% endif %}
-                     </h3>
-                     <p class="grey-dark no-margin">{{chat.last_body.created|date:"H:i"}}</p> <!-- message: msg.3 -->
-                  </div>
-                  <div class="c-bottom">
-                     {% if chat.last_body.get_body_count > 35 %}
-                     <p class="no-margin grey-dark" style="overflow: hidden;">{{chat.last_body.body|slice:35}}...</p>
-                     {% else %}
-                     <p class="no-margin grey-dark" style="overflow: hidden;">{{chat.last_body.body}}</p>
-                     {% endif %}
-                     <!--  -->
-                     {% if chat.last_body.owner == request.user %}
+               {/* {% endif %} */}
 
-                     {% if chat.last_body.is_read %}
-                     <span class="seen-flex">
-                        <div class="c1 msg-blue"></div>
-                        <div class="c1 msg-blue"></div>
-                     </span>
-                     {% else %}
-                     <span class="seen-flex">
-                        <div class="c1"></div>
-                        <div class="c1"></div>
-                     </span>
-                     {% endif %}
 
-                     {% endif %}
-                  </div>
-               </div>
-            </div>
-            </a>
-
-            {% endif %}
-
-            {% endfor %}
-
-         </section> */}
+            </section>
+         )}
 
 
          <Footer />

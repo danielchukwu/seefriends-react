@@ -1275,7 +1275,7 @@ width: 15px; */
 /* INBOX */
 /* Inbox Page <header>...</header> uses alot of styling from the activity page */
 .inbox-menu {
-  position: fixed;
+  /* position: fixed; */
   display: block;
   width: 100%;
   margin-top: 56px;
@@ -1349,8 +1349,8 @@ width: 15px; */
   max-width: 400px;
   margin: 0 auto;
 } */
-.chat-wrapper {
-  padding-top: 69.2px;
+.message-wrapper {
+  /* padding-top: 69.2px; */
 }
 
 .chat {
