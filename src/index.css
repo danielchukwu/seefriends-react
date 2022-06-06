@@ -239,6 +239,7 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  background-color: #fff;
   /* max-width: 100%; */
 }
 
@@ -1277,7 +1278,7 @@ width: 15px; */
   position: fixed;
   display: block;
   width: 100%;
-  margin-top: 11px;
+  margin-top: 56px;
   z-index: 2;
 }
 .inbox-options {
@@ -1285,12 +1286,13 @@ width: 15px; */
   justify-content: center;
   /* border-top: 1px solid #202a39; */
   /* border-bottom: 1px solid #202a39; */
-  background-color: #212e42;
+  background-color: #fff;
   width: 100%;
+  border-bottom: 0.5px solid #efefef;
 }
 
 .inbox-menu a div {
-  color: #fff;
+  color: #000;
   padding: 16px 30px;
   /* border-left: 1px solid #fff; */
   /* border-right: 1px solid #202a39; */
@@ -1300,6 +1302,7 @@ width: 15px; */
 .feed-c,
 .friends-c {
   border-top: 5px solid rgba(0, 0, 0, 0);
+  max-width: ;
 }
 
 .chat-c h4{
@@ -1307,7 +1310,8 @@ width: 15px; */
 }
 .chat-c span {
   padding: 2px 7px;
-  background-color: #11af6b;
+  background-color: #f24a72;
+  color: #fff;
   border-radius: 40px;
   font-size: 12px;
   margin-left: 4px;
@@ -1317,17 +1321,11 @@ width: 15px; */
 }
 
 .pick {
-  background-color: #fff;
-  border-top: 5px solid #11af6b;
-  /* border-right: 3px solid #202a39; */
+  border-bottom: 2px solid #000;
 }
 
 .black {
   color: #000;
-}
-
-.theme-darkest-blue {
-  background-color: #1d2a3d;
 }
 
 /*  */

@@ -15,6 +15,7 @@ import TellsSingle from './components/pages/TellsSingle';
 import Comment from './components/pages/Comment';
 import Discover from './components/pages/Discover';
 import Search from './components/pages/Search';
+import Messages from './components/pages/Messages';
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
 
             <Route path="/discover" element={ <Discover /> } />
             <Route path="/search" element={ <Search /> } />
+
+            <Route path="/messages" element={ <Messages /> } />
 
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />

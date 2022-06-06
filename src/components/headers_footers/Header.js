@@ -47,7 +47,7 @@ const Header = ({page, left, right}) => {
                <div className="inbox">
                   {page === "Discover" && <Link to={"/search"}><img src={discover_icon} alt="" /></Link>}
                   {page !== "Discover" && <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>}
-                  <Link to={"#"}><img src={msg_icon} alt="user" /></Link>
+                  <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
 
                   { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
                </div>}
@@ -59,7 +59,7 @@ const Header = ({page, left, right}) => {
 
                {right === "chats" 
                && <div className="inbox">
-                  <Link to={"#"}><img src={msg_icon} alt="user" /></Link>
+                  <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
                   { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
                </div>}
 
