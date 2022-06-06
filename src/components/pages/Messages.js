@@ -4,17 +4,22 @@ import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
+import MessageList from "./MessageList";
 
 const Messages = () => {
    const {verified_icon, user_icon, sf_logo, options_icon} = useIcons();
-   const {access_token, messages_url, host_url} = useVariables();
+   const {access_token, messages_url, requests_url, host_url} = useVariables();
    const {owner} = useGetOwner();
 
+   const [pageHandler, setPageHandler] = useState("messages");
+   
    const [messages, setMessages] = useState();
+   const [requests, setRequests] = useState();
    const navigate = useNavigate();
 
    useEffect(() => {
       
+      // Fetch: messages
       fetch(messages_url, {
          method: "GET",
          headers: {
@@ -36,6 +41,31 @@ const Messages = () => {
          }
          console.log(err.message)
       })
+      
+      
+      // Fetch: requests
+      fetch(requests_url, {
+         method: "GET",
+         headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`
+         }
+      })
+      .then(res => res.json())
+      .then(data => {
+         if (data.detail){
+            throw Error("unknown user")
+         }
+         setRequests(data);
+         console.log(data);
+      })
+      .catch(err => {
+         if (err.message === "unknown user"){
+            navigate('/login')
+         }
+         console.log(err.message)
+      })
+      
 
    
    }, [messages_url, access_token])
@@ -73,93 +103,21 @@ const Messages = () => {
 
          <section className="inbox-menu">
             <div className="inbox-options">
-               <Link to={"/"}>
-                  <div className="chat-c pick"><h4 className="no-margin black">Messages</h4>
-                     {messages && get_unreadMessagesCount(messages) > 0 && <span>{get_unreadMessagesCount(messages)}</span>}
-                  </div>
-               </Link>
-               <Link to={"/"}>
-                  <div className="chat-c"><h4 className="no-margin black">Requests</h4>
-                     <span>{2}</span>
-                  </div>
-               </Link>
-               {/* <Link to="{% url 'friends' %}">
-                  <div className="friends-c"><h4 className="no-margin">Calls</h4></div>
-               </Link> */}
+               
+               {/* Messages */}
+               <div className={`chat-c  ${pageHandler === "messages" ? "pick" : ""}`}><h4 className="no-margin black" onClick={() => setPageHandler("messages")}>Messages</h4>
+                  {messages && get_unreadMessagesCount(messages) > 0 && <span>{get_unreadMessagesCount(messages)}</span>}
+               </div>
+
+               {/* Requests  */}
+               <div className={`chat-c  ${pageHandler === "requests" ? "pick" : ""}`} ><h4 className="no-margin black" onClick={() => setPageHandler("requests")}>Requests</h4>
+                  <span>{2}</span>
+               </div>
             </div>
          </section>
 
-         {messages && (
-            <section className="message-wrapper mobile-page-center width-p-10">
-
-               {/* unread messages */}
-               {messages.map( message => (
-               <div key={message.id}>
-
-                  { message.unread_messages > 0 &&
-                  <Link to={"/"}>
-                  <div className="chat">
-                     <div className="img-holder-c">
-                        <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
-                     </div>
-                     <div className="chat-content">
-                        <div className="c-top">
-                           <h3 className="no-margin">{message.owner.profile.name}
-                              {message.owner.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
-                           </h3>
-                           <p className="grey-dark no-margin black">{message.time}</p> {/* message: msg.3 */}
-                        </div>
-                        <div className="c-bottom">
-                           <p className="no-margin black" style={{overflow: "hidden"}}>{message.last_body.body.slice(0, 32)}{message.last_body.body.length > 32 ? "..." : ""}</p>
-                           {/* {% endif %} */}
-                           <span className="chat-circle">{message.unread_messages}</span>
-                        </div>
-                     </div>
-                  </div>
-                  </Link>}
-
-                  
-                  {/* read messages */}
-                  { message.unread_messages === 0 &&
-                  <Link to={"/"}>
-                  <div className="chat">
-                     <div className="img-holder-c">
-                        <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
-                     </div>
-                     <div className="chat-content">
-                        <div className="c-top">
-                           <h3 className="no-margin">{message.owner.profile.name}
-                              {message.owner.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
-                           </h3>
-                           <p className="grey-dark no-margin black">{message.time}</p> {/* message: msg.3 */}
-                        </div>
-                        <div className="c-bottom">
-                           <p className="no-margin grey-dark" style={{overflow: "hidden"}}>{message.last_body.body}</p>
-
-                           {/* if you sent the message and it has been read */}
-                           {message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">
-                              <div className="c1 msg-blue"></div>
-                              <div className="c1 msg-blue"></div>
-                           </span>}
-
-                           {/* if you sent the message and it has not been read */}
-                           {!message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">
-                              <div className="c1"></div>
-                              <div className="c1"></div>
-                           </span>}
-
-                        </div>
-                     </div>
-                  </div>
-                  </Link>}
-               </div>
-               ))}
-
-               {/* {% endif %} */}
-
-
-            </section>
-         )}
+         {messages && pageHandler === "messages" && <MessageList messages={messages} owner={owner} />}
+         {requests && pageHandler === "requests" && <MessageList messages={requests} owner={owner} />}
 
 
          <Footer />

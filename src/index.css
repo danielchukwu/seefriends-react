@@ -1291,7 +1291,7 @@ width: 15px; */
   border-bottom: 0.5px solid #efefef;
 }
 
-.inbox-menu a div {
+.inbox-menu .chat-c {
   color: #000;
   padding: 16px 30px;
   /* border-left: 1px solid #fff; */
