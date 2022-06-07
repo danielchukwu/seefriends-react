@@ -16,6 +16,7 @@ import Comment from './components/pages/Comment';
 import Discover from './components/pages/Discover';
 import Search from './components/pages/Search';
 import Messages from './components/pages/Messages';
+import MsgChat from './components/pages/MsgChat';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/search" element={ <Search /> } />
 
             <Route path="/messages" element={ <Messages /> } />
+            <Route path="/messages/:id" element={ <MsgChat /> } />
 
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />
@@ -47,7 +49,7 @@ function App() {
             <Route path="/users/profile/:id" element={ <UserProfile /> } />
             <Route path="/users/profile/saved" element={ <Saved /> } />
 
-            <Route path='users/profile/:id/fff/:page' element={ <FFF />} />
+            <Route path='/users/profile/:id/fff/:page' element={ <FFF />} />
           </Routes>
       </div>
     </Router>

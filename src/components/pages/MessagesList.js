@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 
-const MessageList = ({messages, owner}) => {
-   const {verified_icon} = useIcons();
+const MessagesList = ({messages, owner}) => {
+   const {verified_icon, check_blue16_icon, check_grey16_icon} = useIcons();
    const {host_url} = useVariables();
 
    return (
@@ -15,7 +15,7 @@ const MessageList = ({messages, owner}) => {
          <div key={message.id}>
 
             { message.unread_messages > 0 &&
-            <Link to={"/"}>
+            <Link to={`/messages/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
                   <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
@@ -39,7 +39,7 @@ const MessageList = ({messages, owner}) => {
             
             {/* read messages */}
             { message.unread_messages === 0 &&
-            <Link to={"/"}>
+            <Link to={`/messages/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
                   <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
@@ -56,14 +56,12 @@ const MessageList = ({messages, owner}) => {
 
                      {/* if you sent the message and it has been read */}
                      {message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">
-                        <div className="c1 msg-blue"></div>
-                        <div className="c1 msg-blue"></div>
+                        <img src={check_blue16_icon} alt="" className="width-12" />
                      </span>}
 
                      {/* if you sent the message and it has not been read */}
                      {!message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">
-                        <div className="c1"></div>
-                        <div className="c1"></div>
+                     <img src={check_grey16_icon} alt="" className="width-12" />
                      </span>}
 
                   </div>
@@ -80,4 +78,4 @@ const MessageList = ({messages, owner}) => {
       
    );
 }
-export default MessageList;
+export default MessagesList;

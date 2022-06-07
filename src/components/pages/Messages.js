@@ -4,10 +4,10 @@ import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
-import MessageList from "./MessageList";
+import MessagesList from "./MessagesList";
 
 const Messages = () => {
-   const {verified_icon, user_icon, sf_logo, options_icon} = useIcons();
+   const {verified_icon, user_icon, sf_logo, options_icon } = useIcons();
    const {access_token, messages_url, requests_url, host_url} = useVariables();
    const {owner} = useGetOwner();
 
@@ -70,8 +70,12 @@ const Messages = () => {
    
    }, [messages_url, access_token])
 
+   // logic: Getting messages and requests count
    const get_unreadMessagesCount = (messages) => {
       return messages.filter(message => message.unread_messages > 0).length
+   }
+   const get_unreadRequestsCount = (requests) => {
+      return requests.filter(request => request.unread_messages > 0).length
    }
 
    return (
@@ -111,13 +115,13 @@ const Messages = () => {
 
                {/* Requests  */}
                <div className={`chat-c  ${pageHandler === "requests" ? "pick" : ""}`} ><h4 className="no-margin black" onClick={() => setPageHandler("requests")}>Requests</h4>
-                  <span>{2}</span>
+                  {requests && get_unreadRequestsCount(requests) > 0 && <span>{get_unreadRequestsCount(requests)}</span>}
                </div>
             </div>
          </section>
 
-         {messages && pageHandler === "messages" && <MessageList messages={messages} owner={owner} />}
-         {requests && pageHandler === "requests" && <MessageList messages={requests} owner={owner} />}
+         {messages && pageHandler === "messages" && <MessagesList messages={messages} owner={owner} />}
+         {requests && pageHandler === "requests" && <MessagesList messages={requests} owner={owner} />}
 
 
          <Footer />

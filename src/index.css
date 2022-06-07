@@ -96,7 +96,7 @@ hr {
   color: #6c7780;
 }
 .button-blue {
-  color: #2FA4FF;
+  color: #1d9bf0;
 }
 
 .background-purple {
@@ -1215,7 +1215,7 @@ width: 15px; */
   border: none;
   outline: none;
   resize: none;
-  caret-color: #00B4D8;
+  /* caret-color: ; */
   width: 100%;
   font-size: 16px;
   padding: 15px 15px;
@@ -1226,13 +1226,14 @@ width: 15px; */
   width: 0;
 }
 
+
 .textarea {
   font-family:  "Roboto", sans-serif;
   overflow-y: hidden;
   border: none;
   outline: none;
   resize: none;
-  caret-color: #00B4D8;
+  /* caret-color: ; */
   width: 100%;
   font-size: 16px;
   padding: 15px 15px;
@@ -1243,7 +1244,7 @@ width: 15px; */
   border: none;
   outline: none;
   resize: none;
-  caret-color: #00B4D8;
+  /* caret-color: ; */
   width: 100%;
   font-size: 16px;
   padding: 20px 15px;
@@ -1557,7 +1558,7 @@ width: 15px; */
 }
 
 .comment-post-btn {
-  color: #2FA4FF;
+  color: #1d9bf0;
   padding-bottom: 15px;
   border: none;
   background-color: #fff;
@@ -2439,8 +2440,9 @@ small a {
   display: flex;
   align-items: center;
   height: 64px;
-  background-color: #1a1a1b;
-  color: #fff;
+  width: 100%;
+  background-color: #fff;
+  color: #292929;
   /* padding: 0 5px; */
 }
 
@@ -2476,7 +2478,7 @@ small a {
 }
 
 .message-right {
-  padding: 9px 20px 7px;
+  padding: 9px 10px 7px;
   /* margin-right: 5px; */
   /* background-color: red; */
   border-radius: 50%;
@@ -2506,17 +2508,56 @@ small a {
 }
 
 .message-form {
-  height: 64px;
+  /* min-height: 60px; */
   width: 100%;
-  /* background-color: #1d2a3d; */
-  color: #fff;
-  position: fixed;
+  color: #000;
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   bottom: 0;
   box-sizing: border-box;
-  padding: 0 5px;
+  padding: 15px 15px;
 }
 
+.border-top-e9 {
+  border-top: 1px solid #e9e9e9;
+}
+
+.send-msg-button {
+  width: 26px;
+  transform: rotate(45deg);
+}
+
+.textarea-chat {
+  font-family:  "Roboto", sans-serif;
+  overflow-y: hidden;
+  border-bottom: 1px solid #e9e9e9;
+  outline: none;
+  resize: none;
+  caret-color: #262626;
+  width: 100%;
+  font-size: 15px;
+  max-height: 100px;
+  overflow-y: scroll;
+  /* line-height: 1px; */
+  box-sizing: border-box;
+  padding-right: 3px;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+  transition: 0.05s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.textarea-chat:focus {
+  padding-bottom: 3px;
+  border-bottom: 3px solid #262626;
+}
+
+.chat-button {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 1px solid #f9f9f9;
+}
+
+/* 
 .m-input {
   width: 100%;
 }
@@ -2528,7 +2569,6 @@ small a {
   box-sizing: border-box;
   font-size: 20px;
   outline: none;
-  /* border: 0.1px solid #202a3974; */
   border: none;
   caret-color: #11af6b;
 }
@@ -2547,6 +2587,12 @@ small a {
 .m-send img {
   width: 30px;
   padding-left: 3px;
+} */
+
+.read-reciept-me {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3px;
 }
 
 .msg-block {
@@ -2559,15 +2605,15 @@ small a {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 2px 0;
+  margin: 3px 0;
   position: relative;
 }
 
 .msg-box,
 .msg-box-me {
   padding: 10px 15px 5px;
-  border-radius: 20px;
   /* border: 0.1px solid rgb(162, 162, 162); */
+  border-radius: 15px;
   max-width: 75%;
   display: flex;
   line-height: 1.5;
@@ -2575,13 +2621,32 @@ small a {
 
 .msg-box {
   background-color: #fff;
-  border-radius: 20px;
   margin-left: 3px;
 }
 
 .msg-box-me {
-  border: 0.1px solid rgb(162, 162, 162);
   background-color: #dffdf8;
+  /* background-color: #1d9bf0; */
+  margin-right: 3px;
+}
+
+/* Chat box styling - order depends on the radius styling me or the other user styling box gets */
+.my-msg-first {
+  border-bottom-right-radius: 0px;
+  margin-top: 10px;
+}
+.my-msg-notfirst {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.user-msg-first {
+  margin-top: 10px;
+  border-bottom-left-radius: 0px;
+}
+.user-msg-notfirst {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .c1 {
@@ -2598,7 +2663,7 @@ small a {
 }
 
 .msg-blue {
-  background-color: #2FA4FF;
+  background-color: #1d9bf0;
 }
 
 .seen-flex {
