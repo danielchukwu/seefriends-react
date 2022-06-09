@@ -37,7 +37,7 @@ function App() {
             <Route path="/search" element={ <Search /> } />
 
             <Route path="/messages" element={ <Messages /> } />
-            <Route path="/messages/:id" element={ <MsgChat /> } />
+            <Route path="/messages/:id1/:id2" element={ <MsgChat /> } /> {/*id1: for me | id2: for other user */}
 
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />

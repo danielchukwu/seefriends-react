@@ -15,7 +15,7 @@ const MessagesList = ({messages, owner}) => {
          <div key={message.id}>
 
             { message.unread_messages > 0 &&
-            <Link to={`/messages/${message.owner.id}`}>
+            <Link to={`/messages/${owner.id}/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
                   <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
@@ -39,7 +39,7 @@ const MessagesList = ({messages, owner}) => {
             
             {/* read messages */}
             { message.unread_messages === 0 &&
-            <Link to={`/messages/${message.owner.id}`}>
+            <Link to={`/messages/${owner.id}/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
                   <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
@@ -52,7 +52,7 @@ const MessagesList = ({messages, owner}) => {
                      <p className="grey-dark no-margin black">{message.time}</p> {/* message: msg.3 */}
                   </div>
                   <div className="c-bottom">
-                     <p className="no-margin grey-dark" style={{overflow: "hidden"}}>{message.last_body.body}</p>
+                     <p className="no-margin grey-dark" style={{overflow: "hidden"}}>{message.last_body.body.slice(0, 32)}</p>
 
                      {/* if you sent the message and it has been read */}
                      {message.last_body.is_read && message.last_body.owner === owner.id && <span className="seen-flex">

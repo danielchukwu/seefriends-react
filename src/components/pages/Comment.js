@@ -74,7 +74,7 @@ const Comment = () => {
       e.preventDefault();
       
       let body = inputRef.current.innerHTML;
-
+      console.log(body)
       // FormData: will act as a form for us with Content-Type: "multipart/form-data"
       const uploadData = new FormData();
       uploadData.append('body', body);

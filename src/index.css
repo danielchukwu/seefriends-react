@@ -928,6 +928,8 @@ footer {
   border: 4px solid #000;
 }
 
+
+
 .chat-content {
   padding-left: 13px;
   width: 100%;
@@ -1283,13 +1285,17 @@ width: 15px; */
   z-index: 2;
 }
 .inbox-options {
+  position: fixed;
+  top: 55px;
   display: flex;
   justify-content: center;
-  /* border-top: 1px solid #202a39; */
-  /* border-bottom: 1px solid #202a39; */
   background-color: #fff;
   width: 100%;
   border-bottom: 0.5px solid #efefef;
+  z-index: 1;
+}
+.chat-list-wrapper {
+  margin-top: 130px;
 }
 
 .inbox-menu .chat-c {
@@ -2554,7 +2560,9 @@ small a {
 .chat-button {
   padding-left: 10px;
   margin-left: 10px;
-  border-left: 1px solid #f9f9f9;
+  border: 0px;
+  border-left: 1px solid #e9e9e9;
+  background-color: #fff;
 }
 
 /* 

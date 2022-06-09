@@ -79,7 +79,7 @@ const Messages = () => {
    }
 
    return (
-      <div className="messages-react">
+      <div className="messages-react margin-b-70">
 
          <header>
             <div className="header-wrapper width-p-20 height-p-20">
@@ -109,19 +109,21 @@ const Messages = () => {
             <div className="inbox-options">
                
                {/* Messages */}
-               <div className={`chat-c  ${pageHandler === "messages" ? "pick" : ""}`}><h4 className="no-margin black" onClick={() => setPageHandler("messages")}>Messages</h4>
+               <div className={`chat-c pointer ${pageHandler === "messages" ? "pick" : ""}`}><h4 className="no-margin black" onClick={() => setPageHandler("messages")}>Messages</h4>
                   {messages && get_unreadMessagesCount(messages) > 0 && <span>{get_unreadMessagesCount(messages)}</span>}
                </div>
 
                {/* Requests  */}
-               <div className={`chat-c  ${pageHandler === "requests" ? "pick" : ""}`} ><h4 className="no-margin black" onClick={() => setPageHandler("requests")}>Requests</h4>
+               <div className={`chat-c pointer ${pageHandler === "requests" ? "pick" : ""}`} ><h4 className="no-margin black" onClick={() => setPageHandler("requests")}>Requests</h4>
                   {requests && get_unreadRequestsCount(requests) > 0 && <span>{get_unreadRequestsCount(requests)}</span>}
                </div>
             </div>
          </section>
-
-         {messages && pageHandler === "messages" && <MessagesList messages={messages} owner={owner} />}
-         {requests && pageHandler === "requests" && <MessagesList messages={requests} owner={owner} />}
+         
+         <section className="chat-list-wrapper">
+            {messages && owner && pageHandler === "messages" && <MessagesList messages={messages} owner={owner} />}
+            {requests && owner && pageHandler === "requests" && <MessagesList messages={requests} owner={owner} />}
+         </section>
 
 
          <Footer />
