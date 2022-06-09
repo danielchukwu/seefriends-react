@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
@@ -189,12 +189,9 @@ const MsgChat = () => {
    const isReady =(e) => {
       const bodysize = inputRef.current.innerHTML.length
       if (bodysize !== 0){
-         setSubmitReady(true)
          if (e.key === 'Enter'){
             handleSubmit(e);
          }
-      } else {
-         setSubmitReady(false)
       }
    }
 
@@ -265,23 +262,26 @@ const MsgChat = () => {
                   <img src={go_back_icon} alt="" />
                </div>
                {otherUser && <div className="activity-2">
-                  <div className="img-holder-m">
-                     <img src={host_url + otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
-                  </div>
+                  <Link to={`/users/profile/${otherUser.id}`}>
+                     <div className="img-holder-m">
+                        <img src={host_url + otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
+                     </div>
+                  </Link>
+                  <Link to={`/users/profile/${otherUser.id}`}>
                   <div>
-                  
-                     <h2 className="no-margin width-p-10 position-rel msg-name"><a href="{% url 'other-profile' message.owner.id %}"><strong>{otherUser.profile.username}</strong></a>
+                     <h2 className="no-margin width-p-10 position-rel msg-name"><strong>{otherUser.profile.username}</strong>
                         {otherUser.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
                      </h2>
                      {/* <p className="no-margin width-p-10 last_seen">{otherUser.profile.last_seen}</p> */}
                   </div>
+                  </Link>
                </div>}
             </div>
-            <a href="#" className="options-link">
+            {/* <a href="#" className="options-link">
                <div className="message-right">
                   <img src={options_icon} alt="" width="20" />
                </div>
-            </a>
+            </a> */}
          </div>
       </header>
          

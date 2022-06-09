@@ -220,7 +220,7 @@ const UserProfile = () => {
                         <div className="following-btn" onClick={() => toggleFollow(user.id)}>
                            <p className="no-margin">following</p>
                         </div>
-                        <Link to="{% url 'message' user.id %}">
+                        <Link to={`/messages/${owner.id}/${user.id}`}>
                            <img src={msg_icon} className="small-img margin-l-10" alt="" />
                         </Link>
                      </div>

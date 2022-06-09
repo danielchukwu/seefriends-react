@@ -11,12 +11,13 @@ const Messages = () => {
    const {access_token, messages_url, requests_url, host_url} = useVariables();
    const {owner} = useGetOwner();
 
-   const [pageHandler, setPageHandler] = useState("messages");
+   const [pageHandler, setPageHandler] = useState("messages");  // messages or requests
    
    const [messages, setMessages] = useState();
    const [requests, setRequests] = useState();
    const navigate = useNavigate();
 
+   // fetching: messages and requests
    useEffect(() => {
       
       // Fetch: messages
@@ -121,8 +122,8 @@ const Messages = () => {
          </section>
          
          <section className="chat-list-wrapper">
-            {messages && owner && pageHandler === "messages" && <MessagesList messages={messages} owner={owner} />}
-            {requests && owner && pageHandler === "requests" && <MessagesList messages={requests} owner={owner} />}
+            {messages && owner && pageHandler === "messages" && <MessagesList messages={messages} owner={owner} pageHandler = "messages" />}
+            {requests && owner && pageHandler === "requests" && <MessagesList messages={requests} owner={owner} pageHandler = "requests" />}
          </section>
 
 

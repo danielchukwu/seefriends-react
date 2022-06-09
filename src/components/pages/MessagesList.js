@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 
-const MessagesList = ({messages, owner}) => {
+const MessagesList = ({messages, owner, pageHandler}) => {
    const {verified_icon, check_blue16_icon, check_grey16_icon} = useIcons();
    const {host_url} = useVariables();
 
@@ -14,8 +14,8 @@ const MessagesList = ({messages, owner}) => {
          {messages.map( message => (
          <div key={message.id}>
 
-            { message.unread_messages > 0 &&
-            <Link to={`/messages/${owner.id}/${message.owner.id}`}>
+            { message.unread_messages > 0 && pageHandler &&
+            <Link to={pageHandler === "messages" ? `/messages/${owner.id}/${message.owner.id}` : `/messages/requests/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
                   <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
@@ -38,8 +38,8 @@ const MessagesList = ({messages, owner}) => {
 
             
             {/* read messages */}
-            { message.unread_messages === 0 &&
-            <Link to={`/messages/${owner.id}/${message.owner.id}`}>
+            { message.unread_messages === 0 && pageHandler &&
+            <Link to={pageHandler === "messages" ? `/messages/${owner.id}/${message.owner.id}` : `/messages/requests/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
                   <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />

@@ -17,6 +17,7 @@ import Discover from './components/pages/Discover';
 import Search from './components/pages/Search';
 import Messages from './components/pages/Messages';
 import MsgChat from './components/pages/MsgChat';
+import MsgRequest from './components/pages/MsgRequest';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
 
             <Route path="/messages" element={ <Messages /> } />
             <Route path="/messages/:id1/:id2" element={ <MsgChat /> } /> {/*id1: for me | id2: for other user */}
+            <Route path="/messages/requests/:id" element={ <MsgRequest /> } /> {/*id1: for me | id2: for other user */}
 
             <Route path="/posts/:id" element={ <PostSingle /> } />
             <Route path="/tells/:id" element={ <TellsSingle /> } />
