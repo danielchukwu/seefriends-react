@@ -5,14 +5,15 @@ import useGetOwner from "../../customhooks/useGetOwner";
 // import: hooks
 import useIcons from "../../customhooks/useIcons";
 import useLongPress from "../../customhooks/useLongPress";
+import useVariables from "../../customhooks/useVariables";
 
 const Footer = () => {
    const navigate = useNavigate()
    const {feed_icon, tells_icon, upload_icon, activity_icon, account_icon} = useIcons()
+   const {token_key} = useVariables()
    const [floaterUpEnabled, setFloaterUpEnabled] = useState(false)
    const [floaterProfileEnabled, setFloaterProfileEnabled] = useState(false)
    const {owner} = useGetOwner()
-   // if (owner) console.log(owner)
    
    const handleUploadFloater = () => {
       // console.log("You Clicked me!")
@@ -31,6 +32,11 @@ const Footer = () => {
    };
    const longPressEvent = useLongPress(onLongPress, onClick, {shouldPreventDefault: true, delay: 500});
 
+   // logic: Logout
+   const handleLogout = () => {
+      localStorage.removeItem(token_key)
+      navigate('/login')
+   }
    return ( 
       <footer>
          <div className="footer-wrapper">
@@ -97,7 +103,7 @@ const Footer = () => {
                      <div className="options">
                         <Link to={"/"}><h3>Edit profile</h3></Link>
                         <Link to={"/"}><h3>Settings</h3></Link>
-                        <Link to={"/"}><h3>Logout</h3></Link>
+                        <h3 onClick={() => handleLogout()}>Logout</h3>
                      </div>
                   </div>
                </div>

@@ -18,6 +18,8 @@ import Search from './components/pages/Search';
 import Messages from './components/pages/Messages';
 import MsgChat from './components/pages/MsgChat';
 import MsgRequest from './components/pages/MsgRequest';
+import NotFound from './components/pages/NotFound';
+import Registration from './components/pages/Registration';
 
 
 function App() {
@@ -27,9 +29,12 @@ function App() {
           <Routes>
 
             <Route path="/login" element={ <Login /> } />
+            <Route path="/sign-up" element={ <Registration /> } />
 
             <Route path="/addpost" element={ <AddPost /> } />
             <Route path="/addtell" element={ <AddTell /> } />
+
+            <Route path="/*" element={ <NotFound /> } />
 
             <Route path="/" element={ <PostFeed /> } />
             <Route path="/tellsfeed" element={ <TellsFeed /> } />

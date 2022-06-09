@@ -1,6 +1,6 @@
 // import: main
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import: custom hooks
 import useVariables from '../../customhooks/useVariables';
 // import: images
@@ -40,19 +40,19 @@ const Login = () => {
 
    return ( 
       <div className="login-react">
-         <section class="auth-container">
-            <div class="sf-auth-logo">
+         <section className="auth-container">
+            <div className="sf-auth-logo">
                <img src={sf_logo} alt="seefriends logo" />
             </div>
-            <div class="auth-form">
+            <div className="auth-form">
                <form onSubmit={handleLogin}>
-                  <input ref={usernameRef} type="text" name="username" id="username" placeholder="username" />
-                  <input ref={passwordRef} type="password" name="password" id="password" placeholder="password" />
+                  <input ref={usernameRef} type="text" name="username" id="username" placeholder="Username" />
+                  <input ref={passwordRef} type="password" name="password" id="password" placeholder="Password" />
                   <input type="submit" value="Log in" />
                </form>
             </div>
 
-            <small>Don't Have an accout? <strong><a href="#">sign up</a></strong></small>
+            <small>Don't Have an accout? <strong><Link to="/sign-up">sign up</Link></strong></small>
          </section>
       </div>
    );

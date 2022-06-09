@@ -34,6 +34,9 @@ import check_blue32_icon from "../images/icons/check/check-blue-32.png";
 import check_grey16_icon from "../images/icons/check/check-grey-16.png";
 import check_grey32_icon from "../images/icons/check/check-grey-32.png";
 
+import sad_icon128 from "../images/icons/sad/sad-128.png";
+import sad_icon256 from "../images/icons/sad/sad-256.png";
+
 import heart_white_icon32 from '../images/icons/heart/heartw-32.png';
 import heart_red_icon32 from '../images/icons/heart/heartr-32.png';
 
@@ -51,7 +54,7 @@ const useIcons = () => {
       // footers
       feed_icon, tells_icon, upload_icon, activity_icon, account_icon, send_icon16, send_icon32,
       // posts and tells
-      verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon, options_white_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256, cancel_icon, 
+      verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon, options_white_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256, cancel_icon, sad_icon128, sad_icon256,
 
       // msg
       check_blue16_icon, check_grey16_icon, check_blue32_icon, check_grey32_icon,

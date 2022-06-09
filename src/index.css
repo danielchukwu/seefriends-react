@@ -386,6 +386,21 @@ main {
 .margin-b-150 {
   margin-bottom: 150px;
 }
+.not-found-container {
+  height: 90vh;
+  padding: 100px 0;
+  box-sizing: border-box;
+  /* background-color: #1d9bf0; */
+}
+
+.not-found {
+  /* background-color: #11af6b; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(142, 142, 142);
+}
 
 .welcome-user {
   font-family: "Sacramento", cursive;
@@ -1870,12 +1885,11 @@ width: 15px; */
 .auth-container {
   /* min-width: 100%; */
   max-width: 550px;
-  height: 50vh;
+  /* height: 50vh; */
   /* background-color: red; */
-  padding: 0 25px;
+  padding: 100px 25px;
   box-sizing: border-box;
   margin: 0 auto;
-  margin-top: 180px;
 }
 
 .sf-auth-logo img {
