@@ -250,6 +250,31 @@ const MsgChat = () => {
             console.log(err.message)
          })
    }
+   
+   // logic: show new month and day of chat
+   const showMonthandDay = (index) => {
+      // const months = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
+      if (index === 0){
+         return "welcome"
+      }
+      // Last Text
+      let last_date = new Date(chats[index-1].created);
+      last_date = last_date.toDateString().split(" ");
+      let last_year = last_date[3];
+      let last_month = last_date[1];
+      let last_day = last_date[2];
+      // Current Text
+      let date = new Date(chats[index].created);
+      date = date.toDateString().split(" ")
+      let year = date[3];
+      let month = date[1];
+      let day = date[2];
+
+      // console.log(date)
+      if (last_year === year && last_month === month && last_day !== day){
+         return `${month} ${day}`
+      } else return false
+   }
 
 
    return (
@@ -288,16 +313,19 @@ const MsgChat = () => {
 
          {chats && owner && 
          <main id="main" className="margin-b-70">
-            <div className="timestamp-holder">
-               <span className="timestamp">
-                  <strong>Welcome</strong>
-               </span>
-            </div>
+            
 
             {/* Chat Boxes */}
 
             { chats.map((chat, index) => (
                <div key={chat.id}>
+
+                  {showMonthandDay(index) && 
+                  <div className="timestamp-holder">
+                     <span className="timestamp">
+                        <small>{showMonthandDay(index)}</small>
+                     </span>
+                  </div>}
 
                   {chat.owner === owner.id && 
                   <div onLoadStart={scrollToBottom()}>

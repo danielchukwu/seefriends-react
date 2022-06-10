@@ -198,7 +198,7 @@ const UserProfile = () => {
 
                   {page === "main-user" && (
                      <div className="user-box">
-                        <Link to={""}>
+                        <Link to={"/users/profile/update"}>
                            <div className="edit-profile-btn">
                               <p className="no-margin">Edit Profile</p>
                            </div>

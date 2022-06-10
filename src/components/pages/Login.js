@@ -65,8 +65,8 @@ const Login = () => {
             </div>
             <div className="auth-form">
                <form onSubmit={handleLogin}>
-                  <input ref={usernameRef} type="text" name="username" id="username" placeholder="Username" />
-                  <input ref={passwordRef} type="password" name="password" id="password" placeholder="Password" />
+                  <input ref={usernameRef} type="text" name="username" id="username" placeholder="Username" required />
+                  <input ref={passwordRef} type="password" name="password" id="password" placeholder="Password" required/>
                   <input type="submit" value="Log in" />
                </form>
             </div>

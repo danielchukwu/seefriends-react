@@ -20,6 +20,7 @@ import MsgChat from './components/pages/MsgChat';
 import MsgRequest from './components/pages/MsgRequest';
 import NotFound from './components/pages/NotFound';
 import Registration from './components/pages/Registration';
+import EditProfile from './components/pages/EditProfile';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
             
             <Route path="/users/activity" element={ <Activity /> } />
             <Route path="/users/profile" element={ <UserProfile /> } />
+            <Route path="/users/profile/update/" element={ <EditProfile /> } />
             <Route path="/users/profile/:id" element={ <UserProfile /> } />
             <Route path="/users/profile/saved" element={ <Saved /> } />
 

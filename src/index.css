@@ -1962,7 +1962,7 @@ width: 15px; */
   font-family: "Roboto", sans-serif;
 }
 
-.auth-form input[type="submit"]:hover {
+.auth-form input[type="submit"]:active {
   background-color: #4671ff;
 }
 
