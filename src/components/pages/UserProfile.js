@@ -232,19 +232,19 @@ const UserProfile = () => {
                <div className="profile-layer-3">
                   <div className="followers-count">
                      <Link to={`/users/profile/${user.id}/fff/Followers`}>
-                        {followerCount && <p>{followerCount}</p>}
+                        {user && <p>{followerCount}</p>}
                         <small>followers</small>
                      </Link>
                   </div>
                   <div className="following-count">
                      <Link to={`/users/profile/${user.id}/fff/Following`}>
-                        {followerCount && friendsCount && <p>{user.profile.following.length}</p>}
+                        {user && <p>{user.profile.following.length}</p>}
                         <small>following</small>
                      </Link>
                   </div>
                   <div className="following-count">
                      <Link to={`/users/profile/${user.id}/fff/Friends`}>
-                        {friendsCount && <p>{friendsCount}</p>}
+                        {user && <p>{friendsCount}</p>}
                         <small>friends</small>
                      </Link>
                   </div>

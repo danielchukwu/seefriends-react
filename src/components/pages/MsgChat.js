@@ -257,7 +257,7 @@ const MsgChat = () => {
 
       <header>
          <div className="message-header" data-user="{{user.id}}">
-            <div className="message-left">
+            <div className="message-left pointer">
                <div className="back" onClick={() => exitChatRoom()}>
                   <img src={go_back_icon} alt="" />
                </div>
