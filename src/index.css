@@ -1985,8 +1985,17 @@ small a {
 /*  */
 /*  */
 /* Loading animation styling */
-.test-react{
+.spinner-fixed {
+  position: fixed;
+  top: 0;
+  right: 50%;
+  left: 50%;
+}
+
+.spinner-container{
+  /* background-color: #000; */
   height: 90vh;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -12,6 +12,7 @@ import Header from "../headers_footers/Header";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
 import { reducerPost, reducerTell } from "../../App";
+import Loading from "./Loading";
 
 
 
@@ -22,7 +23,7 @@ const UserProfile = () => {
    
    const { id } = useParams();
    const {owner, setOwner} = useGetOwner();
-   const [user, setUser] = useState();
+   const [user, setUser] = useState(null);
    const [posts, dispatchPost] = useReducer(reducerPost, []);
    const [tells, dispatchTell] = useReducer(reducerTell, []);
    let [page, setPage] = useState("main-user");  // main-user, other-user
@@ -285,6 +286,8 @@ const UserProfile = () => {
                
             </section>
             )}
+
+            {!user && <Loading />}
             
          </main>
 

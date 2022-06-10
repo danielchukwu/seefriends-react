@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
+import Loading from "./Loading";
 
 const Discover = () => {
-   const [posts, setPosts] = useState();
+   const [posts, setPosts] = useState(null);
    const {discover_url, access_token} = useVariables();
    const navigate = useNavigate();
 
@@ -115,6 +116,8 @@ const Discover = () => {
                </div>}
             </section>
          </main>
+
+         {!posts && <Loading />}
 
          <Footer />
 

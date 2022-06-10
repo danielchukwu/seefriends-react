@@ -9,12 +9,15 @@ import Footer from "../headers_footers/Footer"
 import ActivityList from "./ActivityList"
 import { Link, useNavigate } from "react-router-dom"
 import useGetOwner from "../../customhooks/useGetOwner"
+import Loading from "./Loading"
 
 
 const Activity = () => {
    const { activity_url, access_token } = useVariables()
    const [activities, setActivities ] = useState()
    const navigate = useNavigate();
+   const [showLoading, setShowLoading] = useState(true)
+
 
    useEffect(() => {
 
@@ -30,6 +33,7 @@ const Activity = () => {
       .then(data => {
          if (data.detail) navigate('/login')
          setActivities(data)
+         setShowLoading(false)
       })
       .catch(err => {
          console.log(err.message)
@@ -44,9 +48,10 @@ const Activity = () => {
          
          <main className="activity-container margin-b-60">
             {activities && <ActivityList activities={activities} />}
+
+            {showLoading && <Loading />}
+
          </main>
-
-
          <Footer />
       </div>
    );

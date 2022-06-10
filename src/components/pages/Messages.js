@@ -4,6 +4,7 @@ import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
+import Loading from "./Loading";
 import MessagesList from "./MessagesList";
 
 const Messages = () => {
@@ -13,7 +14,7 @@ const Messages = () => {
 
    const [pageHandler, setPageHandler] = useState("messages");  // messages or requests
    
-   const [messages, setMessages] = useState();
+   const [messages, setMessages] = useState(null);
    const [requests, setRequests] = useState();
    const navigate = useNavigate();
 
@@ -126,6 +127,7 @@ const Messages = () => {
             {requests && owner && pageHandler === "requests" && <MessagesList messages={requests} owner={owner} pageHandler = "requests" />}
          </section>
 
+         {!messages && <Loading />}
 
          <Footer />
          

@@ -9,6 +9,7 @@ import useVariables from "../../customhooks/useVariables";
 // import: components
 import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
+import Loading from "./Loading";
 import TellsList from "./TellsList";
 
 
@@ -19,6 +20,8 @@ const TellsFeed = () => {
    const [tells, dispatchTell] = useReducer(reducerTell, []);
    const {tells_url, access_token } = useVariables();
    const navigate = useNavigate();
+
+   const [showLoading, setShowLoading] = useState(true)
    
    // Logic: Fetch Tells
    useEffect(() => {
@@ -35,6 +38,7 @@ const TellsFeed = () => {
             throw Error("unknown user")
          }
          dispatchTell({ type: "add-tell", payload:{tells: data}})
+         setShowLoading(false);
       })
       .catch(err => {
          if (err.message === "unknown user"){
@@ -51,6 +55,8 @@ const TellsFeed = () => {
          <main className="margin-b-60">
             {tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}
          </main>
+
+         {showLoading && <Loading />}
 
          <Footer />
       </div>
