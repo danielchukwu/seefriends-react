@@ -33,15 +33,9 @@ const PostFeed = () => {
       })
       .then(res => res.json())
       .then(data => {
-         if (data.detail){
-            throw Error("unknown user")
-         }
          dispatchPost({ type: "add-post", payload: {posts: data}});
       })
       .catch(err => {
-         if (err.message === "unknown user"){
-            navigate('/login')
-         }
          console.log(err.message)
       })
    

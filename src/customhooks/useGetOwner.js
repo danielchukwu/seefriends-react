@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useVariables from "./useVariables";
 
 const useGetOwner = () => {
    const { owner_url, access_token } = useVariables();
    const [owner, setOwner] = useState();
+
+   const navigate = useNavigate();
    
    
    useEffect(() => {
@@ -17,7 +20,7 @@ const useGetOwner = () => {
          return res.json();
       })
       .then(data => {
-         // console.log(data)
+         if (data.detail) navigate('/login')
          setOwner(data)
       })
       .catch(err => {

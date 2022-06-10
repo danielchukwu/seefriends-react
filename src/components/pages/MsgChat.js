@@ -8,7 +8,7 @@ const MsgChat = () => {
    // "This component takes two id's in route: 1st for me, 2nd for the other user"
    const navigate = useNavigate();
    const {verified_icon, options_icon, send_icon32, go_back_icon, check_blue16_icon, check_grey16_icon} = useIcons();
-   const {access_token, messages_url, host_url, users_host_url} = useVariables();
+   const {main_host_url, access_token, messages_url, host_url, users_host_url} = useVariables();
    const {owner} = useGetOwner();
    const [otherUser, setOtherUser] = useState();
 
@@ -92,7 +92,7 @@ const MsgChat = () => {
    }
 
    // Websocket Creation
-   let url = `ws://${"127.0.0.1:8000"}/ws/message/${id1}/${id2}/`
+   let url = `ws://${main_host_url}/ws/message/${id1}/${id2}/`
    const messageSocket = new WebSocket(url)
    // console.log(messageSocket)
 

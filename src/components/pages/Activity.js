@@ -7,12 +7,14 @@ import useVariables from "../../customhooks/useVariables"
 import Header from "../headers_footers/Header"
 import Footer from "../headers_footers/Footer"
 import ActivityList from "./ActivityList"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import useGetOwner from "../../customhooks/useGetOwner"
 
 
 const Activity = () => {
    const { activity_url, access_token } = useVariables()
    const [activities, setActivities ] = useState()
+   const navigate = useNavigate();
 
    useEffect(() => {
 
@@ -26,6 +28,7 @@ const Activity = () => {
          return res.json()
       })
       .then(data => {
+         if (data.detail) navigate('/login')
          setActivities(data)
       })
       .catch(err => {

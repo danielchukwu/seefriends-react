@@ -1881,6 +1881,36 @@ width: 15px; */
 /*  */
 /************************************** Post *******************************/
 /*  */
+.error-box {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 5px;
+  /* transform: translate(0, -120%); */
+  padding: 10px;
+  box-sizing: border-box;
+  width: 90%;
+  margin-left: 5%;
+  background-color: #262626;
+  color: #fff;
+  animation: error-box 3s ease-in;
+}
+
+@keyframes error-box {
+  0% {
+    transform: translate(0, -100%);
+  }
+  10% {
+    transform: translate(0);
+  }
+  90% {
+    transform: translate(0);
+  }
+  100% {
+    /* transform: translate(0, -100%); */
+  }
+}
 
 .auth-container {
   /* min-width: 100%; */
