@@ -7,6 +7,7 @@ import useVariables from '../../customhooks/useVariables'
 import useIcons from '../../customhooks/useIcons'
 import useGetOwner from '../../customhooks/useGetOwner'
 import TellOn from '../pop_ups/TellOn'
+import MessageOn from '../pop_ups/MessageOn';
 
 
 
@@ -172,6 +173,7 @@ const PostList = ({ posts, dispatchPost}) => {
 
          {/* Tell On - Floater */}
          {tPost && <TellOn tPost={tPost} setTPost={setTPost} type={"post"} toggle={toggle} />}
+         {tPost && <MessageOn tPost={tPost} setTPost={setTPost} type={"post"} toggle={toggle} />}
 
       </div>
    );

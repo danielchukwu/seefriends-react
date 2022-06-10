@@ -7,6 +7,7 @@ import useIcons from '../../customhooks/useIcons';
 import useVariables from '../../customhooks/useVariables';
 import useGetOwner from '../../customhooks/useGetOwner';
 import TellOn from '../pop_ups/TellOn';
+import MessageOn from '../pop_ups/MessageOn';
 // imports: images
 
 const TellsList = ({ tells, dispatchTell }) => {
@@ -418,6 +419,8 @@ const TellsList = ({ tells, dispatchTell }) => {
 
          {/* Tell on Tell */}
          {tPost && <TellOn tPost={tPost} setTPost={setTPost} type="tell" toggle={toggle} />}
+         {/* Msg on Tell */}
+         {/* {tPost && <MessageOn tPost={tPost} setTPost={setTPost} type="tell" toggle={toggle} />} */}
 
       </section>
       
