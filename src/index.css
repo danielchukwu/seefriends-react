@@ -1994,7 +1994,7 @@ small a {
 
 .spinner-container{
   /* background-color: #000; */
-  height: 90vh;
+  height: 100vh;
   margin: 0 auto;
   display: flex;
   justify-content: center;

@@ -6,6 +6,7 @@ import useGetOwner from "../../customhooks/useGetOwner";
 import useVariables from "../../customhooks/useVariables";
 // imports: components
 import Header from "../headers_footers/Header";
+import Loading from "./Loading";
 import PostList from "./PostList";
 import TellsList from "./TellsList";
 
@@ -17,6 +18,9 @@ const Saved = () => {
    const [pt, setPt] = useState("posts")
    const [posts, dispatchPost] = useReducer(reducerPost, []);
    const [tells, dispatchTell] = useReducer(reducerTell, []);
+
+   const [showLoading, setShowLoading] = useState(true)
+
 
 
    // SECTION 1:
@@ -33,6 +37,7 @@ const Saved = () => {
          .then(res => res.json())
          .then(data => {
             dispatchPost({ type: "add-post", payload: {posts: data}});
+            setShowLoading(false);
          })
          .catch(err => {
             console.log('userprofile error: ', err.message)
@@ -46,6 +51,7 @@ const Saved = () => {
          .then(res => res.json())
          .then(data => {
             dispatchTell({ type: "add-tell", payload: {tells: data}});
+            setShowLoading(false);
          })
          .catch(err => {
             console.log('userprofile error: ', err.message)
@@ -80,6 +86,8 @@ const Saved = () => {
             <div>
                   { pt === "posts" && posts && <PostList posts={posts} dispatchPost={dispatchPost} />}
                   { pt === "tells" && tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}
+
+                  {showLoading && <Loading />}
             </div>
 
          </div>
