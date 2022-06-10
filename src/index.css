@@ -1881,7 +1881,7 @@ width: 15px; */
 /*  */
 /************************************** Post *******************************/
 /*  */
-.error-box {
+.error-box, .error-box-app {
   position: fixed;
   display: flex;
   align-items: center;
@@ -1911,6 +1911,11 @@ width: 15px; */
     /* transform: translate(0, -100%); */
   }
 }
+
+.error-box-app {
+  top: 60px;
+}
+
 
 .auth-container {
   /* min-width: 100%; */
@@ -1963,12 +1968,66 @@ width: 15px; */
 }
 
 .auth-form input[type="submit"]:active {
-  background-color: #4671ff;
+  background-color: #2c5dfd;
 }
 
 small a {
   text-decoration: underline;
   font-size: 15px;
+}
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/* Loading animation styling */
+.test-react{
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-box {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.circle-box {
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgb(204, 204, 204);
+  background: linear-gradient(0deg, rgba(204, 204, 204, 0.1) 33%, rgba(204, 204, 204, 1) 100%);
+  animation: spin .8s linear 0s infinite;
+}
+
+.circle-core {
+  width: 100%;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 /*  */

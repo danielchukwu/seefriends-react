@@ -27,7 +27,7 @@ const Registration = () => {
       const username = usernameRef.current.value
       const password1 = password1Ref.current.value
       const password2 = password2Ref.current.value
-      console.log(name, email, username, password1, password2)
+      // console.log(name, email, username, password1, password2)
 
       const uploadData = new FormData();
       uploadData.append('first_name', name);

@@ -12,6 +12,8 @@ const useVariables = () => {
    const owner_url = 'http://127.0.0.1:8000/api/users/';
    const users_host_url = 'http://127.0.0.1:8000/api/users/';
 
+   const update_url = 'http://127.0.0.1:8000/api/users/update/';
+
    const register_url = 'http://127.0.0.1:8000/api/users/register/';
    
    const activity_url = 'http://127.0.0.1:8000/api/users/activity/';
@@ -33,7 +35,7 @@ const useVariables = () => {
 
    
    return {
-      main_host_url, host_url, posts_url, tells_url, discover_url, search_url, messages_url, requests_url, owner_url, activity_url, users_host_url, saved_posts_url, saved_tells_url, register_url,
+      main_host_url, host_url, update_url, posts_url, tells_url, discover_url, search_url, messages_url, requests_url, owner_url, activity_url, users_host_url, saved_posts_url, saved_tells_url, register_url,
 
       token_url, refresh_url, token_key,
       

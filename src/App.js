@@ -21,6 +21,7 @@ import MsgRequest from './components/pages/MsgRequest';
 import NotFound from './components/pages/NotFound';
 import Registration from './components/pages/Registration';
 import EditProfile from './components/pages/EditProfile';
+import Test from './components/pages/Test';
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
     <Router>
       <div className="App">
           <Routes>
+
+            <Route path="/test" element={ <Test /> } />
 
             <Route path="/login" element={ <Login /> } />
             <Route path="/sign-up" element={ <Registration /> } />

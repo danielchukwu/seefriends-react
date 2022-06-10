@@ -55,6 +55,18 @@ const PostFeed = () => {
 
             {posts && <PostList posts={posts} dispatchPost={dispatchPost}/>}
 
+            
+            <div className="test-react">
+               
+               <div className="spinner-box">
+                  <div className="circle-box">
+                     <div className="circle-core"></div>
+                  </div>
+               </div>
+
+            </div>
+            
+
          </main>
 
          
