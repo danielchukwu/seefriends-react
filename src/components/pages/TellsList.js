@@ -13,14 +13,14 @@ import ShareOn from '../pop_ups/ShareOn';
 const TellsList = ({ tells, dispatchTell }) => {
    const {owner} = useGetOwner();
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon} = useIcons();
-   const {host_url, tells_url, access_token} = useVariables();
+   const {host_url, tells_url, messages_url, access_token} = useVariables();
    const [tPost, setTPost] = useState();
    const [mPost, setMPost] = useState();
 
 
 
    // logic: Post Events: Like, save, tell-on, msg
-   const toggle = (id, toggleType, body) => {
+   const toggle = (id, toggleType, body, shareList) => {
       console.log(body)
       switch(toggleType){
          case "like":
@@ -37,9 +37,10 @@ const TellsList = ({ tells, dispatchTell }) => {
             break;
          case "tell-on-tell":
             dispatchTell({type: "tell-on-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token, body: body}});
-            
             break;
-         case "msg":
+         case "share-tell":
+            // console.log("share tell now.........")
+            dispatchTell({type: "share-tell", payload:{id: id, tells: tells, owner: owner, tells_url: messages_url, access_token: access_token, body: body, shareList: shareList}});
             break;
          default:
             console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
@@ -135,7 +136,7 @@ const TellsList = ({ tells, dispatchTell }) => {
                   <div className="content-layer-0">
                      <div className="cl1-left">
                         <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)}/>
-                        <p >5</p>
+                        <p >{tell.sharers_count}</p>
 
                         
                         <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell)}>T</strong>
@@ -188,7 +189,7 @@ const TellsList = ({ tells, dispatchTell }) => {
                            {/* <div className="cl1-left pad-top-5">
                               
                               <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)}/>
-                              <p >5</p>
+                              <p >{tell.sharers_count}</p>
 
                               <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell.tell_on_tell)}>T</strong>
                               <p>{tell.tell_on_tell.tellers_count}</p>
@@ -263,7 +264,7 @@ const TellsList = ({ tells, dispatchTell }) => {
                      <div className="content-layer-0">
                         <div className="cl1-left">
                            <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)} />
-                           <p >5</p>
+                           <p >{tell.sharers_count}</p>
 
                            
                            <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell)}>T</strong>
@@ -320,7 +321,7 @@ const TellsList = ({ tells, dispatchTell }) => {
                               {/* <div className="cl1-left pad-top-5">
                               
                                  <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)} />
-                                 <p >5</p>
+                                 <p >{tell.sharers_count}</p>
 
                                  <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell.tell_on_post)}>T</strong>
                                  <p>{tell.tell_on_post.tellers_count}</p>
@@ -395,7 +396,7 @@ const TellsList = ({ tells, dispatchTell }) => {
                      <div className="content-layer-0">
                         <div className="cl1-left">
                            <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)}/>
-                           <p >5</p>
+                           <p >{tell.sharers_count}</p>
 
                            
                            <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell)}>T</strong>

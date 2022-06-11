@@ -16,7 +16,7 @@ import ShareOn from '../pop_ups/ShareOn';
 
 const PostList = ({ posts, dispatchPost}) => {
    const {owner} = useGetOwner();
-   const {host_url, access_token, posts_url} = useVariables();
+   const {host_url, access_token, posts_url, messages_url} = useVariables();
    const {verified_icon, send_small_icon, save_icon, saved_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256: big_heart} = useIcons();
 
    // logic: The post to be told on: tpost -> tellPost
@@ -26,7 +26,7 @@ const PostList = ({ posts, dispatchPost}) => {
 
 
    // logic: Post Events: Like, save, tell-on, msg
-   const toggle = (id, toggleType, body) => {
+   const toggle = (id, toggleType, body, shareList) => {
       switch (toggleType){
          case "like":
             dispatchPost({type: "like-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token}});
@@ -37,9 +37,10 @@ const PostList = ({ posts, dispatchPost}) => {
          case "tell-on-post":
             console.log("tell-on-post")
             dispatchPost({type: "tell-on-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token, body: body}});
-            
             break;
-         case "msg":
+         case "share-post":
+            // console.log("share post now.........")
+            dispatchPost({type: "share-post", payload:{id: id, posts: posts, owner: owner, posts_url: messages_url, access_token: access_token, body: body, shareList: shareList}});
             break;
          default:
             console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
@@ -120,7 +121,7 @@ const PostList = ({ posts, dispatchPost}) => {
                            
                            {/* Msg */}
                            <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(post)}/>
-                           <p >5</p>
+                           <p >{post.sharers_count}</p>
    
                            {/* Tell on */}
                            <strong className="font-lobster" title="tell on" onClick={() => setTPost(post)}>T</strong>

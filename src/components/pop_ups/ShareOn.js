@@ -9,10 +9,11 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
    const {verified_icon} = useIcons()
    const {host_url, users_host_url, tells_url, search_url, access_token} = useVariables();
    const inputRef = useRef();
-   const [submitReady, setSubmitReady] =useState(false);
+   // const [submitReady, setSubmitReady] =useState(false);
    const {owner } = useGetOwner();
 
    const [shareList, setShareList] = useState([]); // this state will handle the adding of several user id's to share the post or tell to
+   const [showErrors, setShowErrors] = useState()
 
 
    const [following, setFollowing] = useState([]);  // Before search starts. this holds the saved searchs
@@ -21,7 +22,7 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
    const searchRef = useRef(); // holds the search input for the search input
    const navigate = useNavigate();
 
-   // logic: display default potential post/tell sharing to users
+   // logic: display unsearched followings on first open before search
    useEffect(() => {
       
       // logic: fetch followings
@@ -45,28 +46,26 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
       }
    }, [owner])
 
-   // logic: submit tell
+   // logic: submit tell or post
    const handleSubmit = (e) => {
       e.preventDefault();
       console.log('submit')
 
       let body = inputRef.current.innerHTML;
-      console.log(body)
-
-      while (body.length-1 === body.lastIndexOf('\n')){
-         body = body.slice(0, -1);
-      }
+      // console.log(body)
 
       // FormData: will act as a form for us with Content-Type: "multipart/form-data"
 
-      if (body.length >= 1){
+      if (shareList.length > 0){
          if (type === "post"){
-            toggle(mPost.id, "tell-on-post", body);
+            toggle(mPost.id, "share-post", body, shareList);
             handleClose();
          }else if (type === "tell"){
-            toggle(mPost.id, "tell-on-tell", body);
+            toggle(mPost.id, "share-tell", body, shareList);
             handleClose();
          }
+      } else {
+         setShowErrors("you didn't add any user!😪")
       }
    }
 
@@ -87,14 +86,13 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
 
    // logic: check if text input is not empty to know if post is ready
    const isReady =(e) => {
-      const bodysize = inputRef.current.innerHTML.length
-      if (bodysize >= 1){
-         setSubmitReady(true)
+      if (shareList.length > 0){
+         // setSubmitReady(true)
          if (e.key === 'Enter'){
             handleSubmit(e);
          }
       } else {
-         setSubmitReady(false)
+         // setSubmitReady(false)
          if (e.key === 'Enter'){
             return;
          }
@@ -130,7 +128,7 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
       )
    }
 
-   // logic: handle adding of user to recieve the share
+   // logic: handle adding of user to recieve the share and limit of adding is 5
    const handleAddUser = (id) => {
       // console.log(shareList)
       if (shareList.includes(id)){
@@ -138,18 +136,26 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
          newList = newList.filter(uid => uid !== id)
          setShareList([...newList])
       } else {
-         setShareList([...shareList, id])
+         if (shareList.length < 5) {  // Max Share: 5 users
+            setShareList([...shareList, id])
+         }
       }
-      // console.log(shareList)
+
    }
 
    // console.log(mPost)
    return (
       <div className="tell-on-container">
          <div className="exit-tell-on" onClick={() => handleClose()}></div> {/* exit-tell-on-close */}
+         {showErrors && 
+         <div className="error-box">
+            <p className="no-margin">{showErrors}</p>
+            <p className="no-margin" onClick={() => setShowErrors(null)}>&#x2716;</p>
+         </div>}
          <div className="msg-on-box"> {/* tell-on-box-close */}
 
-            <form onSubmit={handleSubmit}>
+
+            <form onSubmit={(e) => handleSubmit(e)}>
                <div className="search-users">
                   <input ref={searchRef} type="text" name="search" id="search" placeholder="Search" autoComplete="off" onChange={handleSearch}  />
 
@@ -175,6 +181,7 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                               </Link> 
                            </p>
                         </div>
+                        {/* Add or Added button for each user */}
                         <div className="activity-right-info">
                            {!shareList.includes(user.id) && <div className="msg-on-add pointer" onClick={() => handleAddUser(user.id)}>
                               <p className="no-margin">Add</p>
@@ -208,10 +215,14 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                               </Link> 
                            </p>
                         </div>
+                        {/* Add or Added button for each user */}
                         <div className="activity-right-info">
-                           <div className="follow-btn-fff-sub pointer">
-                              <p className="no-margin">Add</p>
-                           </div>
+                           {!shareList.includes(user.id) && <div className="msg-on-add pointer" onClick={() => handleAddUser(user.id)}>
+                                 <p className="no-margin">Add</p>
+                              </div>}
+                           {shareList.includes(user.id) && <div className="msg-on-added pointer" onClick={() => handleAddUser(user.id)}>
+                              <p className="no-margin">Added</p>
+                           </div>}
                         </div>
                      </div>
 
@@ -237,8 +248,8 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                   {/* <div className="textarea-tell-on" contentEditable={true} required onKeyDown={handleEnterSub}></div> */}
                </div>
                <div className="tell-on-button">
-                  {submitReady && <button className="button-blue">Release</button>}
-                  {!submitReady && <button className="grey-dark" disabled>Release</button>}
+                  <button className="button-blue">Release</button>
+                  {/* {!submitReady && <button className="grey-dark" disabled>Release</button>} */}
                   
                </div>
             </form>

@@ -85,6 +85,7 @@ export function reducerPost(posts, action){
   const access_token = action.payload.access_token;
   const id = action.payload.id;
   const body = action.payload.body;
+  const shareList = action.payload.shareList;
   
   switch (action.type){
     case "add-post":
@@ -173,6 +174,33 @@ export function reducerPost(posts, action){
 
       return [...newPost]
 
+    case "share-post":
+      console.log("Share Post Dispatched!")
+      const newPosts3 = posts;
+      const post3 = newPosts3.find(post => post.id === id);
+      post3.sharers_count += shareList.length;
+      
+
+      const uploadData3 = new FormData();
+      uploadData3.append('type', "post");    // type: "post" or "tells"
+      uploadData3.append('body', body);      // regular body "guys check this post out"
+      uploadData3.append('ids', shareList);  // List of Id's to share to e.g [23, 49, 503, 1200]
+
+      fetch(posts_url + id + "/share/", {
+          method: "POST",
+          headers: {Authorization: `Bearer ${access_token}`},
+          body: uploadData3
+      })
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            console.log(data)
+          })
+          .catch(err => console.log(err))
+
+      return [...newPosts3]
+
     default:
       return posts
 }
@@ -185,6 +213,7 @@ export function reducerTell (tells, action){
   let tells_url = action.payload.tells_url;
   let id = action.payload.id;
   const body = action.payload.body;
+  const shareList = action.payload.shareList;
   
     switch (action.type){
       case "add-tell":
@@ -289,6 +318,33 @@ export function reducerTell (tells, action){
             .catch(err => console.log(err))
       
       return [...newTell]
+
+      case "share-tell":
+        // FormData: will act as a form for us with Content-Type: "multipart/form-data"
+        const tell3 = newTell.find(tell => tell.id === id);
+        tell3.sharers_count += shareList.length;;
+
+        // newTell.unShift({id: Date.now(), comments: [], created: Date.now(), date: "0 seconds ago", liked: false, likers: [], owner: owner, savers: [], tell_on_tell: tell2, tell_on_post: null, tellers: [], tellers_count: 0, type: "tell"})
+
+        const uploadData3 = new FormData();
+        uploadData3.append('type', "tell");    // type: "post" or "tell"
+        uploadData3.append('body', body);      // regular body "guys check this post out"
+        uploadData3.append('ids', shareList);  // List of Id's to share to e.g [23, 49, 503, 1200]
+        
+        fetch(tells_url + id + "/share/", {
+            method: "POST",
+            headers: {Authorization: `Bearer ${access_token}`},
+            body: uploadData3
+        })
+            .then(res => {
+              return res.json();
+            })
+            .then(data => {
+              console.log(data)
+            })
+            .catch(err => console.log(err))
+      
+        return [...newTell]
       default:
         return tells
     }
