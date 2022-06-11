@@ -12,6 +12,8 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
    const [submitReady, setSubmitReady] =useState(false);
    const {owner } = useGetOwner();
 
+   const [shareList, setShareList] = useState([]); // this state will handle the adding of several user id's to share the post or tell to
+
 
    const [following, setFollowing] = useState([]);  // Before search starts. this holds the saved searchs
    const [searchs, setSearchs] = useState(null); // When search starts. this holds users
@@ -128,6 +130,19 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
       )
    }
 
+   // logic: handle adding of user to recieve the share
+   const handleAddUser = (id) => {
+      // console.log(shareList)
+      if (shareList.includes(id)){
+         let newList = shareList;
+         newList = newList.filter(uid => uid !== id)
+         setShareList([...newList])
+      } else {
+         setShareList([...shareList, id])
+      }
+      // console.log(shareList)
+   }
+
    // console.log(mPost)
    return (
       <div className="tell-on-container">
@@ -161,9 +176,12 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                            </p>
                         </div>
                         <div className="activity-right-info">
-                           <div className="follow-btn-fff-sub pointer">
+                           {!shareList.includes(user.id) && <div className="msg-on-add pointer" onClick={() => handleAddUser(user.id)}>
                               <p className="no-margin">Add</p>
-                           </div>
+                           </div>}
+                           {shareList.includes(user.id) && <div className="msg-on-added pointer" onClick={() => handleAddUser(user.id)}>
+                              <p className="no-margin">Added</p>
+                           </div>}
                         </div>
                      </div>
 
@@ -219,8 +237,8 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                   {/* <div className="textarea-tell-on" contentEditable={true} required onKeyDown={handleEnterSub}></div> */}
                </div>
                <div className="tell-on-button">
-                  {submitReady && <button className="button-blue">Tell</button>}
-                  {!submitReady && <button className="grey-dark" disabled>Tell</button>}
+                  {submitReady && <button className="button-blue">Release</button>}
+                  {!submitReady && <button className="grey-dark" disabled>Release</button>}
                   
                </div>
             </form>
