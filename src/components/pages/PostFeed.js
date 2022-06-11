@@ -45,6 +45,8 @@ const PostFeed = () => {
    }, [posts_url, access_token, navigate])
 
 
+   console.log(owner)
+
    // console.log(posts)
    return (
       <div className="postfeed">

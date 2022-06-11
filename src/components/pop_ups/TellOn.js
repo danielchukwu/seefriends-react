@@ -80,11 +80,16 @@ const TellOn = ({ tPost, setTPost, type, toggle }) => {
 
             <form onSubmit={handleSubmit}>
 
-               <div className="post-or-tell">
-                  <h4 className='pot-user'>{tPost.owner.profile.username}
-                     {tPost.owner.profile.verified && <img src={verified_icon}className="width-13 verified-pos1" alt="verification" />}
-                  </h4>
-                  <p className='pot-body'>{tPost.body}</p>
+               <div className="post-or-tell-msg">
+                  {tPost.img && <div className="msg-post-img">
+                     <img src={tPost.img} alt="" />
+                  </div>}
+                  <div className="msg-caption">
+                     <h4 className='pot-user'>{tPost.owner.profile.username}
+                        {tPost.owner.profile.verified && <img src={verified_icon}className="width-13 verified-pos1" alt="verification" />}
+                     </h4>
+                     <p className='pot-body'>{tPost.body}</p>
+                  </div>
                </div>
                <div className="main-tell-box">
                   <div ref={inputRef} className="textarea-tell-on" contentEditable={true} required onKeyDown={isReady}></div>

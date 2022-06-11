@@ -7,7 +7,7 @@ import useIcons from '../../customhooks/useIcons';
 import useVariables from '../../customhooks/useVariables';
 import useGetOwner from '../../customhooks/useGetOwner';
 import TellOn from '../pop_ups/TellOn';
-import MessageOn from '../pop_ups/MessageOn';
+import ShareOn from '../pop_ups/ShareOn';
 // imports: images
 
 const TellsList = ({ tells, dispatchTell }) => {
@@ -15,6 +15,7 @@ const TellsList = ({ tells, dispatchTell }) => {
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon} = useIcons();
    const {host_url, tells_url, access_token} = useVariables();
    const [tPost, setTPost] = useState();
+   const [mPost, setMPost] = useState();
 
 
 
@@ -62,9 +63,9 @@ const TellsList = ({ tells, dispatchTell }) => {
 
 
    // logic: tell on POST
-   const handleTellOnTell = (tell) => {
-      setTPost(tell);
-   }
+   // const setTPost = (tell) => {
+   //    setTPost(tell);
+   // }
 
    console.log(tells)
    return (
@@ -133,11 +134,11 @@ const TellsList = ({ tells, dispatchTell }) => {
                   </div>
                   <div className="content-layer-0">
                      <div className="cl1-left">
-                        <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                        <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)}/>
                         <p >5</p>
 
                         
-                        <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell)}>T</strong>
+                        <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell)}>T</strong>
                         <p>{tell.tellers_count}</p>
 
 
@@ -186,10 +187,10 @@ const TellsList = ({ tells, dispatchTell }) => {
 
                            {/* <div className="cl1-left pad-top-5">
                               
-                              <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                              <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)}/>
                               <p >5</p>
 
-                              <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell.tell_on_tell)}>T</strong>
+                              <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell.tell_on_tell)}>T</strong>
                               <p>{tell.tell_on_tell.tellers_count}</p>
 
                               {owner && !tell.tell_on_tell.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_tell.id, "save")}/>}
@@ -261,11 +262,11 @@ const TellsList = ({ tells, dispatchTell }) => {
                      </div>
                      <div className="content-layer-0">
                         <div className="cl1-left">
-                           <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                           <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)} />
                            <p >5</p>
 
                            
-                           <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell)}>T</strong>
+                           <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell)}>T</strong>
                            <p>{tell.tellers_count}</p>
 
 
@@ -318,10 +319,10 @@ const TellsList = ({ tells, dispatchTell }) => {
 
                               {/* <div className="cl1-left pad-top-5">
                               
-                                 <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                                 <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)} />
                                  <p >5</p>
 
-                                 <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell.tell_on_post)}>T</strong>
+                                 <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell.tell_on_post)}>T</strong>
                                  <p>{tell.tell_on_post.tellers_count}</p>
                                  
                                  {owner && !tell.tell_on_post.savers.includes(owner.id) && <img src={save_icon} title="save tell" alt="" onClick={() => toggle(tell.tell_on_post.id, "save")}/>}
@@ -393,11 +394,11 @@ const TellsList = ({ tells, dispatchTell }) => {
                      </div>
                      <div className="content-layer-0">
                         <div className="cl1-left">
-                           <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                           <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(tell)}/>
                            <p >5</p>
 
                            
-                           <strong className="font-lobster" title="tell on" onClick={() => handleTellOnTell(tell)}>T</strong>
+                           <strong className="font-lobster" title="tell on" onClick={() => setTPost(tell)}>T</strong>
                            <p>{tell.tellers_count}</p>
 
 
@@ -420,7 +421,7 @@ const TellsList = ({ tells, dispatchTell }) => {
          {/* Tell on Tell */}
          {tPost && <TellOn tPost={tPost} setTPost={setTPost} type="tell" toggle={toggle} />}
          {/* Msg on Tell */}
-         {/* {tPost && <MessageOn tPost={tPost} setTPost={setTPost} type="tell" toggle={toggle} />} */}
+         {mPost && <ShareOn mPost={mPost} setMPost={setMPost} type="tell" toggle={toggle} />}
 
       </section>
       

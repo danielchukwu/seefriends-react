@@ -7,7 +7,8 @@ import useVariables from '../../customhooks/useVariables'
 import useIcons from '../../customhooks/useIcons'
 import useGetOwner from '../../customhooks/useGetOwner'
 import TellOn from '../pop_ups/TellOn'
-import MessageOn from '../pop_ups/MessageOn';
+import MessageOn from '../pop_ups/ShareOn';
+import ShareOn from '../pop_ups/ShareOn';
 
 
 
@@ -20,6 +21,8 @@ const PostList = ({ posts, dispatchPost}) => {
 
    // logic: The post to be told on: tpost -> tellPost
    const [tPost, setTPost] = useState();
+   // logic: The post to be told on: tpost -> tellPost
+   const [mPost, setMPost] = useState();
 
 
    // logic: Post Events: Like, save, tell-on, msg
@@ -116,7 +119,7 @@ const PostList = ({ posts, dispatchPost}) => {
                         <div className="cl1-left">
                            
                            {/* Msg */}
-                           <Link to="#"><img src={send_small_icon} alt="" title="respond to post" /></Link>
+                           <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(post)}/>
                            <p >5</p>
    
                            {/* Tell on */}
@@ -173,7 +176,7 @@ const PostList = ({ posts, dispatchPost}) => {
 
          {/* Tell On - Floater */}
          {tPost && <TellOn tPost={tPost} setTPost={setTPost} type={"post"} toggle={toggle} />}
-         {tPost && <MessageOn tPost={tPost} setTPost={setTPost} type={"post"} toggle={toggle} />}
+         {mPost && <ShareOn mPost={mPost} setMPost={setMPost} type={"post"} toggle={toggle} />}
 
       </div>
    );

@@ -5,14 +5,14 @@ import useVariables from "../../customhooks/useVariables";
 
 const Search = () => {
    const {sf_logo, go_back_icon, verified_icon, cancel_icon} = useIcons();
-   const [searchs, setSearchs] = useState();  // Before search starts. this holds the saved searchs
-   const [users, setUsers] = useState(); // When search starts. this holds users
+   const [searched, setSearched] = useState();  // Before search starts. this holds the saved searched
+   const [searchs, setSearchs] = useState(); // When search starts. this holds searchs
    const {host_url, search_url, access_token} = useVariables();
    const inputRef = useRef();
    const navigate = useNavigate();
 
 
-   // logic: fetch searchs
+   // logic: fetch searched
    useEffect(() => {
       
       fetch(search_url, {
@@ -27,8 +27,8 @@ const Search = () => {
          if (data.detail){
             throw Error("unknown user")
          }
-         setSearchs(data);
-         setUsers([]);
+         setSearched(data);
+         setSearchs([]);
          console.log(data)
       })
       .catch(err => {
@@ -42,7 +42,7 @@ const Search = () => {
    }, [search_url, access_token])
 
 
-   // logic: remove search and use users on search
+   // logic: remove search and use searchs on search
    const handleSearch = (e) => {
       let body = e.target.value;
       if (inputRef){
@@ -62,8 +62,8 @@ const Search = () => {
                return res.json();
             })
             .then(data => {
-               setSearchs([])
-               setUsers(data)
+               setSearched([])
+               setSearchs(data)
             })
             .catch(err => console.log(err))
          
@@ -81,8 +81,8 @@ const Search = () => {
             if (data.detail){
                throw Error("unknown user")
             }
-            setSearchs(data);
-            setUsers([]);
+            setSearched(data);
+            setSearchs([]);
             console.log(data)
          })
          .catch(err => {
@@ -135,7 +135,7 @@ const Search = () => {
             if (data.detail){
                throw Error("unknown user")
             }
-            setSearchs(data);
+            setSearched(data);
             console.log(data)
          })
          .catch(err => {
@@ -158,7 +158,7 @@ const Search = () => {
                         <img src={go_back_icon} alt="user" />
                      </div>
                </div>
-               <form action="" method="GET" className="search">
+               <form className="search" onSubmit={e => e.preventDefault()}>
                   <input ref={inputRef} type="text" name="search" id="search" placeholder="Search" autoComplete="off" onChange={handleSearch}  />
                </form>
             </div>
@@ -172,8 +172,8 @@ const Search = () => {
                </div>
                
                {/* Saved Searches */}
-               {searchs && 
-               searchs.map( search => (
+               {searched && 
+               searched.map( search => (
                   <div key={search.id}>
 
                      <div className="search-wrapper">
@@ -204,8 +204,8 @@ const Search = () => {
                ))}
 
                {/* Searching Searches */}
-               {users && 
-               users.map( user => (
+               {searchs && 
+               searchs.map( user => (
                   <div key={user.id}>
 
                      <div className="search-wrapper">
