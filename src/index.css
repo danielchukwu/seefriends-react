@@ -414,7 +414,7 @@ main {
 .content-wrapper-comment {
   margin: 0 auto;
   max-width: 550px;
-  border-bottom: 1px solid #1b1a1711;
+  border-bottom: 1px solid #e9e9e9;
 }
 .content-wrapper-tells {
   /* background-color: #1b1a17; */
@@ -2264,6 +2264,19 @@ small a {
   background-color: #4d77ff;
   border-radius: 10px;
   font-weight: 500;
+}
+
+.thread-container {
+  background-color: #fff;
+}
+
+.thread-flex {
+  display: flex;
+  padding: 10px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
 }
 
 .shared-header {

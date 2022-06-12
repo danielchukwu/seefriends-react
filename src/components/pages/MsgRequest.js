@@ -303,11 +303,11 @@ const MsgRequest = () => {
 
                   <div className="msg-block" onLoadStart={scrollToBottom()}>
                      { chat.type === "post" && 
-                     <Link to={"/posts/"+chat.msg_on_post.id}>
                         <div className="shared-post-container">
-                           <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                           <Link to={"/posts/"+chat.msg_on_post.id}>
+                              <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                           </Link>
                         </div>
-                     </Link>
                      }
 
                      {chat.type === "tell" && 

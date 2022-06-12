@@ -9,7 +9,10 @@ import useVariables from '../../customhooks/useVariables';
 import PostList from './PostList'
 import Header from '../headers_footers/Header'
 import Footer from '../headers_footers/Footer';
-import { reducerPost } from '../../App';
+import { reducerPost, reducerTell } from '../../App';
+import TellsList from './TellsList';
+import Loading from './Loading';
+
 
 
 
@@ -17,12 +20,17 @@ const PostSingle = () => {
    const { id } = useParams()
    // const {owner, setOwner} = useGetOwner()
    const [post, dispatchPost] = useReducer(reducerPost, []);
-   const {posts_url, access_token} = useVariables()
+   const [tells, dispatchTell] = useReducer(reducerTell, []);  // Tell threads on single post
+
+   const {posts_url, tells_url, access_token} = useVariables()
    const navigate = useNavigate()
+
+   const [showLoading, setShowLoading] = useState(true)
    
    useEffect(()=> {
       
       if (id){
+
          fetch(posts_url+id+"/", {
             method: "GET",
             headers: {
@@ -35,7 +43,9 @@ const PostSingle = () => {
             if (data.detail){
                throw Error("unknown user")
             }
+            setShowLoading(false)
             dispatchPost({ type: "add-post", payload: {posts: [data]}});
+            dispatchTell({ type: "add-tell", payload: {tells: data.threads}});
          })
          .catch(err => {
             if (err.message === "unknown user"){
@@ -44,6 +54,7 @@ const PostSingle = () => {
             console.log(err.message)
          })
       }
+      
    
    }, [posts_url, access_token, navigate, id])
 
@@ -58,9 +69,19 @@ const PostSingle = () => {
 
             {post && <PostList posts={post} dispatchPost={dispatchPost}/>}
 
+            {post &&
+            <div className="thread-container">
+               <div className="thread-flex">
+                  <h3 className="no-margin thread-title">Threads</h3>
+                  <p className="no-margin">{tells.length}</p>
+               </div>
+               {tells && <TellsList tells={tells} dispatchTell={dispatchTell}/>} {/* showTellParent={false} */}
+            </div>}
+
+
          </main>
 
-         {/* <Footer /> */}
+         {showLoading && <Loading />}
          
       </div>
    );

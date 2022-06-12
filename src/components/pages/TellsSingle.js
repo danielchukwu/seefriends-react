@@ -9,6 +9,7 @@ import useVariables from "../../customhooks/useVariables";
 // import: components
 // import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
+import Loading from "./Loading";
 import TellsList from "./TellsList";
 
 const TellsSingle = () => {
@@ -17,6 +18,9 @@ const TellsSingle = () => {
    const navigate = useNavigate()
 
    const [tell, dispatchTell] = useReducer(reducerTell, []);
+   const [tellThreads, dispatchTellThread] = useReducer(reducerTell, []);
+
+   const [showLoading, setShowLoading] = useState(true)
    
    useEffect(() => {
       if (id) {
@@ -32,7 +36,10 @@ const TellsSingle = () => {
             if (data.detail){
                throw Error("unknown user")
             }
+            setShowLoading(false)
             dispatchTell({ type: "add-tell", payload: {tells: [data]}});
+            dispatchTellThread({ type: "add-tell", payload: {tells: data.threads}});
+            
          })
          .catch(err => {
             if (err.message === "unknown user"){
@@ -52,9 +59,21 @@ const TellsSingle = () => {
 
          <main className="margin-b-60">
             {tell && <TellsList tells={tell} dispatchTell={dispatchTell} />}
+
+            {
+            <div className="thread-container">
+
+               <div className="thread-flex">
+                  <h3 className="no-margin thread-title">Threads</h3>
+                  <p className="no-margin">{tellThreads.length}</p>
+               </div>
+               {tellThreads && <TellsList tells={tellThreads} dispatchTell={dispatchTellThread}/>}
+            </div>}
+
          </main>
 
-         {/* <Footer /> */}
+         {showLoading && <Loading />}
+
       </div>
    );
 }
