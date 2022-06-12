@@ -182,97 +182,101 @@ const UserProfile = () => {
             
             {user && (
             <section className="profile-header">
-               <div className="profile-layer-1">
-                  <div className="profile-picture">
-                     <img src={host_url+user.profile.img} alt="profile-picture" />
-                  </div>
-               </div>
-               <div className="profile-layer-2">
-                  <div className="username">
-                     <h2>@{user.profile.username}
-                        {user.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
-                     </h2>
-                  </div>
-                  <small>{user.profile.bio}</small>
-               </div>
-               <div className="user-fcontainer">
+               <div className="userprofile-master">
 
-                  {page === "main-user" && (
-                     <div className="user-box">
-                        <Link to={"/users/profile/update"}>
-                           <div className="edit-profile-btn">
-                              <p className="no-margin">Edit Profile</p>
-                           </div>
-                        </Link>
+                  <div className="profile-layer-1">
+                     <div className="profile-picture">
+                        <img src={host_url+user.profile.img} alt="profile-picture" />
                      </div>
-                  )}
-
-                  {/* {page === "other-user" && isFollowing( */}
-                  {(page === "other-user" && !owner.profile.following.includes(user.id)) && (
-                     <div className="follow-box">
-                        <div className="follow-btn" onClick={() => toggleFollow(user.id)}>
-                           <p className="no-margin">follow</p>
-                        </div>
-                     </div>
-                  )}
-
-                  {(page === "other-user" && owner.profile.following.includes(user.id)) && (
-                     <div className="following-box">
-                        <div className="following-btn" onClick={() => toggleFollow(user.id)}>
-                           <p className="no-margin">following</p>
-                        </div>
-                        <Link to={`/messages/${owner.id}/${user.id}`}>
-                           <img src={msg_icon} className="small-img margin-l-10" alt="" />
-                        </Link>
-                     </div>
-                  )}
-
-               </div>
-
-               {/* followers, following, friends */}
-               <div className="profile-layer-3">
-                  <div className="followers-count">
-                     <Link to={`/users/profile/${user.id}/fff/Followers`}>
-                        {user && <p>{followerCount}</p>}
-                        <small>followers</small>
-                     </Link>
                   </div>
-                  <div className="following-count">
-                     <Link to={`/users/profile/${user.id}/fff/Following`}>
-                        {user && <p>{user.profile.following.length}</p>}
-                        <small>following</small>
-                     </Link>
-                  </div>
-                  <div className="following-count">
-                     <Link to={`/users/profile/${user.id}/fff/Friends`}>
-                        {user && <p>{friendsCount}</p>}
-                        <small>friends</small>
-                     </Link>
-                  </div>
-               </div>
-               {/*  */}
-
-               <div className="filter-options width-p-20">
-                  
-                  <div className="options-wrapper">
-
-                     <div className="profile-posts pointer" onClick={() => setPt('posts')}>
-                        {pt === "posts" && <h4 className="no-margin">Posts</h4>}
-                        {pt !== "posts" && <h4 className="grey-dark no-margin">Posts</h4>}
+                  <div className="profile-layer-2 mobile-page-550">
+                     <div className="username">
+                        <h2>@{user.profile.username}
+                           {user.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
+                        </h2>
                      </div>
-                     <div className="tell pointer" onClick={() => setPt('tells')}>
-                        {pt === "tells" && <h4 className="no-margin">Tells</h4>}
-                        {pt !== "tells" && <h4 className="grey-dark no-margin">Tells</h4>}
-                     </div>
-                     
-                     
-                     { page === "main-user"  && (
-                        <div className="profile-all pointer">
-                           <Link to={"/users/profile/saved"}>
-                              <h4 className="grey-dark no-margin">Saved</h4>
+                     <small>{user.profile.bio}</small>
+                  </div>
+                  <div className="user-fcontainer">
+
+                     {page === "main-user" && (
+                        <div className="user-box">
+                           <Link to={"/users/profile/update"}>
+                              <div className="edit-profile-btn">
+                                 <p className="no-margin">Edit Profile</p>
+                              </div>
                            </Link>
                         </div>
                      )}
+
+                     {/* {page === "other-user" && isFollowing( */}
+                     {(page === "other-user" && !owner.profile.following.includes(user.id)) && (
+                        <div className="follow-box">
+                           <div className="follow-btn" onClick={() => toggleFollow(user.id)}>
+                              <p className="no-margin">follow</p>
+                           </div>
+                        </div>
+                     )}
+
+                     {(page === "other-user" && owner.profile.following.includes(user.id)) && (
+                        <div className="following-box">
+                           <div className="following-btn" onClick={() => toggleFollow(user.id)}>
+                              <p className="no-margin">following</p>
+                           </div>
+                           <Link to={`/messages/${owner.id}/${user.id}`}>
+                              <img src={msg_icon} className="small-img margin-l-10" alt="" />
+                           </Link>
+                        </div>
+                     )}
+
+                  </div>
+
+                  {/* followers, following, friends */}
+                  <div className="profile-layer-3">
+                     <div className="followers-count">
+                        <Link to={`/users/profile/${user.id}/fff/Followers`}>
+                           {user && <p>{followerCount}</p>}
+                           <small>followers</small>
+                        </Link>
+                     </div>
+                     <div className="following-count">
+                        <Link to={`/users/profile/${user.id}/fff/Following`}>
+                           {user && <p>{user.profile.following.length}</p>}
+                           <small>following</small>
+                        </Link>
+                     </div>
+                     <div className="following-count">
+                        <Link to={`/users/profile/${user.id}/fff/Friends`}>
+                           {user && <p>{friendsCount}</p>}
+                           <small>friends</small>
+                        </Link>
+                     </div>
+                  </div>
+                  {/*  */}
+
+                  <div className="filter-options width-p-20">
+                     
+                     <div className="options-wrapper">
+
+                        <div className="profile-posts pointer" onClick={() => setPt('posts')}>
+                           {pt === "posts" && <h4 className="no-margin">Posts</h4>}
+                           {pt !== "posts" && <h4 className="grey-dark no-margin">Posts</h4>}
+                        </div>
+                        <div className="tell pointer" onClick={() => setPt('tells')}>
+                           {pt === "tells" && <h4 className="no-margin">Tells</h4>}
+                           {pt !== "tells" && <h4 className="grey-dark no-margin">Tells</h4>}
+                        </div>
+                        
+                        
+                        { page === "main-user"  && (
+                           <div className="profile-all pointer">
+                              <Link to={"/users/profile/saved"}>
+                                 <h4 className="grey-dark no-margin">Saved</h4>
+                              </Link>
+                           </div>
+                        )}
+
+                     </div>
 
                   </div>
 

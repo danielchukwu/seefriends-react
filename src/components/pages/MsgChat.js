@@ -286,39 +286,40 @@ const MsgChat = () => {
    return (
       <div className="msg-chat-react">
 
-      <header>
-         <div className="message-header" data-user="{{user.id}}">
-            <div className="message-left pointer">
-               <div className="back" onClick={() => exitChatRoom()}>
-                  <img src={go_back_icon} alt="" />
-               </div>
-               {otherUser && <div className="activity-2">
-                  <Link to={`/users/profile/${otherUser.id}`}>
-                     <div className="img-holder-m">
-                        <img src={host_url + otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
-                     </div>
-                  </Link>
-                  <Link to={`/users/profile/${otherUser.id}`}>
-                  <div>
-                     <h2 className="no-margin width-p-10 position-rel msg-name"><strong>{otherUser.profile.username}</strong>
-                        {otherUser.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
-                     </h2>
-                     {/* <p className="no-margin width-p-10 last_seen">{otherUser.profile.last_seen}</p> */}
+      <div className="header-react-msg">
+         <header className="mobile-page-750">
+            <div className="message-header" data-user="{{user.id}}">
+               <div className="message-left pointer">
+                  <div className="back" onClick={() => exitChatRoom()}>
+                     <img src={go_back_icon} alt="" />
                   </div>
-                  </Link>
-               </div>}
-            </div>
-            {/* <a href="#" className="options-link">
-               <div className="message-right">
-                  <img src={options_icon} alt="" width="20" />
+                  {otherUser && <div className="activity-2">
+                     <Link to={`/users/profile/${otherUser.id}`}>
+                        <div className="img-holder-m">
+                           <img src={host_url + otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
+                        </div>
+                     </Link>
+                     <Link to={`/users/profile/${otherUser.id}`}>
+                     <div>
+                        <h2 className="no-margin width-p-10 position-rel msg-name"><strong>{otherUser.profile.username}</strong>
+                           {otherUser.profile.verified && <img src={verified_icon} className="width-15 verified-pos1" alt="verification" />}
+                        </h2>
+                        {/* <p className="no-margin width-p-10 last_seen">{otherUser.profile.last_seen}</p> */}
+                     </div>
+                     </Link>
+                  </div>}
                </div>
-            </a> */}
-         </div>
-      </header>
-         
+               {/* <a href="#" className="options-link">
+                  <div className="message-right">
+                     <img src={options_icon} alt="" width="20" />
+                  </div>
+               </a> */}
+            </div>
+         </header>
+      </div>
 
          {chats && owner && 
-         <main id="main" className="margin-b-70">
+         <main id="main" className="msg-chat-container">
             
 
             {/* Chat Boxes */}
@@ -347,18 +348,18 @@ const MsgChat = () => {
                      }
 
                      {chat.type === "tell" && 
-                     <Link to={"/tells/" + chat.msg_on_tell.id}>
                         <div className="shared-tell-container margin-l-auto">
-                           <div className="shared-header">
-                              <div className="username-verified flex">
-                                 <h4 className="no-margin">{chat.msg_on_tell.owner.profile.username}</h4>
-                                 {/* {chat.msg_on_tell.owner.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />} */}
+                           <Link to={"/tells/" + chat.msg_on_tell.id}>
+                              <div className="shared-header">
+                                 <div className="username-verified flex">
+                                    <h4 className="no-margin">{chat.msg_on_tell.owner.profile.username}</h4>
+                                    {/* {chat.msg_on_tell.owner.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />} */}
+                                 </div>
+                                 <strong className="font-lobster">T</strong>
                               </div>
-                              <strong className="font-lobster">T</strong>
-                           </div>
-                           <p className="no-margin">{chat.msg_on_tell.body}</p>
+                              <p className="no-margin">{chat.msg_on_tell.body}</p>
+                           </Link>
                         </div>
-                     </Link>
                      }
 
                      {chat.body.length > 0 && 
@@ -425,7 +426,7 @@ const MsgChat = () => {
          <div className="bottom" ref={messageEndRef} />
 
          <div className="footer border-top-e9">
-            <form className="message-form" id="form" onSubmit={(e) => handleSubmit(e)}>
+            <form className="message-form mobile-page-750" id="form" onSubmit={(e) => handleSubmit(e)}>
                <div ref={inputRef} onKeyDown={isReady} className="textarea-chat" contentEditable={true} required></div>
                <button className="chat-button">
                   <img src={send_icon32} className="send-msg-button" alt="" />

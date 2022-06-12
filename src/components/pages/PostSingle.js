@@ -66,14 +66,19 @@ const PostSingle = () => {
          <Header page="Post" left={"go-back"} right={"search-chats"} />
 
          <main className='postfeed'>
-
-            {post && <PostList posts={post} dispatchPost={dispatchPost}/>}
+            <div className="background-white">
+               {post && <PostList posts={post} dispatchPost={dispatchPost}/>}
+            </div>
 
             {post &&
             <div className="thread-container">
-               <div className="thread-flex">
-                  <h3 className="no-margin thread-title">Threads</h3>
-                  <p className="no-margin">{tells.length}</p>
+               <div className="thread-count-container">
+                  <div className="mobile-page-550">
+                     <div className="thread-flex">
+                        <h3 className="no-margin thread-title">Threads</h3>
+                        <p className="no-margin">{tells.length}</p>
+                     </div>
+                  </div>
                </div>
                {tells && <TellsList tells={tells} dispatchTell={dispatchTell}/>} {/* showTellParent={false} */}
             </div>}

@@ -150,21 +150,22 @@ const Search = () => {
    
    return (
       <div className="search-react">
-
-         <header>
-            <div className="header-wrapper width-p-10 height-p-10 border-none">
-               <div className="header">
-                     <div className="search" onClick={() => navigate(-1)}>
-                        <img src={go_back_icon} alt="user" />
-                     </div>
+         <div className="header-react">
+            <header className="mobile-page-950">
+               <div className="header-wrapper width-p-10 height-p-10 border-none">
+                  <div className="header">
+                        <div className="search" onClick={() => navigate(-1)}>
+                           <img src={go_back_icon} alt="user" />
+                        </div>
+                  </div>
+                  <form className="search" onSubmit={e => e.preventDefault()}>
+                     <input ref={inputRef} type="text" name="search" id="search" placeholder="Search" autoComplete="off" onChange={handleSearch}  />
+                  </form>
                </div>
-               <form className="search" onSubmit={e => e.preventDefault()}>
-                  <input ref={inputRef} type="text" name="search" id="search" placeholder="Search" autoComplete="off" onChange={handleSearch}  />
-               </form>
-            </div>
-         </header>
+            </header>
+         </div>
 
-         <main>
+         <main className="mobile-page-550">
             <div className="search-container">
                {/* {% if not profiles %} */}
                <div className="search-title width-p-20 pad-bot-10">

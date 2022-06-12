@@ -83,29 +83,31 @@ const Messages = () => {
    return (
       <div className="messages-react margin-b-70">
 
-         <header>
-            <div className="header-wrapper width-p-20 height-p-20">
-               <div className="header-1">
-                  <Link to="/">
-                     <div className="logo">
-                        <img src={sf_logo} alt="seefriends logo" />
-                     </div>
-                  </Link>
-                  
+         <div className="header-react">
+            <header className="mobile-page-950">
+               <div className="header-wrapper width-p-20 height-p-20">
+                  <div className="header-1">
+                     <Link to="/">
+                        <div className="logo">
+                           <img src={sf_logo} alt="seefriends logo" />
+                        </div>
+                     </Link>
+                     
+                  </div>
+                  <div className="msg-mr">
+                     {/* <Link to={"/"}>
+                        <span className="msg-rcontainer">
+                           <img src={user_icon} alt="" className="msg-r" />
+                           <div className="msg-rcount">{5}</div>
+                        </span>
+                     </Link> */}
+                     <Link to={"/"} className="options-link">
+                        <img src={options_icon} alt="" className="width-20" />
+                     </Link>
+                  </div>
                </div>
-               <div className="msg-mr">
-                  {/* <Link to={"/"}>
-                     <span className="msg-rcontainer">
-                        <img src={user_icon} alt="" className="msg-r" />
-                        <div className="msg-rcount">{5}</div>
-                     </span>
-                  </Link> */}
-                  <Link to={"/"} className="options-link">
-                     <img src={options_icon} alt="" className="width-20" />
-                  </Link>
-               </div>
-            </div>
-         </header>
+            </header>
+         </div>
 
          <section className="inbox-menu">
             <div className="inbox-options">

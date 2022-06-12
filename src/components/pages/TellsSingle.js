@@ -58,14 +58,20 @@ const TellsSingle = () => {
          <Header page="Tell" left={"go-back"} right={"search-chats"} />
 
          <main className="margin-b-60">
-            {tell && <TellsList tells={tell} dispatchTell={dispatchTell} />}
+            <div className="background-white">
+               {tell && <TellsList tells={tell} dispatchTell={dispatchTell} />}
+            </div>
 
             {
             <div className="thread-container">
 
-               <div className="thread-flex">
-                  <h3 className="no-margin thread-title">Threads</h3>
-                  <p className="no-margin">{tellThreads.length}</p>
+               <div className="thread-count-container">
+                  <div className="mobile-page-550">
+                     <div className="thread-flex">
+                        <h3 className="no-margin thread-title">Threads</h3>
+                        <p className="no-margin">{tellThreads.length}</p>
+                     </div>
+                  </div>
                </div>
                {tellThreads && <TellsList tells={tellThreads} dispatchTell={dispatchTellThread}/>}
             </div>}

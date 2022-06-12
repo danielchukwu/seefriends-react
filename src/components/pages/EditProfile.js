@@ -103,7 +103,7 @@ const EditProfile = () => {
    
    
    return (
-      <div className="editprofile-react">
+      <div className="editprofile-react background-white">
          <Header page={"Edit Profile"} left={"go-back"} />
 
          {showErrors && 

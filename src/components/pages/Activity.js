@@ -43,10 +43,10 @@ const Activity = () => {
    
 
    return (
-      <div className="activity-page-react">
+      <div className="activity-page-react background-white">
          <Header page="Activity" left={"title"} right={"search-chats"} />
          
-         <main className="activity-container margin-b-60">
+         <main className="activity-container margin-b-60 mobile-page-550">
             {activities && <ActivityList activities={activities} />}
 
             {showLoading && <Loading />}
