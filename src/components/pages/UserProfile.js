@@ -257,19 +257,19 @@ const UserProfile = () => {
                   <div className="options-wrapper">
 
                      <div className="profile-posts pointer" onClick={() => setPt('posts')}>
-                        {pt === "posts" && <h4>Posts</h4>}
-                        {pt !== "posts" && <h4 className="grey-dark">Posts</h4>}
+                        {pt === "posts" && <h4 className="no-margin">Posts</h4>}
+                        {pt !== "posts" && <h4 className="grey-dark no-margin">Posts</h4>}
                      </div>
                      <div className="tell pointer" onClick={() => setPt('tells')}>
-                        {pt === "tells" && <h4>Tells</h4>}
-                        {pt !== "tells" && <h4 className="grey-dark">Tells</h4>}
+                        {pt === "tells" && <h4 className="no-margin">Tells</h4>}
+                        {pt !== "tells" && <h4 className="grey-dark no-margin">Tells</h4>}
                      </div>
                      
                      
                      { page === "main-user"  && (
                         <div className="profile-all pointer">
                            <Link to={"/users/profile/saved"}>
-                              <h4 className="grey-dark">Saved</h4>
+                              <h4 className="grey-dark no-margin">Saved</h4>
                            </Link>
                         </div>
                      )}

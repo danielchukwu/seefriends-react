@@ -11,61 +11,64 @@ const Header = ({page, left, right}) => {
    const navigate = useNavigate();
 
    return ( 
-      <header>
-         <div className="header-wrapper">
-            {/* Right */}
-            <div className="header-1">
+      <div className="header-react">
 
-               {left === "logo" &&
-               <Link to={"/"}>
-                  <div className="logo">
-                     <img src={sf_logo} alt="seefriends logo" />
-                  </div>
-               </Link>}
+         <header className="mobile-page-950">
+            <div className="header-wrapper">
+               {/* Right */}
+               <div className="header-1">
 
-               {left === "go-back" &&
-               <div className="pf-logo-container">
-                  <Link to="" onClick={() => navigate(-1)}>
-                     <img src={go_back_icon} alt="" width="25" className="pf-back"/>
-                  </Link>
-                  <h3 className="no-margin font-25">{page}</h3>
-               </div>}
+                  {left === "logo" &&
+                  <Link to={"/"}>
+                     <div className="logo">
+                        <img src={sf_logo} alt="seefriends logo" />
+                     </div>
+                  </Link>}
 
-               {left === "title" &&
-               <div className="pf-logo-container">
-                  <h3 className="no-margin font-25">{page}</h3>
-               </div>}
+                  {left === "go-back" &&
+                  <div className="pf-logo-container">
+                     <Link to="" onClick={() => navigate(-1)}>
+                        <img src={go_back_icon} alt="" width="25" className="pf-back"/>
+                     </Link>
+                     <h3 className="no-margin font-25">{page}</h3>
+                  </div>}
+
+                  {left === "title" &&
+                  <div className="pf-logo-container">
+                     <h3 className="no-margin font-25">{page}</h3>
+                  </div>}
 
 
+               </div>
+
+
+               {/* Left */}
+               <div className="header">
+
+                  {right === "search-chats" && 
+                  <div className="inbox">
+                     {page === "Discover" && <Link to={"/search"}><img src={discover_icon} alt="" /></Link>}
+                     {page !== "Discover" && <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>}
+                     <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
+
+                     { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
+                  </div>}
+
+                  {right === "search" 
+                  && <div className="inbox">
+                     <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>
+                  </div>}
+
+                  {right === "chats" 
+                  && <div className="inbox">
+                     <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
+                     { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
+                  </div>}
+
+               </div>
             </div>
-
-
-            {/* Left */}
-            <div className="header">
-
-               {right === "search-chats" && 
-               <div className="inbox">
-                  {page === "Discover" && <Link to={"/search"}><img src={discover_icon} alt="" /></Link>}
-                  {page !== "Discover" && <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>}
-                  <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
-
-                  { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
-               </div>}
-
-               {right === "search" 
-               && <div className="inbox">
-                  <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>
-               </div>}
-
-               {right === "chats" 
-               && <div className="inbox">
-                  <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
-                  { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
-               </div>}
-
-            </div>
-         </div>
-      </header>
+         </header>
+      </div>
    );
 }
 

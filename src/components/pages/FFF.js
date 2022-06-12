@@ -88,24 +88,26 @@ const FFF = () => {
 
          {fff && <Header page={fff} left={"go-back"} right={""} />}
 
-         <div className="fff-op-wrapper">
-               
-            <div className="fff-op pointer" onClick={() => setFff("Followers")}>
-               {fff.toLowerCase() === "followers" && <h4>Followers</h4>}
-               {fff.toLowerCase() !== "followers" && <h4 className="grey-dark">Followers</h4>}
-            </div>
-            <div className="fff-op pointer" onClick={() => setFff("Following")}>
-               {fff.toLowerCase() === "following" && <h4>Following</h4>}
-               {fff.toLowerCase() !== "following" && <h4 className="grey-dark">Following</h4>}
-            </div>
-            <div className="fff-op pointer" onClick={() => setFff("Friends")}>
-               {fff.toLowerCase() === "friends" && <h4>Friends</h4>}
-               {fff.toLowerCase() !== "friends" && <h4 className="grey-dark">Friends</h4>}
-            </div>
+         <div className="fff-container">
+            <div className="fff-op-wrapper">
+                  
+               <div className="fff-op pointer" onClick={() => setFff("Followers")}>
+                  {fff.toLowerCase() === "followers" && <h4>Followers</h4>}
+                  {fff.toLowerCase() !== "followers" && <h4 className="grey-dark">Followers</h4>}
+               </div>
+               <div className="fff-op pointer" onClick={() => setFff("Following")}>
+                  {fff.toLowerCase() === "following" && <h4>Following</h4>}
+                  {fff.toLowerCase() !== "following" && <h4 className="grey-dark">Following</h4>}
+               </div>
+               <div className="fff-op pointer" onClick={() => setFff("Friends")}>
+                  {fff.toLowerCase() === "friends" && <h4>Friends</h4>}
+                  {fff.toLowerCase() !== "friends" && <h4 className="grey-dark">Friends</h4>}
+               </div>
 
+            </div>
          </div>
          
-         <div className="fff-body">
+         <div className="fff-body mobile-page-550">
             {/* {followers && <FFFList users={followers} page={fff} />} */}
 
             {followers && fff == "Followers" && <FFFList users={followers} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}

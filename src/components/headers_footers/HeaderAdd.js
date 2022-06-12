@@ -8,7 +8,9 @@ const HeaderAddPost = ({ handleSubmit, submitReady, page }) => {
    
 
    return (
-      <header>
+      <div className="header-react">
+
+      <header className="mobile-page-950">
          <div className="header-wrapper width-p-20 height-p-10">
             <div className="header-1">
                <div className="pf-logo-container">
@@ -27,6 +29,8 @@ const HeaderAddPost = ({ handleSubmit, submitReady, page }) => {
             </div>
          </div>
       </header>
+      
+      </div>
    );
 }
 

@@ -70,20 +70,22 @@ const Saved = () => {
          <Header page="Saved" left={"go-back"} right={""} />
          <div className="saved-options">
 
-            <div className="options-wrapper">
-               
-               <div className="profile-posts pointer" onClick={() => setPt("posts")}>
-                  {pt === "posts" && <h4>Posts</h4>}
-                  {pt !== "posts" && <h4 className="grey-dark">Posts</h4>}
-               </div>
-               <div className="tell pointer"  onClick={() => setPt("tells")}>
-                  {pt === "tells" && <h4>Tells</h4>}
-                  {pt !== "tells" && <h4 className="grey-dark">Tells</h4>}
-               </div>
+            <div className="options-container">
+               <div className="options-wrapper">
+                  
+                  <div className="profile-posts pointer" onClick={() => setPt("posts")}>
+                     {pt === "posts" && <h4 className="no-margin">Posts</h4>}
+                     {pt !== "posts" && <h4 className="grey-dark no-margin">Posts</h4>}
+                  </div>
+                  <div className="tell pointer"  onClick={() => setPt("tells")}>
+                     {pt === "tells" && <h4 className="no-margin">Tells</h4>}
+                     {pt !== "tells" && <h4 className="grey-dark no-margin">Tells</h4>}
+                  </div>
 
+               </div>
             </div>
 
-            <div>
+            <div className="saved-list">
                   { pt === "posts" && posts && <PostList posts={posts} dispatchPost={dispatchPost} />}
                   { pt === "tells" && tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}
 
