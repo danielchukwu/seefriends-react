@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
+import useLongPress from "../../customhooks/useLongPress";
 // imports: hooks
 
 
@@ -9,6 +10,15 @@ const Header = ({page, left, right}) => {
    const {sf_logo, go_back_icon, discover_icon, msg_icon} = useIcons();
    const {owner} = useGetOwner();
    const navigate = useNavigate();
+
+   // Long Press Logic
+   const onLongPress = () => {
+      navigate('/search')
+   };
+   const onClick = () => {
+      navigate('/discover');
+   };
+   const longPressEvent = useLongPress(onLongPress, onClick, {shouldPreventDefault: true, delay: 500});
 
    return ( 
       <div className="header-react">
@@ -48,7 +58,7 @@ const Header = ({page, left, right}) => {
                   {right === "search-chats" && 
                   <div className="inbox">
                      {page === "Discover" && <Link to={"/search"}><img src={discover_icon} alt="" /></Link>}
-                     {page !== "Discover" && <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>}
+                     {page !== "Discover" && <Link to={"/discover"}  {...longPressEvent}><img src={discover_icon} alt="" /></Link>}
                      <Link to={"/messages"}><img src={msg_icon} alt="user" /></Link>
 
                      { owner && owner.profile.msgcount > 0 && <div className="red-circle red-circle-mp">{owner.profile.msgcount}</div>}
@@ -56,7 +66,7 @@ const Header = ({page, left, right}) => {
 
                   {right === "search" 
                   && <div className="inbox">
-                     <Link to={"/discover"}><img src={discover_icon} alt="" /></Link>
+                     <Link to={"/discover"} {...longPressEvent}><img src={discover_icon} alt="" /></Link>
                   </div>}
 
                   {right === "chats" 

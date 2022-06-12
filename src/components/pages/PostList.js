@@ -177,6 +177,7 @@ const PostList = ({ posts, dispatchPost}) => {
 
          {/* Tell On - Floater */}
          {tPost && <TellOn tPost={tPost} setTPost={setTPost} type={"post"} toggle={toggle} />}
+         {/* Share - Floater */}
          {mPost && <ShareOn mPost={mPost} setMPost={setMPost} type={"post"} toggle={toggle} />}
 
       </div>

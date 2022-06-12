@@ -103,8 +103,8 @@ const Footer = () => {
                      <div className="floater-bottom-options">
                         <hr className="hr-mini-bar" />
                         <div className="options">
-                           <Link to={"/"}><h3>Edit profile</h3></Link>
-                           <Link to={"/"}><h3>Settings</h3></Link>
+                           <Link to={"/users/profile/update"}><h3>Edit profile</h3></Link>
+                           <Link to={"/users/profile/saved"}><h3>Saved</h3></Link>
                            <h3 onClick={() => handleLogout()}>Logout</h3>
                         </div>
                      </div>
