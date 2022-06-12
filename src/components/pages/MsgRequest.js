@@ -189,6 +189,31 @@ const MsgRequest = () => {
       
       }
 
+   // logic: show new month and day of chat
+   const showMonthandDay = (index) => {
+      // const months = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
+      if (index === 0){
+         return "welcome"
+      }
+      // Last Text
+      let last_date = new Date(chats[index-1].created);
+      last_date = last_date.toDateString().split(" ");
+      let last_year = last_date[3];
+      let last_month = last_date[1];
+      let last_day = last_date[2];
+      // Current Text
+      let date = new Date(chats[index].created);
+      date = date.toDateString().split(" ")
+      let year = date[3];
+      let month = date[1];
+      let day = date[2];
+
+      // console.log(date)
+      if (last_year === year && last_month === month && last_day !== day){
+         return `${month} ${day}`
+      } else return false
+   }
+
 
    return (
       <div className="message-request-react">
@@ -264,25 +289,53 @@ const MsgRequest = () => {
                
             </section>
             
-            <div className="timestamp-holder">
-               <span className="timestamp">
-                  <strong>Welcome</strong>
-               </span>
-            </div>
 
-            { chats.map((chat, index) => (
+            { chats && chats.map((chat, index) => (
                <div key={chat.id}>
 
-                  {chat.owner !== owner.id && 
-                  <div className="msg-block">
-                     <div className={`msg-box ` + otherBoxStyles(index)}>
-                        <p className="no-margin">
-                           <span>{chat.body}</span>
-                           <small className="msg-time grey">{chat.time}</small>
-                        </p>
+                  {/* Show Month and Day */}
+                  {showMonthandDay(index) && 
+                  <div className="timestamp-holder">
+                     <span className="timestamp">
+                        <small>{showMonthandDay(index)}</small>
+                     </span>
+                  </div>}
+
+                  <div className="msg-block" onLoadStart={scrollToBottom()}>
+                     { chat.type === "post" && 
+                     <Link to={"/posts/"+chat.msg_on_post.id}>
+                        <div className="shared-post-container">
+                           <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                        </div>
+                     </Link>
+                     }
+
+                     {chat.type === "tell" && 
+                     <Link to={"/tells/" + chat.msg_on_tell.id}>
+                        <div className="shared-tell-container">
+                           <div className="shared-header">
+                              <div className="username-verified flex">
+                                 <h4 className="no-margin">{chat.msg_on_tell.owner.profile.username}</h4>
+                                 {/* {chat.msg_on_tell.owner.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />} */}
+                              </div>
+                              <strong className="font-lobster">T</strong>
+                           </div>
+                           <p className="no-margin">{chat.msg_on_tell.body}</p>
+                        </div>
+                     </Link>
+                     }
+
+                     {chat.owner !== owner.id && 
+                     <div className="msg-block">
+                        <div className={`msg-box ` + otherBoxStyles(index)}>
+                           <p className="no-margin">
+                              <span>{chat.body}</span>
+                              <small className="msg-time grey">{chat.time}</small>
+                           </p>
+                        </div>
                      </div>
+                     }
                   </div>
-                  }
                </div>
             ))}
             

@@ -2220,7 +2220,6 @@ small a {
 }
 .fff-main-user {
   background-color: #fff;
-  border-bottom: 1px solid #1b1a1711;
 }
 
 .fff {
@@ -2265,6 +2264,36 @@ small a {
   background-color: #4d77ff;
   border-radius: 10px;
   font-weight: 500;
+}
+
+.shared-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+.shared-tell-container {
+  background-color: #fff;
+  width: 200px;
+  padding: 15px;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+.margin-l-auto {
+  margin-left: auto;
+}
+
+
+.shared-post-container {
+  width: 200px;
+  margin-top: 10px;
+}
+
+.shared-img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .msg-on-add, .msg-on-added {
@@ -2773,16 +2802,22 @@ small a {
 
 .msg-block {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 2px 0;
+  margin-left: 3px;
 }
 
 .msg-block-me {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 3px 0;
-  position: relative;
+  margin: 2px 0;
+  /* position: relative; */
+}
+
+.msg-block-me-container {
+  margin-right: 3px;
 }
 
 .msg-box,
@@ -2797,13 +2832,10 @@ small a {
 
 .msg-box {
   background-color: #fff;
-  margin-left: 3px;
 }
 
 .msg-box-me {
   background-color: #dffdf8;
-  /* background-color: #1d9bf0; */
-  margin-right: 3px;
 }
 
 /* Chat box styling - order depends on the radius styling me or the other user styling box gets */

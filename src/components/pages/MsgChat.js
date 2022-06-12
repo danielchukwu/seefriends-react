@@ -200,6 +200,9 @@ const MsgChat = () => {
       // Right-hand side
       if (index === 0) return "my-msg-first" //
       if (chats[index-1].owner !== owner.id){
+         if (chats[index].type !== ""){ // logic: But if current text is not of just text but text on "post" or "tell" don't add margin to the top
+            return ""
+         }
          return "my-msg-first";
       } else {
          return "my-msg-notfirst";
@@ -209,6 +212,9 @@ const MsgChat = () => {
       // Left-hand side
       if (index === 0) return "user-msg-first" //
       if (chats[index-1].owner === owner.id){
+         if (chats[index].type !== ""){ // logic: But if current text is not of just text but text on "post" or "tell" don't add margin to the top
+            return ""
+         }
          return "user-msg-first";
       } else {
          return "user-msg-notfirst";
@@ -320,6 +326,7 @@ const MsgChat = () => {
             { chats.map((chat, index) => (
                <div key={chat.id}>
 
+                  {/* Show Month and Day */}
                   {showMonthandDay(index) && 
                   <div className="timestamp-holder">
                      <span className="timestamp">
@@ -327,16 +334,42 @@ const MsgChat = () => {
                      </span>
                   </div>}
 
+                  {/* Show My Messages */}
                   {chat.owner === owner.id && 
-                  <div onLoadStart={scrollToBottom()}>
+                  <div className="msg-block-me-container" onLoadStart={scrollToBottom()}>
+                     
+                     { chat.type === "post" && 
+                     <Link to={"/posts/"+chat.msg_on_post.id}>
+                        <div className="shared-post-container margin-l-auto">
+                           <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                        </div>
+                     </Link>
+                     }
+
+                     {chat.type === "tell" && 
+                     <Link to={"/tells/" + chat.msg_on_tell.id}>
+                        <div className="shared-tell-container margin-l-auto">
+                           <div className="shared-header">
+                              <div className="username-verified flex">
+                                 <h4 className="no-margin">{chat.msg_on_tell.owner.profile.username}</h4>
+                                 {/* {chat.msg_on_tell.owner.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />} */}
+                              </div>
+                              <strong className="font-lobster">T</strong>
+                           </div>
+                           <p className="no-margin">{chat.msg_on_tell.body}</p>
+                        </div>
+                     </Link>
+                     }
+
+                     {chat.body.length > 0 && 
                      <div className="msg-block-me">
                         <div className={`msg-box-me `+ myBoxStyles(index)}>
                            <p className="no-margin">
-                              <span>{chat.body}</span> 
+                              <span>{chat.body}</span>
                               <small className="msg-time grey">{chat.time}</small>
                            </p>
                         </div>
-                     </div>
+                     </div>}
                      {showReadReciept(index) && 
                      <div className="read-reciept-me">
                         {chat.is_read && <img src={check_blue16_icon} alt="" className="width-12" />}
@@ -345,9 +378,32 @@ const MsgChat = () => {
                   </div>
                   }
 
-
+                  {/* Show Other User Messages */}
                   {chat.owner !== owner.id && 
                   <div className="msg-block" onLoadStart={scrollToBottom()}>
+                     { chat.type === "post" && 
+                     <Link to={"/posts/"+chat.msg_on_post.id}>
+                        <div className="shared-post-container">
+                           <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                        </div>
+                     </Link>
+                     }
+
+                     {chat.type === "tell" && 
+                     <Link to={"/tells/" + chat.msg_on_tell.id}>
+                        <div className="shared-tell-container">
+                           <div className="shared-header">
+                              <div className="username-verified flex">
+                                 <h4 className="no-margin">{chat.msg_on_tell.owner.profile.username}</h4>
+                                 {/* {chat.msg_on_tell.owner.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />} */}
+                              </div>
+                              <strong className="font-lobster">T</strong>
+                           </div>
+                           <p className="no-margin">{chat.msg_on_tell.body}</p>
+                        </div>
+                     </Link>
+                     }
+                     
                      <div className={`msg-box ` + otherBoxStyles(index)}>
                         <p className="no-margin">
                            <span>{chat.body}</span>
