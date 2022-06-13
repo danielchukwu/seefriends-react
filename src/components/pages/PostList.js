@@ -72,7 +72,19 @@ const PostList = ({ posts, dispatchPost}) => {
       }
    }
 
+   // Show see Threads Link on click
+   const showThreadLink = (e) => {
+      const seeThreads = e.target.parentNode.childNodes[0]
+      if (seeThreads.classList.contains("none")){
+         seeThreads.classList = ["see-threads-box"]
+      } else {
+         seeThreads.classList = ["see-threads-box none"]
+      }
+      // seeThreads.classList =
+      console.log(seeThreads.classList)
+   }
 
+   console.log(posts)
    return ( 
       <div>
          {posts.map((post) => (
@@ -96,7 +108,12 @@ const PostList = ({ posts, dispatchPost}) => {
                         </div>
                      </div>
                      <div className="cl-right">
-                        <Link to="{% url 'other-profile' content.post.owner.id %}"><img src={options_icon} alt="" /></Link>
+                        <div className="see-threads-box none">
+                           <Link to={"/posts/"+post.id}>
+                              <p className="no-margin">see Threads</p>
+                           </Link>
+                        </div>
+                        <img src={options_icon} alt="" className="pointer" onClick={e => showThreadLink(e)}/>
                      </div>
                   </div>
    
@@ -120,16 +137,17 @@ const PostList = ({ posts, dispatchPost}) => {
                         <div className="cl1-left">
                            
                            {/* Msg */}
-                           <img src={send_small_icon} alt="" title="respond to post" onClick={() => setMPost(post)}/>
+                           <img src={send_small_icon} className="pointer" alt="" title="respond to post" onClick={() => setMPost(post)}/>
                            <p >{post.sharers_count}</p>
    
                            {/* Tell on */}
-                           <strong className="font-lobster" title="tell on" onClick={() => setTPost(post)}>T</strong>
+                           <strong className="font-lobster pointer" title="tell on" onClick={() => setTPost(post)}>T</strong>
                            <p>{post.tellers_count}</p>
                            
                            {/* Saved  */}
-                           {owner && !post.savers.includes(owner.id) && <img src={save_icon} title="save post" alt="" onClick={() => toggle(post.id, "save")} />}
-                           {owner && post.savers.includes(owner.id) && <img src={saved_icon} title="save post" alt="" onClick={() => toggle(post.id, "save")} />}
+                           {owner && !post.savers.includes(owner.id) && <img src={save_icon} className="pointer" title="save post" alt="" onClick={() => toggle(post.id, "save")} />}
+                           
+                           {owner && post.savers.includes(owner.id) && <img src={saved_icon} className="pointer" title="save post" alt="" onClick={() => toggle(post.id, "save")} />}
                            <p>{post.savers.length}</p>
 
                         </div>

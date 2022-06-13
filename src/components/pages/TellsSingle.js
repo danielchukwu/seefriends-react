@@ -59,7 +59,7 @@ const TellsSingle = () => {
 
          <main className="margin-b-60">
             <div className="background-white">
-               {tell && <TellsList tells={tell} dispatchTell={dispatchTell} />}
+               {tell && <TellsList tells={tell} dispatchTell={dispatchTell} removeParentLike={false} />}
             </div>
 
             {

@@ -10,7 +10,7 @@ import TellOn from '../pop_ups/TellOn';
 import ShareOn from '../pop_ups/ShareOn';
 // imports: images
 
-const TellsList = ({ tells, dispatchTell }) => {
+const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
    const {owner} = useGetOwner();
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon} = useIcons();
    const {host_url, tells_url, messages_url, access_token} = useVariables();
@@ -62,11 +62,17 @@ const TellsList = ({ tells, dispatchTell }) => {
       }
    }
 
-
-   // logic: tell on POST
-   // const setTPost = (tell) => {
-   //    setTPost(tell);
-   // }
+   // Show see Threads Link on click
+   const showThreadLink = (e) => {
+      const seeThreads = e.target.parentNode.childNodes[0]
+      if (seeThreads.classList.contains("none")){
+         seeThreads.classList = ["see-threads-box"]
+      } else {
+         seeThreads.classList = ["see-threads-box none"]
+      }
+      // seeThreads.classList =
+      console.log(seeThreads.classList)
+   }
 
    console.log(tells)
    return (
@@ -149,7 +155,12 @@ const TellsList = ({ tells, dispatchTell }) => {
                         <p>{tell.savers.length}</p>
                      </div>
                      <div className="cl1-right">
-                        <img src={options_icon} alt="" />
+                        <div className="see-threads-box none">
+                           <Link to={"/tells/"+tell.id}>
+                              <p className="no-margin">see Threads</p>
+                           </Link>
+                        </div>
+                        <img src={options_icon} alt="" onClick={e => showThreadLink(e)}/>
                      </div>
                   </div>
                </div>}
@@ -173,12 +184,14 @@ const TellsList = ({ tells, dispatchTell }) => {
                         </div>
                      </div>
                      {/* Fix Needed */}
+                     { removeParentLike === false &&
                      <div className="tcon" data-tid={tell.tell_on_tell.id}>
                         {owner && !tell.tell_on_tell.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.id, "like", "like-parent-tell")} />}
                         
                         {owner && tell.tell_on_tell.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.id, "like", "like-parent-tell")} />}
                         <small><strong className="lcount">{tell.tell_on_tell.likers.length}</strong></small>
                      </div>
+                     }
                   </div>
                   <div className="tb-container  height-p-10">
                      <span className="vertical-rule"></span>
@@ -262,7 +275,12 @@ const TellsList = ({ tells, dispatchTell }) => {
                         <p>{tell.savers.length}</p>
                      </div>
                      <div className="cl1-right">
-                        <img src={options_icon} alt="" />
+                        <div className="see-threads-box none">
+                           <Link to={"/tells/"+tell.id}>
+                              <p className="no-margin">see Threads</p>
+                           </Link>
+                        </div>
+                        <img src={options_icon} alt="" onClick={e => showThreadLink(e)}/>
                      </div>
                   </div>
                </div>
@@ -287,12 +305,13 @@ const TellsList = ({ tells, dispatchTell }) => {
                            </div>
                         </div>
                         {/* Fix Needed */}
+                        { removeParentLike === false &&
                         <div className="tcon" data-tid={tell.tell_on_post.id}>
                            {owner && !tell.tell_on_post.liked && <img src={heart_black_icon} className="theartb" alt="like" onClick={() => toggle(tell.id, "like", "like-parent-post")} />}
 
                            {owner && tell.tell_on_post.liked && <img src={heart_red_icon} className="theartr" alt="dislike" onClick={() => toggle(tell.id, "like", "like-parent-post")} />}
                            <small><strong className="lcount">{tell.tell_on_post.likers.length}</strong></small>
-                        </div>
+                        </div>}
                      </div>
                      <div className="tb-container  height-p-10">
                         <span className="vertical-rule"></span>
@@ -395,7 +414,12 @@ const TellsList = ({ tells, dispatchTell }) => {
                            <p>{tell.savers.length}</p>
                         </div>
                         <div className="cl1-right">
-                           <img src={options_icon} alt="" />
+                           <div className="see-threads-box none">
+                              <Link to={"/tells/"+tell.id}>
+                                 <p className="no-margin">see Threads</p>
+                              </Link>
+                           </div>
+                           <img src={options_icon} alt="" onClick={e => showThreadLink(e)}/>
                         </div>
                      </div>
                   </div>

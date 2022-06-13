@@ -63,7 +63,7 @@ const Saved = () => {
 
 
    
-   
+   console.log(owner)
    return (
       <div className="saved-react">
 

@@ -53,7 +53,7 @@ const TellsFeed = () => {
          <Header  page="Tells" left={"logo"} right={"search-chats"} />
 
          <main className="margin-b-60">
-            {tells && <TellsList tells={tells} dispatchTell={dispatchTell} />}
+            {tells && <TellsList tells={tells} dispatchTell={dispatchTell} removeParentLike={false} />}
          </main>
 
          {showLoading && <Loading />}
