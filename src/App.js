@@ -22,6 +22,7 @@ import NotFound from './components/pages/NotFound';
 import Registration from './components/pages/Registration';
 import EditProfile from './components/pages/EditProfile';
 import Test from './components/pages/Test';
+import ProfileSuggestions from './components/pages/ProfileSuggestions';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/addpost" element={ <AddPost /> } />
             <Route path="/addtell" element={ <AddTell /> } />
 
+            <Route path="/welcome" element={ <ProfileSuggestions /> } />
             <Route path="/*" element={ <NotFound /> } />
 
             <Route path="/" element={ <PostFeed /> } />

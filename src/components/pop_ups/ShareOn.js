@@ -152,6 +152,7 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
             <p className="no-margin">{showErrors}</p>
             <p className="no-margin" onClick={() => setShowErrors(null)}>&#x2716;</p>
          </div>}
+         
          <div className="msg-on-box"> {/* tell-on-box-close */}
 
 

@@ -81,12 +81,14 @@ const Footer = () => {
                <div className="floater-container">
                   <div className="floater-exit" onClick={() => handleUploadFloater()}></div>
 
-                  <div className="floater-box">
-                     <div className="floater-bottom-options">
-                        <hr className="hr-mini-bar" />
-                        <div className="options">
-                           <Link to={"/addpost"}><h3>Post</h3></Link>
-                           <Link to={"/addtell"}><h3>Tell</h3></Link>
+                  <div className="footer-react">
+                     <div className="floater-box  mobile-page-1050">
+                        <div className="floater-bottom-options">
+                           <hr className="hr-mini-bar" />
+                           <div className="options">
+                              <Link to={"/addpost"}><h3>Post</h3></Link>
+                              <Link to={"/addtell"}><h3>Tell</h3></Link>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -99,13 +101,15 @@ const Footer = () => {
                <div className="floater-container">
                   <div className="floater-exit" onClick={() => handleProfileFloater()}></div>
 
-                  <div className="floater-box">
-                     <div className="floater-bottom-options">
-                        <hr className="hr-mini-bar" />
-                        <div className="options">
-                           <Link to={"/users/profile/update"}><h3>Edit profile</h3></Link>
-                           <Link to={"/users/profile/saved"}><h3>Saved</h3></Link>
-                           <h3 onClick={() => handleLogout()}>Logout</h3>
+                  <div className="footer-react">
+                     <div className="floater-box  mobile-page-1050">
+                        <div className="floater-bottom-options">
+                           <hr className="hr-mini-bar" />
+                           <div className="options">
+                              <Link to={"/users/profile/update"}><h3>Edit profile</h3></Link>
+                              <Link to={"/users/profile/saved"}><h3>Saved</h3></Link>
+                              <h3 onClick={() => handleLogout()}>Logout</h3>
+                           </div>
                         </div>
                      </div>
                   </div>
