@@ -7,15 +7,31 @@ import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
 
 const ProfileSuggestions = () => {
-   const {host_url} = useVariables();
+   const {profiles_url, host_url, access_token} = useVariables();
    const {verified_icon} = useIcons();
    const {owner} = useGetOwner();
 
-   const [profile, setProfile] = useState();
+   const [profiles, setProfiles] = useState();
 
    // Fetch - verified profiles
    useEffect(() => {
-
+      fetch(profiles_url, {
+         method: "GET",
+         headers: {"Content-Type": "application/json",
+                  Authorization: `Bearer ${access_token}`
+      }
+      })
+      .then(res => {
+         return res.json();
+      })
+      .then(data => {
+         console.log(data)
+         setProfiles(data)
+         // logic: when owner loads up lets do some page and fff count holder logics
+      })
+      .catch(err => {
+         console.log(err.message);
+      })
    }, [])
    
    return (
@@ -25,47 +41,46 @@ const ProfileSuggestions = () => {
          <Header left={"logo"} right={"search-chats"} />
          
          {/* Body */}
+         {profiles && 
          <div className="suggestion-body">
 
-            {owner && 
-            <div className="suggestion-box">
+            {profiles.map(profile => (
+               <div className="suggestion-box">
 
-               <div className="profile-layer-1">
-                  <div className="profile-picture">
-                     <img src={host_url+owner.profile.img} alt="profile-picture" />
-                  </div>
-               </div>
-
-               <div className="sug-username mobile-page-550">
-                     <div className="username">
-                        <h2>@{owner.profile.username}
-                           {owner.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
-                        </h2>
+                  <div className="profile-layer-1">
+                     <div className="profile-picture">
+                        <img src={host_url+profile.img} alt="profile-picture" />
                      </div>
-                     <small>{owner.profile.bio}</small>
-               </div>
+                  </div>
 
-               <div className="follow-box">
-                  <div className="follow-btn">
-                     <p className="no-margin">follow</p>
+                  <div className="sug-username mobile-page-550">
+                        <div className="username">
+                           <h2>@{profile.username}
+                              {profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
+                           </h2>
+                        </div>
+                        <small>{profile.bio.slice(0,40)}</small>
                   </div>
-               </div>
 
-               <div className="sug-posts">
-                  <div className="post-box">
-                     <img src={host_url+owner.profile.img} alt="profile-picture" />
+                  <div className="follow-box">
+                     <div className="follow-btn">
+                        <p className="no-margin">follow</p>
+                     </div>
                   </div>
-                  <div className="post-box">
-                     <img src={host_url+owner.profile.img} alt="profile-picture" />
-                  </div>
-                  <div className="post-box">
-                     <img src={host_url+owner.profile.img} alt="profile-picture" />
-                  </div>
-               </div>
 
-            </div>}
+                  <div className="sug-posts">
+                     {profile.posts.map(post => (
+                        <div className="post-box">
+                           <img src={host_url+post.img} alt="profile-picture" />
+                        </div>
+                     ))}
+                  </div>
+
+               </div>
+            ))}
          
          </div>
+         }
          {/* Footer */}
          <Footer />
          
