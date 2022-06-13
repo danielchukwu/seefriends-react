@@ -2,6 +2,7 @@
 import { useEffect, useState, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { reducerTell } from "../../App";
+import useGetOwner from "../../customhooks/useGetOwner";
 // import: custom hooks
 import useVariables from "../../customhooks/useVariables";
 // import useGetOwner from "../../customhooks/useGetOwner";
@@ -10,12 +11,13 @@ import useVariables from "../../customhooks/useVariables";
 import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
 import Loading from "./Loading";
+import ProfileSuggestions from "./ProfileSuggestions";
 import TellsList from "./TellsList";
 
 
 
 const TellsFeed = () => {
-   // const owner = useGetOwner()
+   const {owner} = useGetOwner()
    // const [ tells, setTells ] = useState(null);
    const [tells, dispatchTell] = useReducer(reducerTell, []);
    const {tells_url, access_token } = useVariables();
@@ -52,11 +54,18 @@ const TellsFeed = () => {
       <div className="tellsfeed">
          <Header  page="Tells" left={"logo"} right={"search-chats"} />
 
+         { owner && owner.profile.following.length > 0 &&
          <main className="margin-b-60">
             {tells && <TellsList tells={tells} dispatchTell={dispatchTell} removeParentLike={false} />}
-         </main>
 
-         {showLoading && <Loading />}
+            {showLoading && <Loading />}
+         </main>}
+
+         {owner && owner.profile.following.length === 0 &&
+         <div>
+            <ProfileSuggestions justRegistered={false} />
+         </div>}
+
 
          <Footer />
       </div>

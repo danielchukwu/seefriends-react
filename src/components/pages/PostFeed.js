@@ -10,8 +10,9 @@ import useGetOwner from "../../customhooks/useGetOwner";
 import PostList from './PostList';
 import Header from '../headers_footers/Header';
 import Footer from '../headers_footers/Footer';
-import { ACTIONS, reducerPost } from '../../App';
+import { reducerPost } from '../../App';
 import Loading from './Loading';
+import ProfileSuggestions from './ProfileSuggestions';
 
 
 const PostFeed = () => {
@@ -53,6 +54,7 @@ const PostFeed = () => {
 
          <Header page="Posts" left={"logo"} right={"search-chats"} />
 
+         { owner && owner.profile.following.length > 0 &&
          <main className='postfeed margin-b-60'>
             {posts && owner &&
             <div className="welcome-user pad-top-10">
@@ -65,7 +67,12 @@ const PostFeed = () => {
             {showLoading && <Loading />}
             
 
-         </main>
+         </main>}
+
+         {owner && owner.profile.following.length === 0 &&
+         <div>
+            <ProfileSuggestions justRegistered={false}/>
+         </div>}
 
          
          <Footer />

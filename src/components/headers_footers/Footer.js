@@ -108,7 +108,7 @@ const Footer = () => {
                            <div className="options">
                               <Link to={"/users/profile/update"}><h3>Edit profile</h3></Link>
                               <Link to={"/users/profile/saved"}><h3>Saved</h3></Link>
-                              <h3 onClick={() => handleLogout()}>Logout</h3>
+                              <h3 className="pointer" onClick={() => handleLogout()}>Logout</h3>
                            </div>
                         </div>
                      </div>

@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
+import {useState } from "react"
 import { useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import useGetOwner from "../../customhooks/useGetOwner"
 import useIcons from "../../customhooks/useIcons"
 import useVariables from "../../customhooks/useVariables"
 
@@ -15,7 +14,7 @@ const Registration = () => {
 
    const [showErrors, setShowErrors] = useState();
 
-   const {token_url, refresh_url, token_key, register_url} = useVariables();
+   const {token_url, token_key, register_url} = useVariables();
    const {sf_logo} = useIcons();
 
 
@@ -70,7 +69,7 @@ const Registration = () => {
       .then(data => {
          console.log(data)
          localStorage.setItem(token_key, JSON.stringify(data))
-         navigate('/')
+         navigate('/welcome')
       })
       .catch(err => {
          console.log(err.message)

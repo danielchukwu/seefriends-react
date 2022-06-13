@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
-import Footer from "../headers_footers/Footer";
-import Header from "../headers_footers/Header";
+import Loading from "./Loading";
 
-const ProfileSuggestions = () => {
-   const {profiles_url, host_url, access_token} = useVariables();
-   const {verified_icon} = useIcons();
-   const {owner} = useGetOwner();
+const ProfileSuggestions = ({justRegistered = true}) => {
+   const {profiles_url, host_url, access_token, users_host_url} = useVariables();
+   const {verified_icon, sf_logo} = useIcons();
+   const {owner, setOwner} = useGetOwner();
 
-   const [profiles, setProfiles] = useState();
+   const [profiles, setProfiles] = useState(false);
 
-   // Fetch - verified profiles
+   // logic: Fetch - profiles(verified one's)
    useEffect(() => {
       fetch(profiles_url, {
          method: "GET",
@@ -25,7 +25,6 @@ const ProfileSuggestions = () => {
          return res.json();
       })
       .then(data => {
-         console.log(data)
          setProfiles(data)
          // logic: when owner loads up lets do some page and fff count holder logics
       })
@@ -33,18 +32,71 @@ const ProfileSuggestions = () => {
          console.log(err.message);
       })
    }, [])
+
+   // Redirect if user
+   useEffect(() => {
+
+   }, [owner])
+
+   // toggleFollow
+   const toggleFollow = (id) => {
+      const newOwner = owner;
+
+      if (owner.profile.following.includes(id)){
+         // unfollow
+         newOwner.profile.following = newOwner.profile.following.filter(eachid => eachid !== id);
+         setOwner({...newOwner});
+         
+         fetch(users_host_url+id+'/unfollow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`}
+                  })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               // console.log(data);
+            })
+            
+      } else {
+         // follow
+         newOwner.profile.following.push(id);
+         setOwner({...newOwner})
+         
+         fetch(users_host_url+id+'/follow/', {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`}
+         })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               // console.log(data);
+            })
+
+      }
+      // console.log("user:", user)
+   }
    
    return (
       <div className="profile-suggestions-react background-white">
          
-         {/* Header */}
-         <Header left={"logo"} right={"search-chats"} />
+         {justRegistered && 
+         <div className="welcome-to-sf">
+            <div className="welcome-sf-logo">
+               <img src={sf_logo} alt="seefriends logo" />
+               {/* <p className="no-margin logo">welcome {owner.profile.username}...</p> */}
+            </div>
+         </div>}
          
          {/* Body */}
          {profiles && 
          <div className="suggestion-body">
 
             {profiles.map(profile => (
+               <div key={profile.id}>
                <div className="suggestion-box">
 
                   <div className="profile-layer-1">
@@ -62,27 +114,43 @@ const ProfileSuggestions = () => {
                         <small>{profile.bio.slice(0,40)}</small>
                   </div>
 
+                  { !owner.profile.following.includes(profile.user) &&
                   <div className="follow-box">
-                     <div className="follow-btn">
+                     <div className="follow-btn pointer" onClick={() => toggleFollow(profile.user)}>
                         <p className="no-margin">follow</p>
                      </div>
-                  </div>
+                  </div>}
+
+                  { owner.profile.following.includes(profile.user) && 
+                  <div className="following-box">
+                     <div className="following-btn pointer" onClick={() => toggleFollow(profile.user)}>
+                        <p className="no-margin">following</p>
+                     </div>
+                  </div>}
 
                   <div className="sug-posts">
                      {profile.posts.map(post => (
-                        <div className="post-box">
+                        <div className="post-box" key={post.id}>
                            <img src={host_url+post.img} alt="profile-picture" />
                         </div>
                      ))}
                   </div>
 
                </div>
+               </div>
             ))}
          
          </div>
          }
-         {/* Footer */}
-         <Footer />
+
+         {profiles === false && <Loading />}
+
+         {justRegistered && 
+         <div className="welcome-to-sf-next">
+            <Link to={"/"}>
+               <div className="button-next">NEXT</div>
+            </Link>
+         </div>}
          
       </div>
 
