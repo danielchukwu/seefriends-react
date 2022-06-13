@@ -16,7 +16,7 @@ import ProfileSuggestions from './ProfileSuggestions';
 
 
 const PostFeed = () => {
-   const {owner, setOwner} = useGetOwner()
+   const {owner} = useGetOwner()
    // const [posts, setPosts] = useState(null)
    // const [posts, setPosts] = useState()
    const [posts, dispatchPost] = useReducer(reducerPost, [])

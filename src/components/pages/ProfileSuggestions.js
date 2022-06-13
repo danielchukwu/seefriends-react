@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
@@ -12,6 +12,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
    const {owner, setOwner} = useGetOwner();
 
    const [profiles, setProfiles] = useState(false);
+   const navigate = useNavigate()
 
    // logic: Fetch - profiles(verified one's)
    useEffect(() => {
@@ -31,12 +32,16 @@ const ProfileSuggestions = ({justRegistered = true}) => {
       .catch(err => {
          console.log(err.message);
       })
-   }, [])
+   }, [access_token, profiles_url])
 
-   // Redirect if user
+   // logic: Redirect if user if they try to come to this route even after they've registered
    useEffect(() => {
-
-   }, [owner])
+      if (owner){
+         if (owner.profile.following.length > 0){
+            navigate(-1)
+         }
+      }
+   }, [owner, navigate])
 
    // toggleFollow
    const toggleFollow = (id) => {
@@ -101,7 +106,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
 
                   <div className="profile-layer-1">
                      <div className="profile-picture">
-                        <img src={host_url+profile.img} alt="profile-picture" />
+                        <img src={host_url+profile.img} alt="profile-dp" />
                      </div>
                   </div>
 
@@ -131,7 +136,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
                   <div className="sug-posts">
                      {profile.posts.map(post => (
                         <div className="post-box" key={post.id}>
-                           <img src={host_url+post.img} alt="profile-picture" />
+                           <img src={host_url+post.img} alt="profile-dp" />
                         </div>
                      ))}
                   </div>

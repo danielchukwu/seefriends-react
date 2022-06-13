@@ -59,7 +59,7 @@ const MsgChat = () => {
                throw Error("unknown user")
             }
             setChats(data);
-            console.log(data)
+            // console.log(data)
          })
          .catch(err => {
             if (err.message === "unknown user"){

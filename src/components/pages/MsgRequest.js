@@ -105,7 +105,7 @@ const MsgRequest = () => {
                return res.json();
             })
             .then(data => {
-               console.log(data);
+               // console.log(data);
             })
 
       }
@@ -151,7 +151,7 @@ const MsgRequest = () => {
             if (data.detail){
                throw Error("unknown user")
             }
-            console.log(data);
+            // console.log(data);
             navigate('/messages')
          })
          .catch(err => {
@@ -176,7 +176,7 @@ const MsgRequest = () => {
             if (data.detail){
                throw Error("unknown user")
             }
-            console.log(data);
+            // console.log(data);
             navigate('/messages')
          })
          .catch(err => {
@@ -343,11 +343,11 @@ const MsgRequest = () => {
          </main>}
 
          <footer>
-            <section class="accept-or-reject">
+            <section className="accept-or-reject">
                <p>What would you like to do with this request?</p>
-               <div class="request-options">
-                  <span class="accept-r" onClick={() => handleRequest("accept")}>Accept</span>
-                  <span class="reject-r" onClick={() => handleRequest("reject")}>Reject</span>
+               <div className="request-options">
+                  <span className="accept-r" onClick={() => handleRequest("accept")}>Accept</span>
+                  <span className="reject-r" onClick={() => handleRequest("reject")}>Reject</span>
                </div>
             </section>
          </footer>

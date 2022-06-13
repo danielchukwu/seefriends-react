@@ -12,7 +12,7 @@ const ActLikePost = ({activity, host_url, verified_icon}) => {
                <p><strong>
                   {activity.profile.username}
                   {activity.profile.verified && <img src={verified_icon} className="width-13 verified-pos1" alt="verification" />}
-                  </strong>liked your post. <small className="grey font-10">{activity.date}</small></p>
+                  </strong> liked your post. <small className="grey font-10">{activity.date}</small></p>
             </div>
          </Link>
          <Link to={"/posts/"+activity.post}>

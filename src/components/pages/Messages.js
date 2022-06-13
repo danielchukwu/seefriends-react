@@ -8,8 +8,8 @@ import Loading from "./Loading";
 import MessagesList from "./MessagesList";
 
 const Messages = () => {
-   const {verified_icon, user_icon, sf_logo, options_icon } = useIcons();
-   const {access_token, messages_url, requests_url, host_url} = useVariables();
+   const {sf_logo} = useIcons();
+   const {access_token, messages_url, requests_url} = useVariables();
    const {owner} = useGetOwner();
 
    const [pageHandler, setPageHandler] = useState("messages");  // messages or requests
@@ -35,7 +35,7 @@ const Messages = () => {
             throw Error("unknown user")
          }
          setMessages(data);
-         console.log(data)
+         // console.log(data)
       })
       .catch(err => {
          if (err.message === "unknown user"){
@@ -59,7 +59,7 @@ const Messages = () => {
             throw Error("unknown user")
          }
          setRequests(data);
-         console.log(data);
+         // console.log(data);
       })
       .catch(err => {
          if (err.message === "unknown user"){
@@ -70,7 +70,7 @@ const Messages = () => {
       
 
    
-   }, [messages_url, access_token])
+   }, [messages_url, access_token, navigate, requests_url])
 
    // logic: Getting messages and requests count
    const get_unreadMessagesCount = (messages) => {
@@ -95,15 +95,10 @@ const Messages = () => {
                      
                   </div>
                   <div className="msg-mr">
-                     {/* <Link to={"/"}>
-                        <span className="msg-rcontainer">
-                           <img src={user_icon} alt="" className="msg-r" />
-                           <div className="msg-rcount">{5}</div>
-                        </span>
-                     </Link> */}
-                     <Link to={"/"} className="options-link">
+                     {/* Msg Options - feature to be added later */}
+                     {/* <Link to={"/"} className="options-link">
                         <img src={options_icon} alt="" className="width-20" />
-                     </Link>
+                     </Link> */}
                   </div>
                </div>
             </header>
