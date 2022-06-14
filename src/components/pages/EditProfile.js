@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useVariables from "../../customhooks/useVariables";
@@ -14,18 +14,13 @@ const EditProfile = () => {
    const navigate = useNavigate();
    const [showErrors, setShowErrors] = useState();
 
-   // input fields
-   // const nameRef = useRef();
-   // const usernameRef = useRef();
-   // const emailRef = useRef();
-   // const bio = useRef();
    const [name, setName] = useState();
    const [username, setUsername] = useState();
    const [email, setEmail] = useState();
    const [bio, setBio] = useState();
 
    const handleLoadFile = (event) => {
-      console.log(event);
+      // console.log(event);
       let reader = new FileReader();
       reader.onload = function(){
          setPreviewImg(reader.result)
@@ -46,11 +41,11 @@ const EditProfile = () => {
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      console.log(name)
-      console.log(username)
-      console.log(email)
-      console.log(bio)
-      console.log(postImg)
+      // console.log(name)
+      // console.log(username)
+      // console.log(email)
+      // console.log(bio)
+      // console.log(postImg)
       
       // FormData: will act as a form for us with Content-Type: "multipart/form-data"
       const uploadData = new FormData();
@@ -72,7 +67,7 @@ const EditProfile = () => {
          })
          .then(data => {
             if (data.details === "successful!"){
-               console.log(data)
+               // console.log(data)
                navigate('/users/profile')
             } else {
                handleErrors(data);
@@ -83,10 +78,7 @@ const EditProfile = () => {
 
    // logic: Error Handler for Editing Profile
    const handleErrors = (data) => {
-      // console.log("Handle Errors")
-      // console.log(data)
       const errors = data.errors
-      // console.log(errors)
 
       if (errors.includes('username') && errors.includes('email')){
          setShowErrors('Username and Email already exists!')

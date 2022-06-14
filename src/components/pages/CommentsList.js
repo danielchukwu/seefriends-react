@@ -48,7 +48,7 @@ const CommentsList = ({post, setPost, type, owner}) => {
                <div className="content-layer-1">
                   <div className="cl-left flex">
                      <div className="img-holder">
-                        <img src={ host_url + post.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                        <img src={ host_url + post.owner.profile.img} alt="profile-dp" className="img-holder-image" />
                      </div>
                      <div className="content-owner">
                         <Link to={`/users/profile/${post.owner.id}`}><h3>{post.owner.profile.username}
@@ -77,7 +77,7 @@ const CommentsList = ({post, setPost, type, owner}) => {
                {post.comments.map((commenter) => (
                   <div className="a_comment" key={commenter.id}>
                      <div className="img-holder">
-                        <img src={host_url+commenter.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                        <img src={host_url+commenter.owner.profile.img} alt="profile-dp" className="img-holder-image" />
                      </div>
                      <p><Link to={`/users/profile/${commenter.owner.id}`}><strong>{commenter.owner.profile.username}
                         {commenter.owner.profile.verified && <img src={verified_icon}className="width-12 verified-pos1" alt="verification"/>}

@@ -12,11 +12,9 @@ import FFFList from "./FFFList";
 
 const FFF = () => {
    const {id, page: pagetitle} = useParams();
-   const {access_token, users_host_url, host_url} = useVariables()
+   const {access_token, users_host_url } = useVariables()
    const {user:profileOwner} = useUser(id);
-   const {owner, setOwner} = useGetOwner()
-   // const {verified_icon} = useIcons()
-   // const navigate = useNavigate()
+   const {owner} = useGetOwner()
    const [followers, setFollowers ] = useState(null)
    const [following, setFollowing ] = useState(null)
    const [friends, setFriends ] = useState(null)
@@ -110,9 +108,9 @@ const FFF = () => {
          <div className="fff-body mobile-page-550">
             {/* {followers && <FFFList users={followers} page={fff} />} */}
 
-            {followers && fff == "Followers" && <FFFList users={followers} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
-            {following && fff == "Following" && <FFFList users={following} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
-            {friends && fff == "Friends" &&  <FFFList users={friends} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
+            {followers && fff === "Followers" && <FFFList users={followers} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
+            {following && fff === "Following" && <FFFList users={following} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
+            {friends && fff === "Friends" &&  <FFFList users={friends} setUsers={setFollowers} profileOwner={profileOwner} owner={owner} page={fff} />}
          </div>
       </div>
    );

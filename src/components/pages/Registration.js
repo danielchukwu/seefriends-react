@@ -48,7 +48,7 @@ const Registration = () => {
             } else {
                handleErrors(data);
             }
-            console.log(data)
+            // console.log(data)
          })
          .catch(err => console.log(err))
    }
@@ -67,7 +67,7 @@ const Registration = () => {
       })
       .then((res) => res.json())
       .then(data => {
-         console.log(data)
+         // console.log(data)
          localStorage.setItem(token_key, JSON.stringify(data))
          navigate('/welcome')
       })
@@ -78,10 +78,7 @@ const Registration = () => {
 
    
    const handleErrors = (data) => {
-      // console.log("Handle Errors")
-      // console.log(data)
       const errors = data.errors
-      // console.log(errors)
 
       if (errors.includes('username') && errors.includes('email')){
          setShowErrors('Username and Email already exists!')
@@ -104,12 +101,6 @@ const Registration = () => {
       } else if (errors.includes('password easy')){
          setShowErrors('Password is too common!')
       }
-
-      // setTimeout(() => {
-      //    if (showErrors !== null){
-      //       setShowErrors(null)
-      //    }
-      // }, 3000)
    }
 
 

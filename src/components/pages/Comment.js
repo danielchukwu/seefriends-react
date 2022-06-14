@@ -141,7 +141,6 @@ const Comment = () => {
       inputRef.current.focus()
    }, 200)
 
-   // console.log(post)
    
    return (
       <div className="comment-react">

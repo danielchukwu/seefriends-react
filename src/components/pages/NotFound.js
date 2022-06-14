@@ -3,7 +3,7 @@ import Header from '../headers_footers/Header';
 import Footer from "../headers_footers/Footer";
 
 const NotFound = () => {
-   const {sad_icon128, sad_icon256} = useIcons();
+   const {sad_icon128} = useIcons();
 
    return (
       <div className="not-found-react">
@@ -11,7 +11,7 @@ const NotFound = () => {
          
          <main className="not-found-container">
             <div className="not-found">
-               <img src={sad_icon128} alt="" />
+               <img src={sad_icon128} alt="sad-icon" />
                <h2>Page Not Found</h2>
             </div>
          </main>

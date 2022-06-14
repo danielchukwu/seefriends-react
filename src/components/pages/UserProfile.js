@@ -1,6 +1,6 @@
 // imports: main
 import { useEffect, useState, useReducer } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // imports: custom hooks
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";

@@ -25,7 +25,7 @@ const Discover = () => {
             throw Error("unknown user")
          }
          setPosts(data);
-         console.log(data)
+         // console.log(data)
       })
       .catch(err => {
          if (err.message === "unknown user"){
@@ -35,7 +35,7 @@ const Discover = () => {
       })
 
    
-   }, [discover_url, access_token])
+   }, [discover_url, access_token, navigate])
 
    // logic: fetch discover posts
    

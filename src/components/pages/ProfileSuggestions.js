@@ -82,6 +82,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
             })
 
       }
+      
       // console.log("user:", user)
    }
    

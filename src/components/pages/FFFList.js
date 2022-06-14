@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 
@@ -43,7 +41,7 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                return res.json();
             })
             .then(data => {
-               console.log(data);
+               // console.log(data);
             })
 
       }
@@ -59,7 +57,7 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                   <Link to={`/users/profile/${profileOwner.id}/`}>
                      <div className="activity-2">
                         <div className="img-holder">
-                           <img src={host_url + profileOwner.profile.img} alt="profile-picture" className="img-holder-image" />
+                           <img src={host_url + profileOwner.profile.img} alt="profile-dp" className="img-holder-image" />
                         </div>
                         <h3 className="no-margin width-p-10"><strong>{profileOwner.profile.username}
                            {profileOwner.profile.verified && <img src={verified_icon} className="width-15 verified-pos2" alt="verification" />}
@@ -87,7 +85,7 @@ const FFFList = ({users, setUsers, page, profileOwner, owner}) => {
                <div className="activity" key={user.id}>
                   <div className="activity-2">
                      <div className="img-holder">
-                        <img src={host_url + user.profile.img} alt="profile-picture" className="img-holder-image" />
+                        <img src={host_url + user.profile.img} alt="profile-dp" className="img-holder-image" />
                      </div>
                      <Link to={`/users/profile/${user.id}/`}>
                         <p><strong>{user.profile.username}
