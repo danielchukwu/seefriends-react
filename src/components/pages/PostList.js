@@ -1,5 +1,5 @@
 // import: main
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 // import: custom hooks
@@ -7,7 +7,6 @@ import useVariables from '../../customhooks/useVariables'
 import useIcons from '../../customhooks/useIcons'
 import useGetOwner from '../../customhooks/useGetOwner'
 import TellOn from '../pop_ups/TellOn'
-import MessageOn from '../pop_ups/ShareOn';
 import ShareOn from '../pop_ups/ShareOn';
 
 
@@ -35,7 +34,7 @@ const PostList = ({ posts, dispatchPost}) => {
             dispatchPost({type: "save-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token}});
             break;
          case "tell-on-post":
-            console.log("tell-on-post")
+            // console.log("tell-on-post")
             dispatchPost({type: "tell-on-post", payload:{id: id, posts: posts, owner: owner, posts_url: posts_url, access_token: access_token, body: body}});
             break;
          case "share-post":
@@ -43,7 +42,8 @@ const PostList = ({ posts, dispatchPost}) => {
             dispatchPost({type: "share-post", payload:{id: id, posts: posts, owner: owner, posts_url: messages_url, access_token: access_token, body: body, shareList: shareList}});
             break;
          default:
-            console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
+            // console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
+            break;
       }
    }
 
@@ -81,10 +81,10 @@ const PostList = ({ posts, dispatchPost}) => {
          seeThreads.classList = ["see-threads-box none"]
       }
       // seeThreads.classList =
-      console.log(seeThreads.classList)
+      // console.log(seeThreads.classList)
    }
 
-   console.log(posts)
+   // console.log(posts)
    return ( 
       <div>
          {posts.map((post) => (

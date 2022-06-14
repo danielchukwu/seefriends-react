@@ -17,8 +17,6 @@ import ProfileSuggestions from './ProfileSuggestions';
 
 const PostFeed = () => {
    const {owner} = useGetOwner()
-   // const [posts, setPosts] = useState(null)
-   // const [posts, setPosts] = useState()
    const [posts, dispatchPost] = useReducer(reducerPost, [])
    const [showLoading, setShowLoading] = useState(true)
    const {posts_url, access_token} = useVariables()
@@ -46,9 +44,6 @@ const PostFeed = () => {
    }, [posts_url, access_token, navigate])
 
 
-   console.log(owner)
-
-   // console.log(posts)
    return (
       <div className="postfeed">
 

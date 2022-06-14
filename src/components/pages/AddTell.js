@@ -10,7 +10,7 @@ import HeaderAddTell from "../headers_footers/HeaderAdd";
 
 
 const AddTell = () => {
-   const {owner, setOwner} = useGetOwner();
+   const {owner} = useGetOwner();
    const inputRef = useRef();
    const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ const AddTell = () => {
                return res.json();
             })
             .then(data => {
-               console.log(data)
+               // console.log(data)
                navigate('/tellsfeed')
             })
             .catch(err => console.log(err))
@@ -87,7 +87,7 @@ const AddTell = () => {
 
                   <div className="tf-cover width-p-10 height-p-20">
                      <span className="img-holder-2 flex">
-                        {profilePic && <img src={profilePic} alt="profile-picture" className="img-holder-image" />}
+                        {profilePic && <img src={profilePic} alt="profile-dp" className="img-holder-image" />}
                      </span>
                      
                      <div ref={inputRef} onKeyDown={isReady} onChange={isReady} className="textarea" contentEditable={true} required></div>

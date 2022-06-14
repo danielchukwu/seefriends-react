@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons";
@@ -7,7 +7,7 @@ import useVariables from "../../customhooks/useVariables";
 const MsgRequest = () => {
    // This Page is the request chat version not the list as that is handled by Message.js and MessageList.js
    const navigate = useNavigate();
-   const {verified_icon, options_icon, send_icon32, go_back_icon, check_blue16_icon, check_grey16_icon} = useIcons();
+   const {go_back_icon, verified_icon} = useIcons();
    const {access_token, messages_url, host_url, users_host_url, requests_url} = useVariables();
    const {owner, setOwner} = useGetOwner();
    const [otherUser, setOtherUser] = useState();
@@ -66,11 +66,11 @@ const MsgRequest = () => {
             console.log(err.message)
          })
 
-   }, [messages_url, access_token])
+   }, [messages_url, access_token, id, navigate, users_host_url])
 
 
    const toggleFollow = (id) => {
-      const newUser = otherUser;
+      // const newUser = otherUser;
       const newOwner = owner;
       console.log(newOwner)
 
@@ -222,12 +222,12 @@ const MsgRequest = () => {
             <div className="message-header">
                <div className="message-left">
                   <div className="back" onClick={() => navigate(-1)}>
-                     <img src={go_back_icon} alt="" />
+                     <img src={go_back_icon} alt="back-btn" />
                   </div>
                   {otherUser && <div className="activity-2">
                      <Link to={`/users/profile/${otherUser.id}`}>
                         <div className="img-holder-m">
-                           <img src={host_url + otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
+                           <img src={host_url + otherUser.profile.img} alt="profile-dp" className="img-holder-image-m" />
                         </div>
                      
                      </Link>
@@ -251,7 +251,7 @@ const MsgRequest = () => {
             <section className="profile-header request-profile">
                <div className="profile-layer-1">
                   <div className="profile-picture">
-                     <img src={host_url+otherUser.profile.img} alt="profile-picture" />
+                     <img src={host_url+otherUser.profile.img} alt="profile-dp" />
                   </div>
                </div>
                <div className="profile-layer-2">
@@ -305,7 +305,7 @@ const MsgRequest = () => {
                      { chat.type === "post" && 
                         <div className="shared-post-container">
                            <Link to={"/posts/"+chat.msg_on_post.id}>
-                              <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                              <img src={host_url + chat.msg_on_post.img} alt="msg" className="shared-img"/>
                            </Link>
                         </div>
                      }

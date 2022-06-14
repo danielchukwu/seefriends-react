@@ -8,7 +8,6 @@ import useVariables from '../../customhooks/useVariables';
 // imports: components
 import PostList from './PostList'
 import Header from '../headers_footers/Header'
-import Footer from '../headers_footers/Footer';
 import { reducerPost, reducerTell } from '../../App';
 import TellsList from './TellsList';
 import Loading from './Loading';
@@ -22,7 +21,7 @@ const PostSingle = () => {
    const [post, dispatchPost] = useReducer(reducerPost, []);
    const [tells, dispatchTell] = useReducer(reducerTell, []);  // Tell threads on single post
 
-   const {posts_url, tells_url, access_token} = useVariables()
+   const {posts_url, access_token} = useVariables()
    const navigate = useNavigate()
 
    const [showLoading, setShowLoading] = useState(true)
@@ -59,7 +58,7 @@ const PostSingle = () => {
    }, [posts_url, access_token, navigate, id])
 
 
-   console.log(post)
+   // console.log(post)
    return (
       <div className="postfeed">
 

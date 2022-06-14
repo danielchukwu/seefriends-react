@@ -3,8 +3,8 @@ import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 
 const CommentsList = ({post, setPost, type, owner}) => {
-   const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon} = useIcons();
-   const {host_url, tells_url, posts_url, access_token} = useVariables();
+   const {verified_icon, heart_black_icon, heart_red_icon } = useIcons();
+   const {host_url, posts_url, access_token} = useVariables();
 
 
    // logic: Like Post
@@ -31,7 +31,7 @@ const CommentsList = ({post, setPost, type, owner}) => {
                return res.json();
             })
             .then(data => {
-               console.log(data)
+               // console.log(data)
             })
             .catch(err => {
                console.log(err.message);

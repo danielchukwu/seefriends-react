@@ -9,7 +9,7 @@ import useVariables from "../../customhooks/useVariables";
 import HeaderAddPost from "../headers_footers/HeaderAdd";
 
 const AddPost = () => {
-   const {owner, setOwner} = useGetOwner();
+   const {owner} = useGetOwner();
    const inputRef = useRef();
    const navigate = useNavigate();
    const {host_url, posts_url, access_token} = useVariables();
@@ -116,7 +116,7 @@ const AddPost = () => {
                
                <div className="tf-cover width-p-10 height-p-10">
                   <span className="img-holder-2 flex">
-                     {profilePic && <img src={profilePic} alt="profile-picture" className="img-holder-image" />}
+                     {profilePic && <img src={profilePic} alt="profile-dp" className="img-holder-image" />}
                   </span>
                   
                   <div ref={inputRef} onKeyDown={isReady} onChange={isReady} className="textarea" contentEditable={true} required></div>

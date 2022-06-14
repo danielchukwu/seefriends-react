@@ -1,6 +1,5 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
-import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 import Header from "../headers_footers/Header";
 import useGetOwner from "../../customhooks/useGetOwner";
@@ -10,7 +9,6 @@ const Comment = () => {
    const {owner} = useGetOwner();
    const navigate = useNavigate();
    const {type, id} = useParams();
-   const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, options_icon} = useIcons();
    const {host_url, tells_url, posts_url, access_token} = useVariables();
    const [post, setPost] = useState(null);
    const inputRef = useRef();
@@ -20,7 +18,6 @@ const Comment = () => {
 // Fetch: type: Posts or Tells
    useEffect(() => {
       if (type === "posts"){
-         console.log("Implement Posts Comments")
 
          // Fetch Post if: type === post
          fetch(posts_url+id+"/", {
@@ -67,14 +64,14 @@ const Comment = () => {
             console.log(err.message)
          })
       }
-   }, [type])
+   }, [type, access_token, id, navigate, posts_url, tells_url])
 
    // form: upload our post if ready
    const handleSubmit = (e) => {
       e.preventDefault();
       
       let body = inputRef.current.innerHTML;
-      console.log(body)
+      // console.log(body)
       // FormData: will act as a form for us with Content-Type: "multipart/form-data"
       const uploadData = new FormData();
       uploadData.append('body', body);
@@ -144,7 +141,7 @@ const Comment = () => {
       inputRef.current.focus()
    }, 200)
 
-   console.log(post)
+   // console.log(post)
    
    return (
       <div className="comment-react">
@@ -159,7 +156,7 @@ const Comment = () => {
 
                <div className="comment-btn-container width-p-5">
                   <span className="img-holder flex pad-bot-10">
-                     {"me" && <img src={host_url + owner.profile.img} alt="profile-picture" className="img-holder-image" />}
+                     {"me" && <img src={host_url + owner.profile.img} alt="profile-dp" className="img-holder-image" />}
                   </span>
                   
                   <div ref={inputRef} onKeyDown={isReady} className="textarea" contentEditable={true} required></div>

@@ -7,7 +7,7 @@ import useVariables from "../../customhooks/useVariables";
 const MsgChat = () => {
    // "This component takes two id's in route: 1st for me, 2nd for the other user"
    const navigate = useNavigate();
-   const {verified_icon, options_icon, send_icon32, go_back_icon, check_blue16_icon, check_grey16_icon} = useIcons();
+   const {verified_icon, send_icon32, go_back_icon, check_blue16_icon, check_grey16_icon} = useIcons();
    const {main_host_url, access_token, messages_url, host_url, users_host_url} = useVariables();
    const {owner} = useGetOwner();
    const [otherUser, setOtherUser] = useState();
@@ -19,7 +19,6 @@ const MsgChat = () => {
 
    const inputRef = useRef();
    const messageEndRef = useRef()
-   const [submitReady, setSubmitReady] =useState(false);
 
    // logic: Fetch the other user and chats with that user
    useEffect(() => {
@@ -68,7 +67,7 @@ const MsgChat = () => {
             console.log(err.message)
          })
 
-   }, [messages_url, access_token])
+   }, [messages_url, access_token, id2, navigate, users_host_url])
 
    // scroll to bottom logic
    const scrollToBottom = () => {
@@ -132,6 +131,7 @@ const MsgChat = () => {
             if (chat.is_read === false){
                return chat
             }
+            // return chat;
          })
          unseen_chats.forEach(chat => {
             chat.is_read = true;
@@ -291,7 +291,7 @@ const MsgChat = () => {
             <div className="message-header" data-user="{{user.id}}">
                <div className="message-left pointer">
                   <div className="back" onClick={() => exitChatRoom()}>
-                     <img src={go_back_icon} alt="" />
+                     <img src={go_back_icon} alt="back-btn" />
                   </div>
                   {otherUser && <div className="activity-2">
                      <Link to={`/users/profile/${otherUser.id}`}>
@@ -342,7 +342,7 @@ const MsgChat = () => {
                      { chat.type === "post" && 
                         <div className="shared-post-container margin-l-auto">
                            <Link to={"/posts/"+chat.msg_on_post.id}>
-                              <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                              <img src={host_url + chat.msg_on_post.img} alt="msg" className="shared-img"/>
                            </Link>
                         </div>
                      }
@@ -373,8 +373,8 @@ const MsgChat = () => {
                      </div>}
                      {showReadReciept(index) && 
                      <div className="read-reciept-me">
-                        {chat.is_read && <img src={check_blue16_icon} alt="" className="width-12" />}
-                        {!chat.is_read && <img src={check_grey16_icon} alt="" className="width-12" />}
+                        {chat.is_read && <img src={check_blue16_icon} alt="seen" className="width-12" />}
+                        {!chat.is_read && <img src={check_grey16_icon} alt="unseen" className="width-12" />}
                      </div>}
                   </div>
                   }
@@ -385,7 +385,7 @@ const MsgChat = () => {
                      { chat.type === "post" && 
                         <div className="shared-post-container">
                            <Link to={"/posts/"+chat.msg_on_post.id}>
-                              <img src={host_url + chat.msg_on_post.img} alt="" className="shared-img"/>
+                              <img src={host_url + chat.msg_on_post.img} alt="msg" className="shared-img"/>
                            </Link>
                         </div>
                      }
@@ -429,7 +429,7 @@ const MsgChat = () => {
             <form className="message-form mobile-page-750" id="form" onSubmit={(e) => handleSubmit(e)}>
                <div ref={inputRef} onKeyDown={isReady} className="textarea-chat" contentEditable={true} required></div>
                <button className="chat-button">
-                  <img src={send_icon32} className="send-msg-button" alt="" />
+                  <img src={send_icon32} className="send-msg-button" alt="send-btn" />
                </button>
             </form>
          </div>

@@ -7,8 +7,7 @@ import useVariables from "../../customhooks/useVariables"
 import Header from "../headers_footers/Header"
 import Footer from "../headers_footers/Footer"
 import ActivityList from "./ActivityList"
-import { Link, useNavigate } from "react-router-dom"
-import useGetOwner from "../../customhooks/useGetOwner"
+import { useNavigate } from "react-router-dom"
 import Loading from "./Loading"
 
 
@@ -39,7 +38,7 @@ const Activity = () => {
          console.log(err.message)
       })
       
-   }, [activity_url, access_token])
+   }, [activity_url, access_token, navigate])
    
 
    return (
