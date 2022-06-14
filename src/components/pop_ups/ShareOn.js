@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useGetOwner from "../../customhooks/useGetOwner";
 import useIcons from "../../customhooks/useIcons"
 import useVariables from "../../customhooks/useVariables";
 
 const ShareOn = ({ mPost, setMPost, type, toggle }) => {
    const {verified_icon} = useIcons()
-   const {host_url, users_host_url, tells_url, search_url, access_token} = useVariables();
+   const {host_url, users_host_url, search_url, access_token} = useVariables();
    const inputRef = useRef();
    // const [submitReady, setSubmitReady] =useState(false);
    const {owner } = useGetOwner();
@@ -20,7 +20,6 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
    const [searchs, setSearchs] = useState(null); // When search starts. this holds users
 
    const searchRef = useRef(); // holds the search input for the search input
-   const navigate = useNavigate();
 
    // logic: display unsearched followings on first open before search
    useEffect(() => {
@@ -37,19 +36,19 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                return res.json();
             })
             .then(data => {
-               console.log("following: ", data);
+               // console.log("following: ", data);
                setFollowing(data)
             })
             .catch(err => {
                console.log(err.message);
             })
       }
-   }, [owner])
+   }, [owner, access_token, users_host_url])
 
    // logic: submit tell or post
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log('submit')
+      // console.log('submit')
 
       let body = inputRef.current.innerHTML;
       // console.log(body)

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 const ActLikePost = ({activity, host_url, verified_icon}) => {
-   // console.log(activity)
    return (
       <div className="activity">
          <Link to={`/users/profile/${activity.profile.user}`}>

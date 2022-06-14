@@ -4,7 +4,7 @@ import useIcons from "../../customhooks/useIcons";
 import useVariables from "../../customhooks/useVariables";
 
 const Search = () => {
-   const {sf_logo, go_back_icon, verified_icon, cancel_icon} = useIcons();
+   const {go_back_icon, verified_icon, cancel_icon} = useIcons();
    const [searched, setSearched] = useState();  // Before search starts. this holds the saved searched
    const [searchs, setSearchs] = useState(); // When search starts. this holds searchs
    const {host_url, search_url, access_token} = useVariables();
@@ -29,7 +29,7 @@ const Search = () => {
          }
          setSearched(data);
          setSearchs([]);
-         console.log(data)
+         // console.log(data)
       })
       .catch(err => {
          if (err.message === "unknown user"){
@@ -39,7 +39,7 @@ const Search = () => {
       })
 
    
-   }, [search_url, access_token])
+   }, [search_url, access_token, navigate])
 
 
    // logic: remove search and use searchs on search
@@ -136,7 +136,7 @@ const Search = () => {
                throw Error("unknown user")
             }
             setSearched(data);
-            console.log(data)
+            // console.log(data)
          })
          .catch(err => {
             if (err.message === "unknown user"){
@@ -182,7 +182,7 @@ const Search = () => {
                            <Link to={"/users/profile/"+search.user.id}>
                               <div className="activity-2">
                                  <div className="img-holder-2">
-                                    <img src={host_url + search.user.profile.img}alt="profile-picture" className="img-holder-image" />
+                                    <img src={host_url + search.user.profile.img}alt="profile-dp" className="img-holder-image" />
                                  </div>
                                  <div className="search-info">
                                     <h3 className="no-margin width-p-10"><strong>{search.user.profile.username}
@@ -196,7 +196,7 @@ const Search = () => {
                            </Link>
 
                            <div onClick={() => handleSearchProfile(search.id, "delete")}>
-                              <img src={cancel_icon} alt="" className="width-10 pad-bot-5px"/>
+                              <img src={cancel_icon} alt="cancel" className="width-10 pad-bot-5px"/>
                            </div>
                         </div>
                      </div>
@@ -214,7 +214,7 @@ const Search = () => {
                            <Link to={"/users/profile/"+user.id} onClick={() => handleSearchProfile(user.id, "add")}>
                               <div className="activity-2">
                                  <div className="img-holder-2">
-                                    <img src={host_url + user.profile.img}alt="profile-picture" className="img-holder-image" />
+                                    <img src={host_url + user.profile.img}alt="profile-dp" className="img-holder-image" />
                                  </div>
                                  <div className="search-info">
                                     <h3 className="no-margin width-p-10"><strong>{user.profile.username}

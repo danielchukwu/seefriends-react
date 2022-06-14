@@ -15,7 +15,7 @@ const HeaderAddPost = ({ handleSubmit, submitReady, page }) => {
             <div className="header-1">
                <div className="pf-logo-container">
                   <Link to="" onClick={() => navigate(-1)}>
-                     <img src={go_back_icon} alt="" width="25" className="pf-back"/>
+                     <img src={go_back_icon} alt="back-btn" width="25" className="pf-back"/>
                   </Link>
                   {page == 'addPost' && <h3 className="no-margin font-25">New Post</h3>}
                   {page == 'addTell' && <h3 className="no-margin font-25">New Tell</h3>}

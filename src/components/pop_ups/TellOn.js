@@ -1,10 +1,8 @@
 import { useRef, useState } from "react";
 import useIcons from "../../customhooks/useIcons"
-import useVariables from "../../customhooks/useVariables";
 
 const TellOn = ({ tPost, setTPost, type, toggle }) => {
    const {verified_icon} = useIcons()
-   const {host_url, tells_url, access_token} = useVariables();
    const inputRef = useRef();
    const [submitReady, setSubmitReady] =useState(false);
 
@@ -12,10 +10,10 @@ const TellOn = ({ tPost, setTPost, type, toggle }) => {
    // logic: submit tell
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log('submit')
+      // console.log('submit')
 
       let body = inputRef.current.innerHTML;
-      console.log(body)
+      // console.log(body)
 
       while (body.length-1 === body.lastIndexOf('\n')){
          body = body.slice(0, -1);
@@ -72,7 +70,7 @@ const TellOn = ({ tPost, setTPost, type, toggle }) => {
       }
    }, 200)
 
-   console.log(tPost)
+   // console.log(tPost)
    return (
       <div className="tell-on-container">
          <div className="exit-tell-on" onClick={() => handleClose()}></div> {/* exit-tell-on-close */}

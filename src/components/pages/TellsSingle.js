@@ -4,10 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { reducerTell } from "../../App";
 // import: custom hooks
 import useVariables from "../../customhooks/useVariables";
-// import useGetOwner from "../../customhooks/useGetOwner";
 
 // import: components
-// import Footer from "../headers_footers/Footer";
 import Header from "../headers_footers/Header";
 import Loading from "./Loading";
 import TellsList from "./TellsList";
@@ -51,7 +49,7 @@ const TellsSingle = () => {
       }
    }, [tells_url, access_token, navigate, id])
 
-   console.log("tell:", tell)
+   // console.log("tell:", tell)
    
    return (
       <div className="tellsfeed">

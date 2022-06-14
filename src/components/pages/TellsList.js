@@ -21,10 +21,10 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
 
    // logic: Post Events: Like, save, tell-on, msg
    const toggle = (id, toggleType, body, shareList) => {
-      console.log(body)
+      // console.log(body)
       switch(toggleType){
          case "like":
-            console.log(body)
+            // console.log(body)
             if (body === "like-parent-tell" || body === "like-parent-post"){ // if body: like parent tell
                dispatchTell({type: "like-tell", payload:{id: id, tells: tells, owner: owner, tells_url: tells_url, access_token: access_token, body: body}});
             } 
@@ -43,7 +43,8 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
             dispatchTell({type: "share-tell", payload:{id: id, tells: tells, owner: owner, tells_url: messages_url, access_token: access_token, body: body, shareList: shareList}});
             break;
          default:
-            console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
+            break;
+            // console.log("You didn't pass in => the type of toggle you want (e.g like, save, tell, msg)")
       }
 
    }
@@ -71,10 +72,10 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
          seeThreads.classList = ["see-threads-box none"]
       }
       // seeThreads.classList =
-      console.log(seeThreads.classList)
+      // console.log(seeThreads.classList)
    }
 
-   console.log(tells)
+   // console.log(tells)
    return (
 
       <section className="tellslist tell-wrapper">
@@ -167,13 +168,13 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
 
                {/* TELL ON TELL */}
                {tell.type === "tell" && 
-               <div className="content-wrapper-comment width-p-20 pad-top-10 pad-bot-10" onLoad={console.log("Called: "+ tell.tell_on_tell)}>
+               <div className="content-wrapper-comment width-p-20 pad-top-10 pad-bot-10">
 
                <div className="told-on-container">
                   <div className="ton flex">
                      <div className="tell-on-owner flex">
                         <div className="img-holder">
-                           <img src={host_url + tell.tell_on_tell.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                           <img src={host_url + tell.tell_on_tell.owner.profile.img} alt="profile-dp" className="img-holder-image" />
                         </div>
                         <div className="content-owner pad-left-9">
                            <Link to={`/users/profile/${tell.tell_on_tell.owner.id}`}>
@@ -294,7 +295,7 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
                      <div className="ton flex">
                         <div className="tell-on-owner flex">
                            <div className="img-holder">
-                              <img src={host_url + tell.tell_on_post.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                              <img src={host_url + tell.tell_on_post.owner.profile.img} alt="profile-dp" className="img-holder-image" />
                            </div>
                            <div className="content-owner pad-left-9">
                               <Link to={`/users/profile/${tell.tell_on_post.owner.id}`}>

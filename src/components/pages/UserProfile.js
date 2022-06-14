@@ -47,7 +47,7 @@ const UserProfile = () => {
          })
          .then(data => {
             if (owner){
-               if(id == owner.id){setPage("main-user")}
+               if(id === owner.id){setPage("main-user")}
                else {setPage("other-user")}
             }
             setUser(data);
@@ -69,7 +69,7 @@ const UserProfile = () => {
       if (owner && user){
          // logic: set page logic
          if (id){
-            if(id == owner.id) setPage("main-user");
+            if(id === owner.id) setPage("main-user");
             else setPage("other-user");
          }
    
@@ -77,7 +77,7 @@ const UserProfile = () => {
          setFollowerCount(user.profile.followers.length);
          setFriendsCount(user.profile.friends.length);
       }
-   }, [owner, user])
+   }, [owner, user, id])
 
 
    // SECTION 2: Posts & Tells
@@ -125,7 +125,7 @@ const UserProfile = () => {
    // SCTION 4:
    // toggleFollow
    const toggleFollow = (id) => {
-      const newUser = user;
+      // const newUser = user;
       const newOwner = owner;
 
       if (owner.profile.following.includes(id)){
@@ -144,7 +144,7 @@ const UserProfile = () => {
                return res.json();
             })
             .then(data => {
-               console.log(data);
+               // console.log(data);
             })
             
       } else {
@@ -163,7 +163,7 @@ const UserProfile = () => {
                return res.json();
             })
             .then(data => {
-               console.log(data);
+               // console.log(data);
             })
 
       }
@@ -186,7 +186,7 @@ const UserProfile = () => {
 
                   <div className="profile-layer-1">
                      <div className="profile-picture">
-                        <img src={host_url+user.profile.img} alt="profile-picture" />
+                        <img src={host_url+user.profile.img} alt="profile-dp" />
                      </div>
                   </div>
                   <div className="profile-layer-2 mobile-page-550">
@@ -224,7 +224,7 @@ const UserProfile = () => {
                               <p className="no-margin">following</p>
                            </div>
                            <Link to={`/messages/${owner.id}/${user.id}`}>
-                              <img src={msg_icon} className="small-img margin-l-10" alt="" />
+                              <img src={msg_icon} className="small-img margin-l-10" alt="msg" />
                            </Link>
                         </div>
                      )}
