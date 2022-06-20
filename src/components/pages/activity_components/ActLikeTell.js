@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const ActLikeTell = ({activity, host_url, verified_icon}) => {
+const ActLikeTell = ({activity, verified_icon}) => {
    return (
       <div className="activity">
          <Link to={`/users/profile/${activity.profile.user}`}>
          <div className="activity-2">
             <div className="img-holder">
-               <img src={host_url + activity.profile.img} alt="profile" className="img-holder-image" />
+               <img src={activity.profile.img} alt="profile" className="img-holder-image" />
             </div>
             <p><strong>
                {activity.profile.username}

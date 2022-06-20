@@ -21,7 +21,7 @@ const AddTell = () => {
    // logic: set user picture
    useEffect(() => {
       if (owner){
-         setProfilePic(host_url + owner.profile.img)
+         setProfilePic(owner.profile.img)
       }
       inputRef.current.focus()
       

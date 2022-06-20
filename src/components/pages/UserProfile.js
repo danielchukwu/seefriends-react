@@ -186,7 +186,7 @@ const UserProfile = () => {
 
                   <div className="profile-layer-1">
                      <div className="profile-picture">
-                        <img src={host_url+user.profile.img} alt="profile-dp" />
+                        <img src={user.profile.img} alt="profile-dp" />
                      </div>
                   </div>
                   <div className="profile-layer-2 mobile-page-550">

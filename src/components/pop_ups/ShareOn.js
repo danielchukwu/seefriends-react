@@ -35,6 +35,7 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
             .then(res => {
                return res.json();
             })
+            
             .then(data => {
                // console.log("following: ", data);
                setFollowing(data)
@@ -248,7 +249,7 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                   {/* <div className="textarea-tell-on" contentEditable={true} required onKeyDown={handleEnterSub}></div> */}
                </div>
                <div className="tell-on-button">
-                  <button className="button-blue">Release</button>
+                  <button className="button-blue pointer">Release</button>
                   {/* {!submitReady && <button className="grey-dark" disabled>Release</button>} */}
                   
                </div>

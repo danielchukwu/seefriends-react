@@ -12,7 +12,7 @@ const AddPost = () => {
    const {owner} = useGetOwner();
    const inputRef = useRef();
    const navigate = useNavigate();
-   const {host_url, posts_url, access_token} = useVariables();
+   const { posts_url, access_token} = useVariables();
    const [profilePic, setProfilePic] = useState(null);     // user profile picture     
    const [previewImg, setPreviewImg] = useState(null);     // image preview
    const [postImg, setPostImg] = useState(null);           // postImage
@@ -21,11 +21,11 @@ const AddPost = () => {
    // logic: set user picture
    useEffect(() => {
       if (owner){
-         setProfilePic(host_url + owner.profile.img)
+         setProfilePic(owner.profile.img)
       }
       inputRef.current.focus()
       
-   }, [host_url, owner])
+   }, [owner])
 
 
    // logic: load selected picture for preview and set Image in our postImg state

@@ -83,7 +83,7 @@ const Search = () => {
             }
             setSearched(data);
             setSearchs([]);
-            console.log(data)
+            // console.log(data)
          })
          .catch(err => {
             if (err.message === "unknown user"){
@@ -111,7 +111,7 @@ const Search = () => {
             if (data.detail){
                throw Error("unknown user")
             }
-            console.log(data)
+            // console.log(data)
          })
          .catch(err => {
             if (err.message === "unknown user"){

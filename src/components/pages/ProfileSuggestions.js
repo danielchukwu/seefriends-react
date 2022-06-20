@@ -35,13 +35,13 @@ const ProfileSuggestions = ({justRegistered = true}) => {
    }, [access_token, profiles_url])
 
    // logic: Redirect if user if they try to come to this route even after they've registered
-   useEffect(() => {
-      if (owner){
-         if (owner.profile.following.length > 0){
-            navigate(-1)
-         }
-      }
-   }, [owner, navigate])
+   // useEffect(() => {
+   //    if (owner){
+   //       if (owner.profile.following.length > 0){
+   //          navigate(-1)
+   //       }
+   //    }
+   // }, [owner, navigate])
 
    // toggleFollow
    const toggleFollow = (id) => {
@@ -86,6 +86,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
       // console.log("user:", user)
    }
    
+   // console.log(profiles)
    return (
       <div className="profile-suggestions-react background-white">
          

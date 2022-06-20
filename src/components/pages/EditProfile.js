@@ -66,8 +66,8 @@ const EditProfile = () => {
             return res.json();
          })
          .then(data => {
+            console.log(data)
             if (data.details === "successful!"){
-               // console.log(data)
                navigate('/users/profile')
             } else {
                handleErrors(data);

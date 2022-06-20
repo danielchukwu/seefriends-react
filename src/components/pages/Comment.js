@@ -9,7 +9,7 @@ const Comment = () => {
    const {owner} = useGetOwner();
    const navigate = useNavigate();
    const {type, id} = useParams();
-   const {host_url, tells_url, posts_url, access_token} = useVariables();
+   const {tells_url, posts_url, access_token} = useVariables();
    const [post, setPost] = useState(null);
    const inputRef = useRef();
    
@@ -155,7 +155,7 @@ const Comment = () => {
 
                <div className="comment-btn-container width-p-5">
                   <span className="img-holder flex pad-bot-10">
-                     {"me" && <img src={host_url + owner.profile.img} alt="profile-dp" className="img-holder-image" />}
+                     {"me" && <img src={owner.profile.img} alt="profile-dp" className="img-holder-image" />}
                   </span>
                   
                   <div ref={inputRef} onKeyDown={isReady} className="textarea" contentEditable={true} required></div>

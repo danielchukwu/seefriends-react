@@ -72,7 +72,7 @@ const MsgRequest = () => {
    const toggleFollow = (id) => {
       // const newUser = otherUser;
       const newOwner = owner;
-      console.log(newOwner)
+      // console.log(newOwner)
 
       if (owner.profile.following.includes(id)){
          // unfollow
@@ -88,7 +88,7 @@ const MsgRequest = () => {
                return res.json();
             })
             .then(data => {
-               console.log(data);
+               // console.log(data);
             })
             
       } else {
@@ -218,9 +218,10 @@ const MsgRequest = () => {
    return (
       <div className="message-request-react">
 
-         <header>
+         <div className="header-react-msg">
+         <header className="mobile-page-750">
             <div className="message-header">
-               <div className="message-left">
+               <div className="message-left pointer">
                   <div className="back" onClick={() => navigate(-1)}>
                      <img src={go_back_icon} alt="back-btn" />
                   </div>
@@ -245,9 +246,10 @@ const MsgRequest = () => {
                </div>
             </div>
          </header>
+         </div>
 
          { otherUser && owner &&
-         <main className="margin-b-150">
+         <main className="msgreq-chat-container">
             <section className="profile-header request-profile">
                <div className="profile-layer-1">
                   <div className="profile-picture">
@@ -268,7 +270,7 @@ const MsgRequest = () => {
                   {/* {page === "other-user" && isFollowing( */}
                   {!owner.profile.following.includes(otherUser.id) && (
                      <div className="follow-box">
-                        <div className="follow-btn" onClick={() => toggleFollow(otherUser.id)}>
+                        <div className="follow-btn pointer" onClick={() => toggleFollow(otherUser.id)}>
                            <p className="no-margin">follow</p>
                         </div>
                      </div>
@@ -276,7 +278,7 @@ const MsgRequest = () => {
 
                   {owner.profile.following.includes(otherUser.id) && (
                      <div className="following-box">
-                        <div className="following-btn" onClick={() => toggleFollow(otherUser.id)}>
+                        <div className="following-btn pointer" onClick={() => toggleFollow(otherUser.id)}>
                            <p className="no-margin">following</p>
                         </div>
                         {/* <Link to={`/messages/${owner.id}/${otherUser.id}`}>
@@ -346,8 +348,8 @@ const MsgRequest = () => {
             <section className="accept-or-reject">
                <p>What would you like to do with this request?</p>
                <div className="request-options">
-                  <span className="accept-r" onClick={() => handleRequest("accept")}>Accept</span>
-                  <span className="reject-r" onClick={() => handleRequest("reject")}>Reject</span>
+                  <span className="accept-r pointer" onClick={() => handleRequest("accept")}>Accept</span>
+                  <span className="reject-r pointer" onClick={() => handleRequest("reject")}>Reject</span>
                </div>
             </section>
          </footer>
