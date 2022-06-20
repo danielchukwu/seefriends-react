@@ -45,7 +45,7 @@ const Discover = () => {
          <Header page="Discover" left={"go-back"} right={"search-chats"} />
 
          <main className="mobile-page-center">
-            {posts && posts.length > 22 && <section className="discover-container margin-b-60">
+            {posts && posts.length >= 21 && <section className="discover-container margin-b-60">
 
                {/* <!-- 1 --> */}
                {posts && <div className="d-wrapper1 d-wrapper flex">
