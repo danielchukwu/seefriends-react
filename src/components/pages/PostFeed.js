@@ -36,7 +36,7 @@ const PostFeed = () => {
       .then(data => {
          dispatchPost({ type: "add-post", payload: {posts: data}});
          setShowLoading(false)
-         console.log(data)
+         // console.log(data)
       })
       .catch(err => {
          console.log(err.message)
@@ -44,8 +44,8 @@ const PostFeed = () => {
    
    }, [posts_url, access_token, navigate])
 
-   console.log(posts)
-   console.log(owner)
+   // console.log(posts)
+   // console.log(owner)
    return (
       <div className="postfeed">
 

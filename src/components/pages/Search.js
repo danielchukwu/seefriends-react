@@ -7,7 +7,7 @@ const Search = () => {
    const {go_back_icon, verified_icon, cancel_icon} = useIcons();
    const [searched, setSearched] = useState();  // Before search starts. this holds the saved searched
    const [searchs, setSearchs] = useState(); // When search starts. this holds searchs
-   const {host_url, search_url, access_token} = useVariables();
+   const {search_url, access_token} = useVariables();
    const inputRef = useRef();
    const navigate = useNavigate();
 
@@ -182,7 +182,7 @@ const Search = () => {
                            <Link to={"/users/profile/"+search.user.id}>
                               <div className="activity-2">
                                  <div className="img-holder-2">
-                                    <img src={host_url + search.user.profile.img}alt="profile-dp" className="img-holder-image" />
+                                    <img src={search.user.profile.img}alt="profile-dp" className="img-holder-image" />
                                  </div>
                                  <div className="search-info">
                                     <h3 className="no-margin width-p-10"><strong>{search.user.profile.username}
@@ -214,7 +214,7 @@ const Search = () => {
                            <Link to={"/users/profile/"+user.id} onClick={() => handleSearchProfile(user.id, "add")}>
                               <div className="activity-2">
                                  <div className="img-holder-2">
-                                    <img src={host_url + user.profile.img}alt="profile-dp" className="img-holder-image" />
+                                    <img src={user.profile.img}alt="profile-dp" className="img-holder-image" />
                                  </div>
                                  <div className="search-info">
                                     <h3 className="no-margin width-p-10"><strong>{user.profile.username}

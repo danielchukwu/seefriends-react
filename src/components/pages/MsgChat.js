@@ -91,8 +91,8 @@ const MsgChat = () => {
    }
 
    // Websocket Creation
-   let url = `ws://${main_host_url}/ws/message/${id1}/${id2}/`
-   const messageSocket = new WebSocket(url)
+   // let url = `ws://${main_host_url}/ws/message/${id1}/${id2}/`
+   // const messageSocket = new WebSocket(url)
    // console.log(messageSocket)
 
    let get_time = function () {
@@ -116,45 +116,46 @@ const MsgChat = () => {
    }
 
    // logic: sending message
-   messageSocket.onmessage = function (e) {
-      let data = JSON.parse(e.data)
-      // console.log('Data:', data)
-      scrollToBottom()
+   // messageSocket.onmessage = function (e) {
+   //    let data = JSON.parse(e.data)
+   //    // console.log('Data:', data)
+   //    scrollToBottom()
 
-      if (data.type === "chat" && data.body !== ""){
-         handleAddChat(data.sender_id, data.body, data.seen);
-      } else if (data.body === "" && chats){
+   //    if (data.type === "chat" && data.body !== ""){
+   //       handleAddChat(data.sender_id, data.body, data.seen);
+   //    } else if (data.body === "" && chats){
 
-         // "Mark all unread as read when the other user opens his chat with you up"
-         const newChats = [...chats]
-         const unseen_chats = newChats.filter(chat => {
-            if (chat.is_read === false){
-               return chat
-            }
-            // return chat;
-         })
-         unseen_chats.forEach(chat => {
-            chat.is_read = true;
-         })
+   //       // "Mark all unread as read when the other user opens his chat with you up"
+   //       const newChats = [...chats]
+   //       const unseen_chats = newChats.filter(chat => {
+   //          if (chat.is_read === false){
+   //             return chat
+   //          }
+   //          // return chat;
+   //       })
+   //       unseen_chats.forEach(chat => {
+   //          chat.is_read = true;
+   //       })
 
-         setChats([...newChats])
-         // console.log(unseen_chats)
-      }
-   }
+   //       setChats([...newChats])
+   //       // console.log(unseen_chats)
+   //    }
+   // }
 
    // Other User just opened his chat with you: send chat body = "" to me
    useEffect(() => {
-      messageSocket.onopen = () => {
-         messageSocket.send(JSON.stringify({
-            'body': "",
-            'sender_id': id1,
-         }))
-      }
+      // messageSocket.onopen = () => {
+      //    messageSocket.send(JSON.stringify({
+      //       'body': "",
+      //       'sender_id': id1,
+      //    }))
+      // }
 
       inputRef.current.focus()
 
    }, [])
 
+   
    // form: submit your chat
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -175,10 +176,31 @@ const MsgChat = () => {
       }
 
       if (body.length >= 1){
-         messageSocket.send(JSON.stringify({
-            'body': body,
-            'sender_id': owner.id
-         }))
+         // messageSocket.send(JSON.stringify({
+         //    'body': body,
+         //    'sender_id': owner.id
+         // }))
+
+         handleAddChat(owner.id, body, false)
+
+         console.log(messages_url+id2+'/')
+         fetch(messages_url+id2+'/', {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                     Authorization: `Bearer ${access_token}`},
+            body: JSON.stringify({'body': body}),
+         })
+            .then(res => {
+               return res.json();
+            })
+            .then(data => {
+               // setOtherUser(data);
+               // console.log(data);
+               // logic: when owner loads up lets do some page and fff count holder logics
+            })
+            .catch(err => {
+               console.log(err.message);
+            })
       }
 
       inputRef.current.innerHTML = "";

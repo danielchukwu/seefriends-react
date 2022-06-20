@@ -71,7 +71,7 @@ const AddPost = () => {
                return res.json();
             })
             .then(data => {
-               console.log(data)
+               // console.log(data)
                navigate('/')
             })
             .catch(err => console.log(err))

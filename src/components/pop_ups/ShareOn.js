@@ -166,11 +166,11 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                   <div className="user-results">
                      
                      { following.map(user => (
-                     <div className="activity">
+                     <div className="activity" key={user.id}>
                         <div className="activity-2">
                            <div className="img-holder">
                               <Link to={`/users/profile/${user.id}`}>
-                                 <img src={host_url + user.profile.img} alt="profile" className="img-holder-image" />
+                                 <img src={user.profile.img} alt="profile" className="img-holder-image" />
                               </Link>
                            </div>
                            <p>
@@ -200,11 +200,11 @@ const ShareOn = ({ mPost, setMPost, type, toggle }) => {
                   <div className="user-results">
                      
                      { searchs.map(user => (
-                     <div className="activity">
+                     <div className="activity" key={user.id}>
                         <div className="activity-2">
                            <div className="img-holder">
                               <Link to={`/users/profile/${user.id}`}>
-                                 <img src={host_url + user.profile.img} alt="profile" className="img-holder-image" />
+                                 <img src={user.profile.img} alt="profile" className="img-holder-image" />
                               </Link>
                            </div>
                            <p>

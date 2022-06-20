@@ -13,7 +13,7 @@ import ShareOn from '../pop_ups/ShareOn';
 const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
    const {owner} = useGetOwner();
    const {verified_icon, heart_black_icon, heart_red_icon, send_small_icon, save_icon, saved_icon, options_icon} = useIcons();
-   const {host_url, tells_url, messages_url, access_token} = useVariables();
+   const {tells_url, messages_url, access_token} = useVariables();
    const [tPost, setTPost] = useState();
    const [mPost, setMPost] = useState();
 
@@ -90,7 +90,7 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
                         <div className="content-layer-1">
                            <div className="cl-left flex">
                               <div className="img-holder">
-                                 <img src={host_url + tell.owner.profile.img} alt="profile" className="img-holder-image" />
+                                 <img src={tell.owner.profile.img} alt="profile" className="img-holder-image" />
                               </div>
                               <div className="content-owner">
                                  <Link to={`/users/profile/${tell.owner.id}`}>
@@ -174,7 +174,7 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
                   <div className="ton flex">
                      <div className="tell-on-owner flex">
                         <div className="img-holder">
-                           <img src={host_url + tell.tell_on_tell.owner.profile.img} alt="profile-dp" className="img-holder-image" />
+                           <img src={tell.tell_on_tell.owner.profile.img} alt="profile-dp" className="img-holder-image" />
                         </div>
                         <div className="content-owner pad-left-9">
                            <Link to={`/users/profile/${tell.tell_on_tell.owner.id}`}>
@@ -210,7 +210,7 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
                         <div className="content-layer-1">
                            <div className="cl-left flex">
                               <div className="img-holder">
-                                 <img src={host_url + tell.owner.profile.img} alt="profile" className="img-holder-image" />
+                                 <img src={tell.owner.profile.img} alt="profile" className="img-holder-image" />
                               </div>
                               <div className="content-owner">
                                  <Link to={`/users/profile/${tell.owner.id}`}>
@@ -295,7 +295,7 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
                      <div className="ton flex">
                         <div className="tell-on-owner flex">
                            <div className="img-holder">
-                              <img src={host_url + tell.tell_on_post.owner.profile.img} alt="profile-dp" className="img-holder-image" />
+                              <img src={tell.tell_on_post.owner.profile.img} alt="profile-dp" className="img-holder-image" />
                            </div>
                            <div className="content-owner pad-left-9">
                               <Link to={`/users/profile/${tell.tell_on_post.owner.id}`}>
@@ -349,7 +349,7 @@ const TellsList = ({ tells, dispatchTell, removeParentLike=true }) => {
                            <div className="content-layer-1">
                               <div className="cl-left flex">
                                  <div className="img-holder">
-                                    <img src={host_url + tell.owner.profile.img} alt="profile" className="img-holder-image" />
+                                    <img src={tell.owner.profile.img} alt="profile" className="img-holder-image" />
                                  </div>
                                  <div className="content-owner">
                                     <Link to={`/users/profile/${tell.owner.id}`}>

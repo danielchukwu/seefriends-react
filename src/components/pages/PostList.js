@@ -15,7 +15,7 @@ import ShareOn from '../pop_ups/ShareOn';
 
 const PostList = ({ posts, dispatchPost}) => {
    const {owner} = useGetOwner();
-   const {host_url, access_token, posts_url, messages_url} = useVariables();
+   const {access_token, posts_url, messages_url} = useVariables();
    const {verified_icon, send_small_icon, save_icon, saved_icon, options_icon, heart_white_icon32, heart_red_icon32, heart_red_icon256: big_heart} = useIcons();
 
    // logic: The post to be told on: tpost -> tellPost
@@ -98,7 +98,7 @@ const PostList = ({ posts, dispatchPost}) => {
                      <div className="cl-left flex">
                         <Link to={`/users/profile/${post.owner.id}`}>
                            <div className="img-holder">
-                              <img src={host_url+post.owner.profile.img} alt="" className="img-holder-image" />
+                              <img src={post.owner.profile.img} alt="" className="img-holder-image" />
                            </div>
                         </Link>
                         <div className="content-owner">

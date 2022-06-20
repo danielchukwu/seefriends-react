@@ -153,7 +153,7 @@ const Comment = () => {
          <div className="footer">
             <form id="form" onSubmit={handleSubmit}>
 
-               <div className="comment-btn-container width-p-5">
+               <div className="comment-btn-container width-p-5 mobile-page-750">
                   <span className="img-holder flex pad-bot-10">
                      {"me" && <img src={owner.profile.img} alt="profile-dp" className="img-holder-image" />}
                   </span>
