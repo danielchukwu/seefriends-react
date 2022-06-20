@@ -252,32 +252,31 @@ const MsgChat = () => {
       else return true
    }
 
-   // Exit Chat Room
-   const exitChatRoom = () => {
-      
-      // Fetch: messages
-      fetch(messages_url + id2 + "/remove/", {
-         method: "GET",
-         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`
-         }
-      })
-         .then(res => res.json())
-         .then(data => {
-            if (data.detail){
-               throw Error("unknown user")
-            }
-            // console.log(data)
-            navigate(-1)
-         })
-         .catch(err => {
-            if (err.message === "unknown user"){
-               navigate('/login')
-            }
-            console.log(err.message)
-         })
-   }
+   // const exitChatRoom = () => {
+   //    // Fetch: messages
+   //    fetch(messages_url + id2 + "/remove/", {
+   //       method: "GET",
+   //       headers: {
+   //          "Content-Type": "application/json",
+   //          Authorization: `Bearer ${access_token}`
+   //       }
+   //    })
+   //       .then(res => res.json())
+   //       .then(data => {
+   //          if (data.detail){
+   //             throw Error("unknown user")
+   //          }
+   //          // console.log(data)
+   //          navigate(-1)
+   //       })
+   //       .catch(err => {
+   //          if (err.message === "unknown user"){
+   //             navigate('/login')
+   //          }
+   //          console.log(err.message)
+   //       })
+   // }
+
    
    // logic: show new month and day of chat
    const showMonthandDay = (index) => {
@@ -312,7 +311,7 @@ const MsgChat = () => {
          <header className="mobile-page-750">
             <div className="message-header" data-user="{{user.id}}">
                <div className="message-left pointer">
-                  <div className="back" onClick={() => exitChatRoom()}>
+                  <div className="back" onClick={() => navigate(-1)}>
                      <img src={go_back_icon} alt="back-btn" />
                   </div>
                   {otherUser && <div className="activity-2">
