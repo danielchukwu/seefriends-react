@@ -25,6 +25,7 @@ const useGetOwner = () => {
       })
       .catch(err => {
          console.log("useGetOwner Error:", err.message)
+         navigate('/login')
       })
    }, [owner_url, access_token])
    
