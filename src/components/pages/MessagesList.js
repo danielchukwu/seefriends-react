@@ -18,7 +18,7 @@ const MessagesList = ({messages, owner, pageHandler}) => {
             <Link to={pageHandler === "messages" ? `/messages/${owner.id}/${message.owner.id}` : `/messages/requests/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
-                  <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                  <img src={message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
                </div>
                <div className="chat-content">
                   <div className="c-top">
@@ -42,7 +42,7 @@ const MessagesList = ({messages, owner, pageHandler}) => {
             <Link to={pageHandler === "messages" ? `/messages/${owner.id}/${message.owner.id}` : `/messages/requests/${message.owner.id}`}>
             <div className="chat">
                <div className="img-holder-c">
-                  <img src={host_url + message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
+                  <img src={message.owner.profile.img} alt="profile-picture" className="img-holder-image" />
                </div>
                <div className="chat-content">
                   <div className="c-top">

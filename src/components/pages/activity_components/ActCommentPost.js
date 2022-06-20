@@ -1,14 +1,14 @@
 // imports: main
 import { Link } from 'react-router-dom'
 
-const ActCommentPost = ({activity, host_url, verified_icon}) => {
+const ActCommentPost = ({activity, verified_icon}) => {
    
    return (
       <div className="activity">
          <Link to={`/users/profile/${activity.profile.user}`}>
          <div className="activity-2">
             <div className="img-holder">
-               <img src={host_url + activity.profile.img} alt="profile" className="img-holder-image" />
+               <img src={activity.profile.img} alt="profile" className="img-holder-image" />
             </div>
             <div>
                <p className="no-margin"><strong>
@@ -23,7 +23,8 @@ const ActCommentPost = ({activity, host_url, verified_icon}) => {
          <Link to={"/posts/"+activity.post}>
             <div className="activity-right-info">
                <div className="img-holder">
-                  <img src={host_url+ "/images/" +activity.postimg} alt="" className="liked-image" />
+                  {/* <img src={host_url+ "/images/" +activity.postimg} alt="" className="liked-image" /> */}
+                  <img src={activity.post.img} alt="" className="liked-image" />
                </div>
             </div>
          </Link>

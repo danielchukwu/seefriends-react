@@ -108,7 +108,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
 
                   <div className="profile-layer-1">
                      <div className="profile-picture">
-                        <img src={host_url+profile.img} alt="profile-dp" />
+                        <img src={profile.img} alt="profile-dp" />
                      </div>
                   </div>
 
@@ -138,7 +138,7 @@ const ProfileSuggestions = ({justRegistered = true}) => {
                   <div className="sug-posts">
                      {profile.posts.map(post => (
                         <div className="post-box" key={post.id}>
-                           <img src={host_url+post.img} alt="profile-dp" />
+                           <img src={post.img} alt="profile-dp" />
                         </div>
                      ))}
                   </div>

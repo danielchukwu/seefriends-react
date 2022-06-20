@@ -296,7 +296,7 @@ const MsgChat = () => {
                   {otherUser && <div className="activity-2">
                      <Link to={`/users/profile/${otherUser.id}`}>
                         <div className="img-holder-m">
-                           <img src={host_url + otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
+                           <img src={otherUser.profile.img} alt="profile-picture" className="img-holder-image-m" />
                         </div>
                      </Link>
                      <Link to={`/users/profile/${otherUser.id}`}>
@@ -342,7 +342,7 @@ const MsgChat = () => {
                      { chat.type === "post" && 
                         <div className="shared-post-container margin-l-auto">
                            <Link to={"/posts/"+chat.msg_on_post.id}>
-                              <img src={host_url + chat.msg_on_post.img} alt="msg" className="shared-img"/>
+                              <img src={chat.msg_on_post.img} alt="msg" className="shared-img"/>
                            </Link>
                         </div>
                      }
@@ -385,7 +385,7 @@ const MsgChat = () => {
                      { chat.type === "post" && 
                         <div className="shared-post-container">
                            <Link to={"/posts/"+chat.msg_on_post.id}>
-                              <img src={host_url + chat.msg_on_post.img} alt="msg" className="shared-img"/>
+                              <img src={chat.msg_on_post.img} alt="msg" className="shared-img"/>
                            </Link>
                         </div>
                      }

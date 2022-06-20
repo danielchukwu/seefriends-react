@@ -8,7 +8,7 @@ const MsgRequest = () => {
    // This Page is the request chat version not the list as that is handled by Message.js and MessageList.js
    const navigate = useNavigate();
    const {go_back_icon, verified_icon} = useIcons();
-   const {access_token, messages_url, host_url, users_host_url, requests_url} = useVariables();
+   const {access_token, messages_url, users_host_url, requests_url} = useVariables();
    const {owner, setOwner} = useGetOwner();
    const [otherUser, setOtherUser] = useState();
 
@@ -221,14 +221,14 @@ const MsgRequest = () => {
          <div className="header-react-msg">
          <header className="mobile-page-750">
             <div className="message-header">
-               <div className="message-left pointer">
+               <div className="message-left">
                   <div className="back" onClick={() => navigate(-1)}>
                      <img src={go_back_icon} alt="back-btn" />
                   </div>
                   {otherUser && <div className="activity-2">
                      <Link to={`/users/profile/${otherUser.id}`}>
                         <div className="img-holder-m">
-                           <img src={host_url + otherUser.profile.img} alt="profile-dp" className="img-holder-image-m" />
+                           <img src={otherUser.profile.img} alt="profile-dp" className="img-holder-image-m" />
                         </div>
                      
                      </Link>
@@ -253,7 +253,7 @@ const MsgRequest = () => {
             <section className="profile-header request-profile">
                <div className="profile-layer-1">
                   <div className="profile-picture">
-                     <img src={host_url+otherUser.profile.img} alt="profile-dp" />
+                     <img src={otherUser.profile.img} alt="profile-dp" />
                   </div>
                </div>
                <div className="profile-layer-2">
@@ -307,7 +307,7 @@ const MsgRequest = () => {
                      { chat.type === "post" && 
                         <div className="shared-post-container">
                            <Link to={"/posts/"+chat.msg_on_post.id}>
-                              <img src={host_url + chat.msg_on_post.img} alt="msg" className="shared-img"/>
+                              <img src={chat.msg_on_post.img} alt="msg" className="shared-img"/>
                            </Link>
                         </div>
                      }

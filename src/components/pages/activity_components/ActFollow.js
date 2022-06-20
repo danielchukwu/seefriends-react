@@ -1,14 +1,14 @@
 // imports: main
 import { Link } from "react-router-dom";
 
-const ActFollow = ({activity, host_url, verified_icon}) => {
+const ActFollow = ({activity, verified_icon}) => {
 
    return (
       <div className="activity">
          <div className="activity-2">
             <div className="img-holder">
                <Link to={`/users/profile/${activity.profile.user}`}>
-                  <img src={host_url + activity.profile.img} alt="profile" className="img-holder-image" />
+                  <img src={ activity.profile.img} alt="profile" className="img-holder-image" />
                </Link>
             </div>
             <p>

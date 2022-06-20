@@ -112,7 +112,7 @@ const EditProfile = () => {
                   
                   <label htmlFor="id_img">
                      <div className="change-profile-pic">
-                        {!previewImg && <img src={host_url + owner.profile.img} className="output"/>}
+                        {!previewImg && <img src={owner.profile.img} className="output"/>}
                         {previewImg && <img src={previewImg} className="output"/>}
                         
                      </div>
